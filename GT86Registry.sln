@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GT86Registry.Core", "src\GT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GT86Registry.Infrastructure", "src\GT86Registry.Infrastructure\GT86Registry.Infrastructure.csproj", "{CC03D280-C693-4199-A18B-CA7E2FC0DCE9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GT86Registry.Web", "src\GT86Registry.Web\GT86Registry.Web.csproj", "{7447C5FF-619E-4CF6-842C-64B5152DBA09}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{CC03D280-C693-4199-A18B-CA7E2FC0DCE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC03D280-C693-4199-A18B-CA7E2FC0DCE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC03D280-C693-4199-A18B-CA7E2FC0DCE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7447C5FF-619E-4CF6-842C-64B5152DBA09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7447C5FF-619E-4CF6-842C-64B5152DBA09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7447C5FF-619E-4CF6-842C-64B5152DBA09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7447C5FF-619E-4CF6-842C-64B5152DBA09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9A7C761E-37CB-4783-A636-82A84FFE3048} = {481676B6-B88D-455F-98CD-59EFDCE4AA6C}
 		{CC03D280-C693-4199-A18B-CA7E2FC0DCE9} = {481676B6-B88D-455F-98CD-59EFDCE4AA6C}
+		{7447C5FF-619E-4CF6-842C-64B5152DBA09} = {481676B6-B88D-455F-98CD-59EFDCE4AA6C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DB7CD55A-B7EA-4A2F-9ADA-782F60011671}
