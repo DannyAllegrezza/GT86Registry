@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using GT86Registry.Web.Models;
 using GT86Registry.Web.Models.ManageViewModels;
 using GT86Registry.Web.Services;
+using GT86Registry.Infrastructure.Identity;
 
 namespace GT86Registry.Web.Controllers
 {
