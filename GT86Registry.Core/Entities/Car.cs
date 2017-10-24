@@ -2,6 +2,10 @@
 {
     public class Car : BaseEntity
     {
+        public string IdentityGuid { get; set; }
+        public bool IsManualTransmission { get; set; }
+        public string VIN { get; set; }
+
         public Color Color { get; set; }
         public int ColorId { get; set; }
 
