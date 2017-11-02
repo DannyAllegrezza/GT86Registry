@@ -6,5 +6,6 @@
     public class Manufactuer : BaseEntity
     {
         public string Name { get; set; }
+        public bool IsInProduction { get; set; }
     }
 }
