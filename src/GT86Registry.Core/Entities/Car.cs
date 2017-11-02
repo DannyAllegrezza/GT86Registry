@@ -12,8 +12,8 @@
         public Year Year { get; set; }
         public int YearId { get; set; }
 
-        public Manufactuer Manufactuer { get; set; }
-        public int ManufactuerId { get; set; }
+        public Manufacturer Manufacturer { get; set; }
+        public int ManufacturerId { get; set; }
 
     }
 }

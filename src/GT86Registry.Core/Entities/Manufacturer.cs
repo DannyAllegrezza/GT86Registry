@@ -1,9 +1,9 @@
 ﻿namespace GT86Registry.Core.Entities
 {
     /// <summary>
-    /// Represents a vehicle manufactuer.
+    /// Represents a vehicle Manufacturer.
     /// </summary>
-    public class Manufactuer : BaseEntity
+    public class Manufacturer : BaseEntity
     {
         public string Name { get; set; }
         public bool IsInProduction { get; set; }

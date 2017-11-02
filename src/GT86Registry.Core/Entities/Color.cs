@@ -10,9 +10,9 @@ namespace GT86Registry.Core.Entities
         [MaxLength(3)]
         public string Code { get; set; }
 
-        public int ManufactuerId { get; set; }
+        public int ManufacturerId { get; set; }
 
-        public Manufactuer Manufactuer { get; set; }
+        public Manufacturer Manufacturer { get; set; }
 
         public List<ColorsYears> ColorYears { get; set; }
     }
