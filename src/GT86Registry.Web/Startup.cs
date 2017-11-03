@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using GT86Registry.Web.Services;
 using GT86Registry.Infrastructure.Identity;
+using GT86Registry.Infrastructure.Data;
 
 namespace GT86Registry.Web
 {
@@ -21,6 +22,11 @@ namespace GT86Registry.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Setup CarRegistry database connection
+            services.AddDbContext<CarDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("CarRegistryConnection")));
+
+            // Setup Identity database connection and register Identity service
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
 
