@@ -22,7 +22,7 @@ namespace GT86Registry.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Setup CarRegistry database connection
+            // Setup CarRegistry database connection, inject in options to CarDbContext
             services.AddDbContext<CarDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("CarRegistryConnection")));
 
