@@ -4,8 +4,10 @@ A project to test out the *current* iterations of .NET Core, Web API, and some f
 ## Architecture
 The end goal is to create a modular library that can easy be extended to create additional websites for different vehicles, but for now all functionality of the core library is encapsulated in this project. I may iterate in the future and break this apart, but for the sake of quick-iterations, I have encapsulated all major functionality into this one project. 
 
-The project itself follows an onion architecture. 
+This project follows an onion architecture. 
 
+![Onion Architecture](/img/onion.JPG)
+*Image borrowed from* [Architecting Modern Web Applications with ASP.NET Core and Azure eBook](https://aka.ms/webappebook).
 
 
 ## Motivation
