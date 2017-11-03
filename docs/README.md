@@ -6,7 +6,7 @@ The end goal is to create a modular library that can easy be extended to create 
 
 This project follows an onion architecture. 
 
-![Onion Architecture](/img/onion.JPG)
+<img src="img/onion.JPG">
 *Image borrowed from* [Architecting Modern Web Applications with ASP.NET Core and Azure eBook](https://aka.ms/webappebook).
 
 
