@@ -3,14 +3,15 @@
 namespace GT86Registry.Core.Entities
 {
     /// <summary>
-    /// Represents a Car, which is the principal entity in our domain.
+    /// Represents a specific instance of a Car, which is the principal entity in our domain.
     /// </summary>
     public class Car : BaseEntity
     {
+        [Required]
         public string IdentityGuid { get; set; }
 
-        public bool IsManualTransmission { get; set; }
-
+        [Required]
+        [MaxLength(17)]
         public string VIN { get; set; }
 
         public Color Color { get; set; }
@@ -20,7 +21,5 @@ namespace GT86Registry.Core.Entities
         public int YearId { get; set; }
 
         public CarModel CarModel { get; set; }
-        public Manufacturer Manufacturer { get; set; }
-
     }
 }
