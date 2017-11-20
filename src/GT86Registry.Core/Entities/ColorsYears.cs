@@ -9,6 +9,5 @@
         public Year Year { get; set; }
 
         public int ManufacturerId { get; set; }
-        public Manufacturer Manufacturer { get; set; }
     }
 }

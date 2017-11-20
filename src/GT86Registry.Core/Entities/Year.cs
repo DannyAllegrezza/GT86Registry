@@ -7,6 +7,8 @@ namespace GT86Registry.Core.Entities
     /// </summary>
     public class Year : BaseEntity
     {
+        public int Id { get; set; }
+
         /// <summary>
         /// The value of the year (ex: 2014)
         /// </summary>

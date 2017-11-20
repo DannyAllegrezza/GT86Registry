@@ -23,7 +23,7 @@ namespace GT86Registry.Web
         public void ConfigureServices(IServiceCollection services)
         {
             // Setup CarRegistry database connection, inject in options to CarDbContext
-            services.AddDbContext<CarDbContext>(options =>
+            services.AddDbContext<VehicleDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("CarRegistryConnection")));
 
             // Setup Identity database connection and register Identity service

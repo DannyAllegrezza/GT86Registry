@@ -3,21 +3,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GT86Registry.Infrastructure.Data
 {
-    public class CarDbContext : DbContext
+    public class VehicleDbContext : DbContext
     {
-        DbSet<Car> Cars { get; set; }
+        DbSet<Vehicle> Vehicles { get; set; }
         DbSet<Color> Colors { get; set; }
         DbSet<Year> Years { get; set; }
         DbSet<ColorsYears> ColorYears { get; set; }
         DbSet<Manufacturer> Manufacturers { get; set; }
-        DbSet<CarModel> CarModels { get; set; }
+        DbSet<VehicleModel> VehicleModels { get; set; }
 
         #region Constructors
         /// <summary>
         /// 
         /// </summary>
         /// <param name="options">The database context options</param>
-        public CarDbContext(DbContextOptions<CarDbContext> options) : base(options)
+        public VehicleDbContext(DbContextOptions<VehicleDbContext> options) : base(options)
         {
 
         }
@@ -25,9 +25,14 @@ namespace GT86Registry.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Use fluent API to setup the explicit relationship between Color <--> Year
+            // Use fluent API to setup the explicit relationships between 
+            // Color <--> Year
             modelBuilder.Entity<ColorsYears>().
                 HasKey(c => new { c.ColorId, c.YearId });
+
+            // Vehicle <--> VehiclePhoto
+            modelBuilder.Entity<VehiclesVehiclePhotos>().
+                HasKey(c => new { c.VehicleId, c.VehiclePhotoId });
 
             base.OnModelCreating(modelBuilder);
         }
