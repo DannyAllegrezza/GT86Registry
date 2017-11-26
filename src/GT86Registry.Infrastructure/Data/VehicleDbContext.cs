@@ -1,5 +1,7 @@
-﻿using GT86Registry.Core.Entities;
+﻿using System;
+using GT86Registry.Core.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GT86Registry.Infrastructure.Data
 {
@@ -25,6 +27,7 @@ namespace GT86Registry.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<VehicleModelYear>(ConfigureVehicleModelYear);
             // Use fluent API to setup the explicit relationships between 
             // Color <--> Year
             modelBuilder.Entity<ColorsYears>().
@@ -32,9 +35,25 @@ namespace GT86Registry.Infrastructure.Data
 
             // Vehicle <--> VehiclePhoto
             modelBuilder.Entity<VehiclesVehiclePhotos>().
-                HasKey(c => new { c.VehicleId, c.VehiclePhotoId });
+                HasKey(c => new { c.VehicleVIN, c.VehiclePhotoId });
 
             base.OnModelCreating(modelBuilder);
+        }
+
+        private void ConfigureVehicleModelYear(EntityTypeBuilder<VehicleModelYear> builder)
+        {
+            builder.ToTable("VehicleModelYear");
+
+            builder.HasKey(vmy => vmy.Id);
+
+        }
+
+        private void ConfigureManufacturer(EntityTypeBuilder<Manufacturer> builder)
+        {
+            builder.ToTable("Manufacturer");
+            builder.HasKey(m => m.Id);
+            builder.Property(m => m.Name).IsRequired(true);
+            builder.Property(m => m.ActiveStartDate).IsRequired(true);
         }
     }
 }

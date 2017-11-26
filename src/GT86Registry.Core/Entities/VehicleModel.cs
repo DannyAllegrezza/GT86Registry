@@ -23,7 +23,7 @@ namespace GT86Registry.Core.Entities
         public int FactoryWeight { get; set; }
 
         #region EF Navigation Properties
-
+        public List<VehicleModelYear> VehicleModelYear { get; set; }
         public List<Vehicle> Vehicles { get; set; }
         #endregion EF Navigation Properties
 

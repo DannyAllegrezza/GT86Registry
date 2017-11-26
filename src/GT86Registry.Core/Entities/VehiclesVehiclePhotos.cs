@@ -9,7 +9,7 @@ namespace GT86Registry.Core.Entities
     /// </summary>
     public class VehiclesVehiclePhotos
     {
-        public int VehicleId { get; set; }
+        public int VehicleVIN { get; set; }
         public Vehicle Vehicle { get; set; }
 
         public int VehiclePhotoId { get; set; }

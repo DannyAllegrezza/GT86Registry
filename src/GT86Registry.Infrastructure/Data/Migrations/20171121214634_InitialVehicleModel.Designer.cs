@@ -12,7 +12,7 @@ using System;
 namespace GT86Registry.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(VehicleDbContext))]
-    [Migration("20171120011823_InitialVehicleModel")]
+    [Migration("20171121214634_InitialVehicleModel")]
     partial class InitialVehicleModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,8 +46,6 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                     b.Property<int>("ColorId");
 
                     b.Property<int>("YearId");
-
-                    b.Property<int>("ManufacturerId");
 
                     b.HasKey("ColorId", "YearId");
 
@@ -92,7 +90,7 @@ namespace GT86Registry.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("GT86Registry.Core.Entities.Vehicle", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("VIN")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("ColorId");
@@ -106,22 +104,15 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                     b.Property<string>("UserIdentityGuid")
                         .IsRequired();
 
-                    b.Property<string>("VIN")
-                        .IsRequired();
-
                     b.Property<int>("VehicleModelId");
 
-                    b.Property<int>("YearId");
-
-                    b.HasKey("Id");
+                    b.HasKey("VIN");
 
                     b.HasIndex("ColorId");
 
                     b.HasIndex("LocationId");
 
                     b.HasIndex("VehicleModelId");
-
-                    b.HasIndex("YearId");
 
                     b.ToTable("Vehicles");
                 });
@@ -192,6 +183,28 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                     b.ToTable("VehicleModelTrim");
                 });
 
+            modelBuilder.Entity("GT86Registry.Core.Entities.VehicleModelYear", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ManufacturerId");
+
+                    b.Property<int>("VehicleModelId");
+
+                    b.Property<int>("YearId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ManufacturerId");
+
+                    b.HasIndex("VehicleModelId");
+
+                    b.HasIndex("YearId");
+
+                    b.ToTable("VehicleModelYear");
+                });
+
             modelBuilder.Entity("GT86Registry.Core.Entities.VehiclePhoto", b =>
                 {
                     b.Property<int>("Id")
@@ -212,13 +225,17 @@ namespace GT86Registry.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("GT86Registry.Core.Entities.VehiclesVehiclePhotos", b =>
                 {
-                    b.Property<int>("VehicleId");
+                    b.Property<int>("VehicleVIN");
 
                     b.Property<int>("VehiclePhotoId");
 
-                    b.HasKey("VehicleId", "VehiclePhotoId");
+                    b.Property<string>("VehicleVIN1");
+
+                    b.HasKey("VehicleVIN", "VehiclePhotoId");
 
                     b.HasIndex("VehiclePhotoId");
+
+                    b.HasIndex("VehicleVIN1");
 
                     b.ToTable("VehiclesVehiclePhotos");
                 });
@@ -267,11 +284,6 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                         .WithMany("Vehicles")
                         .HasForeignKey("VehicleModelId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("GT86Registry.Core.Entities.Year", "Year")
-                        .WithMany()
-                        .HasForeignKey("YearId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GT86Registry.Core.Entities.VehicleModel", b =>
@@ -290,17 +302,34 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                         .HasForeignKey("TrimId");
                 });
 
-            modelBuilder.Entity("GT86Registry.Core.Entities.VehiclesVehiclePhotos", b =>
+            modelBuilder.Entity("GT86Registry.Core.Entities.VehicleModelYear", b =>
                 {
-                    b.HasOne("GT86Registry.Core.Entities.Vehicle", "Vehicle")
-                        .WithMany("VehiclesPhotos")
-                        .HasForeignKey("VehicleId")
+                    b.HasOne("GT86Registry.Core.Entities.Manufacturer", "Manufacturer")
+                        .WithMany("VehicleModelYear")
+                        .HasForeignKey("ManufacturerId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("GT86Registry.Core.Entities.VehicleModel", "VehicleModel")
+                        .WithMany("VehicleModelYear")
+                        .HasForeignKey("VehicleModelId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("GT86Registry.Core.Entities.Year", "Year")
+                        .WithMany("VehicleModelYear")
+                        .HasForeignKey("YearId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("GT86Registry.Core.Entities.VehiclesVehiclePhotos", b =>
+                {
                     b.HasOne("GT86Registry.Core.Entities.VehiclePhoto", "VehiclePhoto")
                         .WithMany("VehiclesPhotos")
                         .HasForeignKey("VehiclePhotoId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("GT86Registry.Core.Entities.Vehicle", "Vehicle")
+                        .WithMany("VehiclesPhotos")
+                        .HasForeignKey("VehicleVIN1");
                 });
 #pragma warning restore 612, 618
         }

@@ -15,5 +15,6 @@ namespace GT86Registry.Core.Entities
         public int Value { get; set; }
 
         public List<ColorsYears> ColorYears { get; set; }
+        public List<VehicleModelYear> VehicleModelYear { get; set; }
     }
 }

@@ -160,8 +160,7 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     ColorId = table.Column<int>(type: "int", nullable: false),
-                    YearId = table.Column<int>(type: "int", nullable: false),
-                    ManufacturerId = table.Column<int>(type: "int", nullable: false)
+                    YearId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -181,23 +180,53 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Vehicles",
+                name: "VehicleModelYear",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ColorId = table.Column<int>(type: "int", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LocationId = table.Column<int>(type: "int", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserIdentityGuid = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    VIN = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ManufacturerId = table.Column<int>(type: "int", nullable: false),
                     VehicleModelId = table.Column<int>(type: "int", nullable: false),
                     YearId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Vehicles", x => x.Id);
+                    table.PrimaryKey("PK_VehicleModelYear", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_VehicleModelYear_Manufacturers_ManufacturerId",
+                        column: x => x.ManufacturerId,
+                        principalTable: "Manufacturers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_VehicleModelYear_VehicleModels_VehicleModelId",
+                        column: x => x.VehicleModelId,
+                        principalTable: "VehicleModels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_VehicleModelYear_Years_YearId",
+                        column: x => x.YearId,
+                        principalTable: "Years",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Vehicles",
+                columns: table => new
+                {
+                    VIN = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ColorId = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LocationId = table.Column<int>(type: "int", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserIdentityGuid = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VehicleModelId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vehicles", x => x.VIN);
                     table.ForeignKey(
                         name: "FK_Vehicles_Colors_ColorId",
                         column: x => x.ColorId,
@@ -216,36 +245,31 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                         principalTable: "VehicleModels",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Vehicles_Years_YearId",
-                        column: x => x.YearId,
-                        principalTable: "Years",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "VehiclesVehiclePhotos",
                 columns: table => new
                 {
-                    VehicleId = table.Column<int>(type: "int", nullable: false),
-                    VehiclePhotoId = table.Column<int>(type: "int", nullable: false)
+                    VehicleVIN = table.Column<int>(type: "int", nullable: false),
+                    VehiclePhotoId = table.Column<int>(type: "int", nullable: false),
+                    VehicleVIN1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VehiclesVehiclePhotos", x => new { x.VehicleId, x.VehiclePhotoId });
-                    table.ForeignKey(
-                        name: "FK_VehiclesVehiclePhotos_Vehicles_VehicleId",
-                        column: x => x.VehicleId,
-                        principalTable: "Vehicles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_VehiclesVehiclePhotos", x => new { x.VehicleVIN, x.VehiclePhotoId });
                     table.ForeignKey(
                         name: "FK_VehiclesVehiclePhotos_VehiclePhoto_VehiclePhotoId",
                         column: x => x.VehiclePhotoId,
                         principalTable: "VehiclePhoto",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_VehiclesVehiclePhotos_Vehicles_VehicleVIN1",
+                        column: x => x.VehicleVIN1,
+                        principalTable: "Vehicles",
+                        principalColumn: "VIN",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -269,6 +293,21 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                 column: "TrimId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_VehicleModelYear_ManufacturerId",
+                table: "VehicleModelYear",
+                column: "ManufacturerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VehicleModelYear_VehicleModelId",
+                table: "VehicleModelYear",
+                column: "VehicleModelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VehicleModelYear_YearId",
+                table: "VehicleModelYear",
+                column: "YearId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Vehicles_ColorId",
                 table: "Vehicles",
                 column: "ColorId");
@@ -284,14 +323,14 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                 column: "VehicleModelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Vehicles_YearId",
-                table: "Vehicles",
-                column: "YearId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_VehiclesVehiclePhotos_VehiclePhotoId",
                 table: "VehiclesVehiclePhotos",
                 column: "VehiclePhotoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VehiclesVehiclePhotos_VehicleVIN1",
+                table: "VehiclesVehiclePhotos",
+                column: "VehicleVIN1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -300,13 +339,19 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                 name: "ColorYears");
 
             migrationBuilder.DropTable(
+                name: "VehicleModelYear");
+
+            migrationBuilder.DropTable(
                 name: "VehiclesVehiclePhotos");
 
             migrationBuilder.DropTable(
-                name: "Vehicles");
+                name: "Years");
 
             migrationBuilder.DropTable(
                 name: "VehiclePhoto");
+
+            migrationBuilder.DropTable(
+                name: "Vehicles");
 
             migrationBuilder.DropTable(
                 name: "Colors");
@@ -316,9 +361,6 @@ namespace GT86Registry.Infrastructure.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "VehicleModels");
-
-            migrationBuilder.DropTable(
-                name: "Years");
 
             migrationBuilder.DropTable(
                 name: "Manufacturers");
