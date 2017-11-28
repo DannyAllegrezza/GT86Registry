@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using GT86Registry.Core.Interfaces;
+using System.Collections.Generic;
 
 namespace GT86Registry.Core.Entities
 {
     /// <summary>
     /// Represents a specific instance of a Vehicle, which is the principal entity in our domain.
     /// </summary>
-    public class Vehicle : BaseEntity
+    public class Vehicle : BaseEntity, ISocialMediaLinks
     {
-
         public string UserIdentityGuid { get; set; }
 
         /// <summary>
@@ -20,13 +19,16 @@ namespace GT86Registry.Core.Entities
         public string FacebookUri { get; set; }
 
         #region Constructors
+
         public Vehicle(string vin)
         {
             VIN = Validation.VIN.IsValid(vin) ? vin : throw new System.Exception("Invalid VIN");
         }
+
         #endregion Constructors
-        
+
         #region Navigation Properties
+
         public Image Image { get; set; }
         public int ProfilePhotoId { get; set; }
 
@@ -41,11 +43,9 @@ namespace GT86Registry.Core.Entities
 
         public VehicleLocation VehicleLocation { get; set; }
         public int VehicleLocationId { get; set; }
-        
-        public List<VehiclesImages> VehicleImages { get; set; }
-        #endregion Navigation Properties
 
-        #region Methods
-        #endregion Methods
+        public List<VehiclesImages> VehicleImages { get; set; }
+
+        #endregion Navigation Properties
     }
 }
