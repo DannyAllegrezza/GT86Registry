@@ -12,7 +12,7 @@ using System;
 namespace GT86Registry.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(VehicleDbContext))]
-    [Migration("20171128043401_InitialVehicleModel")]
+    [Migration("20171128182236_InitialVehicleModel")]
     partial class InitialVehicleModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,17 +28,18 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Code")
-                        .HasMaxLength(3);
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<DateTime>("CreatedDate");
+                    b.Property<DateTimeOffset>("CreatedDate");
 
-                    b.Property<DateTime>("ModifiedDate");
+                    b.Property<DateTimeOffset>("ModifiedDate");
 
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Colors");
+                    b.ToTable("Color");
                 });
 
             modelBuilder.Entity("GT86Registry.Core.Entities.ColorsModelYears", b =>
@@ -51,7 +52,7 @@ namespace GT86Registry.Infrastructure.Data.Migrations
 
                     b.HasIndex("ModelYearId");
 
-                    b.ToTable("ModelColor");
+                    b.ToTable("Model_Color");
                 });
 
             modelBuilder.Entity("GT86Registry.Core.Entities.Image", b =>
@@ -59,11 +60,12 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreatedDate");
+                    b.Property<DateTimeOffset>("CreatedDate");
 
-                    b.Property<DateTime>("ModifiedDate");
+                    b.Property<DateTimeOffset>("ModifiedDate");
 
-                    b.Property<string>("Uri");
+                    b.Property<string>("Uri")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -75,16 +77,17 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("ActiveEndDate");
+                    b.Property<DateTimeOffset?>("ActiveEndDate");
 
-                    b.Property<DateTime>("ActiveStartDate");
+                    b.Property<DateTimeOffset>("ActiveStartDate");
 
-                    b.Property<DateTime>("CreatedDate");
+                    b.Property<DateTimeOffset>("CreatedDate");
 
-                    b.Property<DateTime>("ModifiedDate");
+                    b.Property<DateTimeOffset>("ModifiedDate");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(150);
 
                     b.HasKey("Id");
 
@@ -96,14 +99,15 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreatedDate");
+                    b.Property<DateTimeOffset>("CreatedDate");
 
                     b.Property<int>("ManufacturerId");
 
-                    b.Property<DateTime>("ModifiedDate");
+                    b.Property<DateTimeOffset>("ModifiedDate");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
@@ -122,7 +126,7 @@ namespace GT86Registry.Infrastructure.Data.Migrations
 
                     b.HasIndex("TransmissionId");
 
-                    b.ToTable("ModelTransmission");
+                    b.ToTable("Model_Transmission");
                 });
 
             modelBuilder.Entity("GT86Registry.Core.Entities.ModelYear", b =>
@@ -130,11 +134,11 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreatedDate");
+                    b.Property<DateTimeOffset>("CreatedDate");
 
                     b.Property<int>("ModelId");
 
-                    b.Property<DateTime>("ModifiedDate");
+                    b.Property<DateTimeOffset>("ModifiedDate");
 
                     b.Property<int>("Year");
 
@@ -142,7 +146,7 @@ namespace GT86Registry.Infrastructure.Data.Migrations
 
                     b.HasIndex("ModelId");
 
-                    b.ToTable("ModelYear");
+                    b.ToTable("Model_Year");
                 });
 
             modelBuilder.Entity("GT86Registry.Core.Entities.Transmission", b =>
@@ -150,9 +154,9 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreatedDate");
+                    b.Property<DateTimeOffset>("CreatedDate");
 
-                    b.Property<DateTime>("ModifiedDate");
+                    b.Property<DateTimeOffset>("ModifiedDate");
 
                     b.Property<int>("Name");
 
@@ -169,15 +173,15 @@ namespace GT86Registry.Infrastructure.Data.Migrations
 
                     b.Property<int>("ColorId");
 
-                    b.Property<DateTime>("CreatedDate");
+                    b.Property<DateTimeOffset>("CreatedDate");
 
-                    b.Property<string>("Facebook_Uri");
+                    b.Property<string>("FacebookUri");
 
-                    b.Property<string>("Instagram_Uri");
+                    b.Property<string>("InstagramUri");
 
                     b.Property<int>("ModelYearId");
 
-                    b.Property<DateTime>("ModifiedDate");
+                    b.Property<DateTimeOffset>("ModifiedDate");
 
                     b.Property<int>("ProfilePhotoId");
 
@@ -207,21 +211,17 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreatedDate");
+                    b.Property<DateTimeOffset>("CreatedDate");
 
                     b.Property<double>("Latitude");
 
                     b.Property<double>("Longitude");
 
-                    b.Property<DateTime>("ModifiedDate");
+                    b.Property<DateTimeOffset>("ModifiedDate");
 
                     b.Property<DateTimeOffset>("TimeStamp");
 
-                    b.Property<string>("VehicleVIN");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("VehicleVIN");
 
                     b.ToTable("Location");
                 });
@@ -240,7 +240,7 @@ namespace GT86Registry.Infrastructure.Data.Migrations
 
                     b.HasIndex("VehicleVIN");
 
-                    b.ToTable("VehicleImage");
+                    b.ToTable("Vehicle_Image");
                 });
 
             modelBuilder.Entity("GT86Registry.Core.Entities.ColorsModelYears", b =>
@@ -308,16 +308,9 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GT86Registry.Core.Entities.VehicleLocation", "VehicleLocation")
-                        .WithMany()
+                        .WithMany("Vehicles")
                         .HasForeignKey("VehicleLocationId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("GT86Registry.Core.Entities.VehicleLocation", b =>
-                {
-                    b.HasOne("GT86Registry.Core.Entities.Vehicle", "Vehicle")
-                        .WithMany("VehicleLocations")
-                        .HasForeignKey("VehicleVIN");
                 });
 
             modelBuilder.Entity("GT86Registry.Core.Entities.VehiclesImages", b =>

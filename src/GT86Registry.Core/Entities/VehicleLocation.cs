@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace GT86Registry.Core.Entities
 {
@@ -51,7 +52,7 @@ namespace GT86Registry.Core.Entities
 
         public DateTimeOffset TimeStamp { get; set; }
 
-        public Vehicle Vehicle { get; set; }
+        public List<Vehicle> Vehicles { get; set; }
 
         public VehicleLocation(double latitude, double longitude)
         {

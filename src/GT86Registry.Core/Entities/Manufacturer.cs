@@ -10,8 +10,8 @@ namespace GT86Registry.Core.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime ActiveStartDate { get; set; }
-        public DateTime ActiveEndDate { get; set; }
+        public DateTimeOffset ActiveStartDate { get; set; }
+        public DateTimeOffset? ActiveEndDate { get; set; }
 
         public Manufacturer(string name, DateTime activeStartDate, DateTime activeEndDate)
         {
