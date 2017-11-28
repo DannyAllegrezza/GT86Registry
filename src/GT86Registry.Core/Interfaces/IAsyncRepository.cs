@@ -4,6 +4,10 @@ using System.Threading.Tasks;
 
 namespace GT86Registry.Core.Interfaces
 {
+    /// <summary>
+    /// IAsyncRepository interface serves as a generic CRUD API. Operations are performed using asynchronous methods.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IAsyncRepository<T> where T : BaseEntity
     {
         Task<T> GetByIdAsync(int id);

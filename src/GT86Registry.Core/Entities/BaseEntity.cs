@@ -2,11 +2,10 @@
 
 namespace GT86Registry.Core.Entities
 {
-    public class BaseEntity
+    public abstract class BaseEntity
     {
-        public int Id { get; set; }
-        DateTime CreatedDate { get; set; }
-        DateTime ModifiedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
 
         public BaseEntity()
         {
