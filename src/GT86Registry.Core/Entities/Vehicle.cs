@@ -43,7 +43,6 @@ namespace GT86Registry.Core.Entities
         public int VehicleLocationId { get; set; }
         
         public List<VehiclesImages> VehicleImages { get; set; }
-        public List<VehicleLocation> VehicleLocations { get; set; }
         #endregion Navigation Properties
 
         #region Methods

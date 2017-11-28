@@ -137,15 +137,7 @@ namespace GT86Registry.Infrastructure.Data
         private void ConfigureVehicleImages(EntityTypeBuilder<VehiclesImages> builder)
         {
             builder.ToTable("Vehicle_Image");
-            builder.HasKey(v => new { v.VehicleVIN, v.ImageId });
-
-            builder.HasOne(vi => vi.Vehicle)
-                .WithMany(vi => VehiclesImages)
-                .HasForeignKey(vi => vi.VehicleVIN);
-
-            builder.HasOne(vi => vi.Image)
-                .WithMany(vi => vi.VehicleImages)
-                .HasForeignKey(vi => vi.ImageId);
+            builder.HasKey(v => new { v.VehicleId, v.ImageId });
         }
 
         private void ConfigureVehicle(EntityTypeBuilder<Vehicle> builder)
@@ -163,8 +155,6 @@ namespace GT86Registry.Infrastructure.Data
         {
             builder.ToTable("Location");
             builder.HasKey(v => v.Id);
-            builder.HasOne(l => l.Vehicle)
-                .WithMany(l => l.VehicleLocations);
         }
 
         #endregion Methods
