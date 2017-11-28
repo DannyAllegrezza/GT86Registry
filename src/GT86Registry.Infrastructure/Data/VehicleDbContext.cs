@@ -1,6 +1,10 @@
 ﻿using GT86Registry.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace GT86Registry.Infrastructure.Data
 {
@@ -12,28 +16,55 @@ namespace GT86Registry.Infrastructure.Data
         private DbSet<ColorsModelYears> ColorYears { get; set; }
         private DbSet<Manufacturer> Manufacturers { get; set; }
         private DbSet<Model> VehicleModels { get; set; }
+        private DbSet<Image> Images { get; set; }
+        private DbSet<VehiclesImages> VehiclesImages { get; set; }
 
         #region Constructors
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="options">The database context options</param>
         public VehicleDbContext(DbContextOptions<VehicleDbContext> options) : base(options)
         {
         }
 
         #endregion Constructors
 
+        #region Methods
+
+        public override int SaveChanges()
+        {
+            AddTimestamps();
+            return base.SaveChanges();
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            AddTimestamps();
+            return await base.SaveChangesAsync(cancellationToken);
+        }
+
+        private void AddTimestamps()
+        {
+            var entities = ChangeTracker.Entries().Where(x => x.Entity is BaseEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
+
+            foreach (var entity in entities)
+            {
+                if (entity.State == EntityState.Added)
+                {
+                    ((BaseEntity)entity.Entity).CreatedDate = DateTime.UtcNow;
+                }
+
+                ((BaseEntity)entity.Entity).ModifiedDate = DateTime.UtcNow;
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<BaseEntity>(ConfigureBaseEntity);
             modelBuilder.Entity<Manufacturer>(ConfigureManufacturer);
             modelBuilder.Entity<Model>(ConfigureVehicleModel);
             modelBuilder.Entity<ModelYear>(ConfigureModelYear);
             modelBuilder.Entity<Color>(ConfigureColor);
             modelBuilder.Entity<ColorsModelYears>(ConfigureModelColor);
             modelBuilder.Entity<ModelTransmissions>(ConfigureModelTransmissions);
+            modelBuilder.Entity<Image>(ConfigureImage);
             modelBuilder.Entity<VehiclesImages>(ConfigureVehicleImages);
             modelBuilder.Entity<Vehicle>(ConfigureVehicle);
             modelBuilder.Entity<VehicleLocation>(ConfigureVehicleLocation);
@@ -41,8 +72,8 @@ namespace GT86Registry.Infrastructure.Data
 
         private void ConfigureBaseEntity(EntityTypeBuilder<BaseEntity> builder)
         {
-            builder.Property(m => m.CreatedDate).IsRequired(true);
-            builder.Property(m => m.ModifiedDate).IsRequired(false);
+            builder.Property(m => m.CreatedDate).IsRequired(true).HasDefaultValue(DateTimeOffset.UtcNow);
+            builder.Property(m => m.ModifiedDate).IsRequired(true).HasDefaultValue(DateTimeOffset.UtcNow);
         }
 
         private void ConfigureManufacturer(EntityTypeBuilder<Manufacturer> builder)
@@ -96,10 +127,25 @@ namespace GT86Registry.Infrastructure.Data
             builder.HasKey(m => new { m.ModelYearId, m.TransmissionId });
         }
 
+        private void ConfigureImage(EntityTypeBuilder<Image> builder)
+        {
+            builder.ToTable("Image");
+            builder.HasKey(i => i.Id);
+            builder.Property(i => i.Uri).IsRequired(true);
+        }
+
         private void ConfigureVehicleImages(EntityTypeBuilder<VehiclesImages> builder)
         {
             builder.ToTable("Vehicle_Image");
-            builder.HasKey(v => new { v.VehicleId, v.ImageId });
+            builder.HasKey(v => new { v.VehicleVIN, v.ImageId });
+
+            builder.HasOne(vi => vi.Vehicle)
+                .WithMany(vi => VehiclesImages)
+                .HasForeignKey(vi => vi.VehicleVIN);
+
+            builder.HasOne(vi => vi.Image)
+                .WithMany(vi => vi.VehicleImages)
+                .HasForeignKey(vi => vi.ImageId);
         }
 
         private void ConfigureVehicle(EntityTypeBuilder<Vehicle> builder)
@@ -120,5 +166,7 @@ namespace GT86Registry.Infrastructure.Data
             builder.HasOne(l => l.Vehicle)
                 .WithMany(l => l.VehicleLocations);
         }
+
+        #endregion Methods
     }
 }
