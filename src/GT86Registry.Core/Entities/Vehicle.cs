@@ -16,8 +16,8 @@ namespace GT86Registry.Core.Entities
         /// </summary>
         public string VIN { get; set; }
 
-        public string Instagram_Uri { get; set; }
-        public string Facebook_Uri { get; set; }
+        public string InstagramUri { get; set; }
+        public string FacebookUri { get; set; }
 
         #region Constructors
         public Vehicle(string vin)
