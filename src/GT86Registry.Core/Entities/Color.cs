@@ -12,6 +12,7 @@ namespace GT86Registry.Core.Entities
         [MaxLength(3)]
         public string Code { get; set; }
 
-        public List<ColorsYears> ColorYears { get; set; }
+        public List<ColorsModelYears> ModelColors { get; set; }
+        public List<Vehicle> Vehicles { get; set; }
     }
 }

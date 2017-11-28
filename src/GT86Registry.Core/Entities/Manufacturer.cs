@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace GT86Registry.Core.Entities
 {
     /// <summary>
-    /// Represents a vehicle Manufacturer such a "Subaru", "Toyota" or "Scion"
+    /// Represents a vehicle manufacturer such a "Subaru", "Toyota" or "Scion"
     /// </summary>
     public class Manufacturer : BaseEntity
     {
@@ -20,7 +20,8 @@ namespace GT86Registry.Core.Entities
             ActiveEndDate = activeEndDate;
         }
 
-        public List<VehicleModel> VehicleModels { get; set; }
-        public List<VehicleModelYear> VehicleModelYear { get; set; }
+        #region Navigation Properties
+        public List<Model> VehicleModels { get; set; }
+        #endregion Navigation Properties
     }
 }

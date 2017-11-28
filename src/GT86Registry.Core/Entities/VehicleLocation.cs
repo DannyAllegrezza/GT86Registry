@@ -49,6 +49,10 @@ namespace GT86Registry.Core.Entities
 
         public int Id { get; set; }
 
+        public DateTimeOffset TimeStamp { get; set; }
+
+        public Vehicle Vehicle { get; set; }
+
         public VehicleLocation(double latitude, double longitude)
         {
             Latitude = latitude;

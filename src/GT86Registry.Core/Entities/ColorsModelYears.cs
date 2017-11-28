@@ -1,12 +1,12 @@
 ﻿namespace GT86Registry.Core.Entities
 {
-    public class ColorsYears
+    public class ColorsModelYears
     {
         public int ColorId { get; set; }
         public Color Color { get; set; }
 
-        public int YearId { get; set; }
-        public Year Year { get; set; }
+        public int ModelYearId { get; set; }
+        public ModelYear ModelYear { get; set; }
         
     }
 }

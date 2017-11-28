@@ -7,12 +7,12 @@ namespace GT86Registry.Core.Entities
     /// <summary>
     /// Represents a join table between the Vehicles and VehiclePhotos tables
     /// </summary>
-    public class VehiclesVehiclePhotos
+    public class VehiclesImages
     {
-        public int VehicleVIN { get; set; }
+        public int VehicleId { get; set; }
         public Vehicle Vehicle { get; set; }
 
-        public int VehiclePhotoId { get; set; }
-        public VehiclePhoto VehiclePhoto { get; set; }
+        public int ImageId { get; set; }
+        public Image Image { get; set; }
     }
 }

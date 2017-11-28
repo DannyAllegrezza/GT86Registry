@@ -10,6 +10,5 @@ namespace GT86Registry.Infrastructure.Identity
         // Extend the existing Identity user information here
         public string FirstName { get; set; }
         public string Lastname { get; set; }
-
     }
 }
