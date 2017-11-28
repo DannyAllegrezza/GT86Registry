@@ -41,6 +41,23 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Location",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    Latitude = table.Column<double>(type: "float", nullable: false),
+                    Longitude = table.Column<double>(type: "float", nullable: false),
+                    ModifiedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    TimeStamp = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Location", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Manufacturer",
                 columns: table => new
                 {
@@ -207,43 +224,24 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                         principalTable: "Transmission",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Location",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    Latitude = table.Column<double>(type: "float", nullable: false),
-                    Longitude = table.Column<double>(type: "float", nullable: false),
-                    ModifiedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    TimeStamp = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    VehicleVIN = table.Column<string>(type: "nvarchar(17)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Location", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Location_Vehicle_VehicleVIN",
-                        column: x => x.VehicleVIN,
-                        principalTable: "Vehicle",
-                        principalColumn: "VIN",
-                        onDelete: ReferentialAction.Restrict);
+                        name: "FK_Vehicle_Location_VehicleLocationId",
+                        column: x => x.VehicleLocationId,
+                        principalTable: "Location",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Vehicle_Image",
                 columns: table => new
                 {
-                    VehicleId = table.Column<int>(type: "int", nullable: false),
                     ImageId = table.Column<int>(type: "int", nullable: false),
-                    VehicleVIN = table.Column<string>(type: "nvarchar(17)", nullable: true)
+                    VehicleVIN = table.Column<string>(type: "nvarchar(17)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Vehicle_Image", x => new { x.VehicleId, x.ImageId });
+                    table.PrimaryKey("PK_Vehicle_Image", x => new { x.VehicleVIN, x.ImageId });
                     table.ForeignKey(
                         name: "FK_Vehicle_Image_Image_ImageId",
                         column: x => x.ImageId,
@@ -257,11 +255,6 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                         principalColumn: "VIN",
                         onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Location_VehicleVIN",
-                table: "Location",
-                column: "VehicleVIN");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Model_ManufacturerId",
@@ -317,22 +310,10 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                 name: "IX_Vehicle_Image_VehicleVIN",
                 table: "Vehicle_Image",
                 column: "VehicleVIN");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Vehicle_Location_VehicleLocationId",
-                table: "Vehicle",
-                column: "VehicleLocationId",
-                principalTable: "Location",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Location_Vehicle_VehicleVIN",
-                table: "Location");
-
             migrationBuilder.DropTable(
                 name: "Model_Color");
 

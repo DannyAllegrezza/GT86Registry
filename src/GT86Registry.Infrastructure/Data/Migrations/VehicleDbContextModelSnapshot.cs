@@ -220,11 +220,7 @@ namespace GT86Registry.Infrastructure.Data.Migrations
 
                     b.Property<DateTimeOffset>("TimeStamp");
 
-                    b.Property<string>("VehicleVIN");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("VehicleVIN");
 
                     b.ToTable("Location");
                 });
@@ -311,16 +307,9 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GT86Registry.Core.Entities.VehicleLocation", "VehicleLocation")
-                        .WithMany()
+                        .WithMany("Vehicles")
                         .HasForeignKey("VehicleLocationId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("GT86Registry.Core.Entities.VehicleLocation", b =>
-                {
-                    b.HasOne("GT86Registry.Core.Entities.Vehicle", "Vehicle")
-                        .WithMany("VehicleLocations")
-                        .HasForeignKey("VehicleVIN");
                 });
 
             modelBuilder.Entity("GT86Registry.Core.Entities.VehiclesImages", b =>

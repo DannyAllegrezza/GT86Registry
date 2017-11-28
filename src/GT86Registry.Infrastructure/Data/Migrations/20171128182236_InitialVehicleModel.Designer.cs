@@ -12,7 +12,7 @@ using System;
 namespace GT86Registry.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(VehicleDbContext))]
-    [Migration("20171128155921_InitialVehicleModel")]
+    [Migration("20171128182236_InitialVehicleModel")]
     partial class InitialVehicleModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -221,11 +221,7 @@ namespace GT86Registry.Infrastructure.Data.Migrations
 
                     b.Property<DateTimeOffset>("TimeStamp");
 
-                    b.Property<string>("VehicleVIN");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("VehicleVIN");
 
                     b.ToTable("Location");
                 });
@@ -312,16 +308,9 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GT86Registry.Core.Entities.VehicleLocation", "VehicleLocation")
-                        .WithMany()
+                        .WithMany("Vehicles")
                         .HasForeignKey("VehicleLocationId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("GT86Registry.Core.Entities.VehicleLocation", b =>
-                {
-                    b.HasOne("GT86Registry.Core.Entities.Vehicle", "Vehicle")
-                        .WithMany("VehicleLocations")
-                        .HasForeignKey("VehicleVIN");
                 });
 
             modelBuilder.Entity("GT86Registry.Core.Entities.VehiclesImages", b =>
