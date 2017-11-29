@@ -22,6 +22,10 @@ namespace GT86Registry.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>()
+                .AddDefaultTokenProviders();
+
             // Setup CarRegistry database connection, inject in options to CarDbContext
             services.AddDbContext<VehicleDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("CarRegistryConnection")));
@@ -30,12 +34,11 @@ namespace GT86Registry.Web
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<AppIdentityDbContext>()
-                .AddDefaultTokenProviders();
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+
+            services.AddTransient<VehicleSeeder>();
 
             services.AddMvc();
         }
@@ -48,6 +51,13 @@ namespace GT86Registry.Web
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
                 app.UseDatabaseErrorPage();
+
+                // Seed the database
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    var vehicleSeeder = scope.ServiceProvider.GetService<VehicleSeeder>();
+                    vehicleSeeder.SeedAsync().Wait();
+                }
             }
             else
             {
