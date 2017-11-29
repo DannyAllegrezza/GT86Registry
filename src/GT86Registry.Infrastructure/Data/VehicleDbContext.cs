@@ -10,14 +10,14 @@ namespace GT86Registry.Infrastructure.Data
 {
     public class VehicleDbContext : DbContext
     {
-        private DbSet<Vehicle> Vehicles { get; set; }
-        private DbSet<Color> Colors { get; set; }
-        private DbSet<ModelYear> Years { get; set; }
-        private DbSet<ColorsModelYears> ColorYears { get; set; }
-        private DbSet<Manufacturer> Manufacturers { get; set; }
-        private DbSet<Model> VehicleModels { get; set; }
-        private DbSet<Image> Images { get; set; }
-        private DbSet<VehiclesImages> VehiclesImages { get; set; }
+        public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<Color> Colors { get; set; }
+        public DbSet<ModelYear> Years { get; set; }
+        public DbSet<ColorsModelYears> ColorYears { get; set; }
+        public DbSet<Manufacturer> Manufacturers { get; set; }
+        public DbSet<Model> VehicleModels { get; set; }
+        public DbSet<Image> Images { get; set; }
+        public DbSet<VehiclesImages> VehiclesImages { get; set; }
 
         #region Constructors
 

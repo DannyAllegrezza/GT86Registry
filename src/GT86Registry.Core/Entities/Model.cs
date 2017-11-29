@@ -12,6 +12,14 @@ namespace GT86Registry.Core.Entities
 
         public string Name { get; set; }
 
+        #region Constructors
+        public Model(string modelName, int manufacturerId)
+        {
+            Name = modelName;
+            ManufacturerId = manufacturerId;
+        }
+        #endregion Constructors
+
         #region EF Navigation Properties
         public Manufacturer Manufacturer { get; set; }
         public int ManufacturerId { get; set; }
