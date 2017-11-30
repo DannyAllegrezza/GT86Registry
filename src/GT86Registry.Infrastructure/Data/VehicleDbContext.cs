@@ -21,7 +21,6 @@ namespace GT86Registry.Infrastructure.Data
         public DbSet<Transmission> Transmissions { get; set; }
         public DbSet<ModelTransmissions> ModelTransmissions { get; set; }
 
-
         #region Constructors
 
         public VehicleDbContext(DbContextOptions<VehicleDbContext> options) : base(options)

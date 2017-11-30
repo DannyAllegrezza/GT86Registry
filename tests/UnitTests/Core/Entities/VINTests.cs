@@ -1,5 +1,4 @@
-﻿using GT86Registry.Core.Entities;
-using GT86Registry.Core.Validation;
+﻿using GT86Registry.Core.Validation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests.Core.Entities
