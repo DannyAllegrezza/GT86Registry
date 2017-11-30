@@ -51,13 +51,6 @@ namespace GT86Registry.Web
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
                 app.UseDatabaseErrorPage();
-
-                // Seed the database
-                using (var scope = app.ApplicationServices.CreateScope())
-                {
-                    var vehicleSeeder = scope.ServiceProvider.GetService<VehicleSeeder>();
-                    vehicleSeeder.SeedAsync().Wait();
-                }
             }
             else
             {

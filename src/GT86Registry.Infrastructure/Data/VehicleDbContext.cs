@@ -18,6 +18,9 @@ namespace GT86Registry.Infrastructure.Data
         public DbSet<Model> VehicleModels { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<VehiclesImages> VehiclesImages { get; set; }
+        public DbSet<Transmission> Transmissions { get; set; }
+        public DbSet<ModelTransmissions> ModelTransmissions { get; set; }
+
 
         #region Constructors
 
@@ -63,6 +66,7 @@ namespace GT86Registry.Infrastructure.Data
             modelBuilder.Entity<ModelYear>(ConfigureModelYear);
             modelBuilder.Entity<Color>(ConfigureColor);
             modelBuilder.Entity<ColorsModelYears>(ConfigureModelColor);
+            modelBuilder.Entity<Transmission>(ConfigureTransmission);
             modelBuilder.Entity<ModelTransmissions>(ConfigureModelTransmissions);
             modelBuilder.Entity<Image>(ConfigureImage);
             modelBuilder.Entity<VehiclesImages>(ConfigureVehicleImages);
