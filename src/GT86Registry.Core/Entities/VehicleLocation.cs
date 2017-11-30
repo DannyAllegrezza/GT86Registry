@@ -54,6 +54,11 @@ namespace GT86Registry.Core.Entities
 
         public List<Vehicle> Vehicles { get; set; }
 
+        protected VehicleLocation()
+        {
+
+        }
+
         public VehicleLocation(double latitude, double longitude)
         {
             Latitude = latitude;

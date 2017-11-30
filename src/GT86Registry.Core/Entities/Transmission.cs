@@ -7,6 +7,10 @@ namespace GT86Registry.Core.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         #region Constructors
+        public Transmission()
+        {
+        }
+
         public Transmission(string name)
         {
             Name = name;

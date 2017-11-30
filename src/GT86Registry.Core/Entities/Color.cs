@@ -12,6 +12,10 @@ namespace GT86Registry.Core.Entities
 
         #region Constructors
 
+        protected Color()
+        {
+        }
+
         public Color(string name, string code)
         {
             Name = name;
