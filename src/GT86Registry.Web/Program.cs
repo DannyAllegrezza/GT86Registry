@@ -1,6 +1,8 @@
 ﻿using GT86Registry.Infrastructure.Data;
+using GT86Registry.Infrastructure.Identity;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
@@ -23,8 +25,8 @@ namespace GT86Registry.Web
                     VehicleSeeder.SeedAsync(vehicleContext, loggerFactory)
                         .Wait();
 
-                    //var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-                    //AppIdentityDbContextSeed.SeedAsync(userManager).Wait();
+                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                    AppIdentitySeeder.SeedAsync(userManager).Wait();
                 }
                 catch (Exception ex)
                 {

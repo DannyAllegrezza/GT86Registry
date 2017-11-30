@@ -1,4 +1,5 @@
 ﻿using GT86Registry.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -8,12 +9,14 @@ using System.Threading.Tasks;
 namespace GT86Registry.Infrastructure.Data
 {
     /// <summary>
-    ///
+    /// Seeds the database with factual vehicle manufacturer, model, colors, etc.
     /// </summary>
     public class VehicleSeeder
     {
         public static async Task SeedAsync(VehicleDbContext vehicleContext, ILoggerFactory loggerFactory)
         {
+            vehicleContext.Database.EnsureDeleted();
+            vehicleContext.Database.Migrate();
             // Create Manufacturers
             if (!vehicleContext.Manufacturers.Any())
             {
@@ -67,8 +70,6 @@ namespace GT86Registry.Infrastructure.Data
 
                 await vehicleContext.SaveChangesAsync();
             }
-
-
         }
 
         private static IEnumerable<Manufacturer> GetDefaultManufacturers()
