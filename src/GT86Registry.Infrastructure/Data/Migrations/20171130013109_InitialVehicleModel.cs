@@ -63,8 +63,8 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ActiveEndDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    ActiveStartDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ActiveEndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ActiveStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModifiedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false)
@@ -82,7 +82,7 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModifiedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    Name = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -236,12 +236,13 @@ namespace GT86Registry.Infrastructure.Data.Migrations
                 name: "Vehicle_Image",
                 columns: table => new
                 {
+                    VehicleId = table.Column<int>(type: "int", nullable: false),
                     ImageId = table.Column<int>(type: "int", nullable: false),
-                    VehicleVIN = table.Column<string>(type: "nvarchar(17)", nullable: false)
+                    VehicleVIN = table.Column<string>(type: "nvarchar(17)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Vehicle_Image", x => new { x.VehicleVIN, x.ImageId });
+                    table.PrimaryKey("PK_Vehicle_Image", x => new { x.VehicleId, x.ImageId });
                     table.ForeignKey(
                         name: "FK_Vehicle_Image_Image_ImageId",
                         column: x => x.ImageId,
