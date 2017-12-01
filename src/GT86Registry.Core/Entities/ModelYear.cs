@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace GT86Registry.Core.Entities
 {
@@ -11,6 +9,10 @@ namespace GT86Registry.Core.Entities
         public int Year { get; set; }
 
         #region Constructors
+
+        protected ModelYear()
+        {
+        }
 
         /// <summary>
         /// Initializes a new ModelYear
@@ -38,7 +40,7 @@ namespace GT86Registry.Core.Entities
         public List<ModelTransmissions> ModelTransmissions { get; set; }
         public List<Vehicle> Vehicles { get; set; }
         public List<ColorsModelYears> ModelColors { get; set; }
-        
+
         #endregion Navigation Properties
     }
 }

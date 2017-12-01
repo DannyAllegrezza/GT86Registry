@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using GT86Registry.Infrastructure.Data;
+using GT86Registry.Infrastructure.Identity;
+using GT86Registry.Web.Services;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using GT86Registry.Web.Services;
-using GT86Registry.Infrastructure.Identity;
-using GT86Registry.Infrastructure.Data;
 
 namespace GT86Registry.Web
 {
@@ -34,7 +34,6 @@ namespace GT86Registry.Web
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
 
-
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
@@ -51,13 +50,6 @@ namespace GT86Registry.Web
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
                 app.UseDatabaseErrorPage();
-
-                // Seed the database
-                using (var scope = app.ApplicationServices.CreateScope())
-                {
-                    var vehicleSeeder = scope.ServiceProvider.GetService<VehicleSeeder>();
-                    vehicleSeeder.SeedAsync().Wait();
-                }
             }
             else
             {

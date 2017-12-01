@@ -13,6 +13,12 @@ namespace GT86Registry.Core.Entities
         public DateTime ActiveStartDate { get; set; }
         public DateTime? ActiveEndDate { get; set; }
 
+        #region Constructors
+
+        protected Manufacturer()
+        {
+        }
+
         public Manufacturer(string name, DateTime activeStartDate, DateTime? activeEndDate)
         {
             Name = name;
@@ -20,8 +26,14 @@ namespace GT86Registry.Core.Entities
             ActiveEndDate = activeEndDate;
         }
 
+        #endregion Constructors
+
+
+
         #region Navigation Properties
+
         public List<Model> VehicleModels { get; set; }
+
         #endregion Navigation Properties
     }
 }

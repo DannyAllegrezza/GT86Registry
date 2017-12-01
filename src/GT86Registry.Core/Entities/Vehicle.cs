@@ -20,6 +20,10 @@ namespace GT86Registry.Core.Entities
 
         #region Constructors
 
+        protected Vehicle()
+        {
+        }
+
         public Vehicle(string vin)
         {
             VIN = Validation.VIN.IsValid(vin) ? vin : throw new System.Exception("Invalid VIN");
