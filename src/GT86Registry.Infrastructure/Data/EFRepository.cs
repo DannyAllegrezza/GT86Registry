@@ -1,33 +1,45 @@
 ﻿using GT86Registry.Core.Entities;
 using GT86Registry.Core.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GT86Registry.Infrastructure.Data
 {
     public class EFRepository<T> : IRepository<T>, IAsyncRepository<T> where T : BaseEntity
     {
+        protected readonly VehicleDbContext _vehicleContext;
+
+        public EFRepository(VehicleDbContext vehicleContext)
+        {
+            _vehicleContext = vehicleContext;
+        }
+
         #region IRepository Methods
+
         public void Add(T entity)
         {
-            throw new NotImplementedException();
+            _vehicleContext.Set<T>().Add(entity);
+            _vehicleContext.SaveChanges();
         }
 
         public T AddEntity(T entity)
         {
-            throw new NotImplementedException();
+            _vehicleContext.Set<T>().Add(entity);
+            _vehicleContext.SaveChanges();
+
+            return entity;
         }
 
         public void Delete(T entity)
         {
-            throw new NotImplementedException();
+            _vehicleContext.Set<T>().Remove(entity);
+            _vehicleContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
         }
 
         public IEnumerable<T> GetAll()
@@ -37,29 +49,36 @@ namespace GT86Registry.Infrastructure.Data
 
         public T GetById(int id)
         {
-            throw new NotImplementedException();
+            return _vehicleContext.Set<T>().Find(id);
         }
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            _vehicleContext.Entry(entity).State = EntityState.Modified;
+            _vehicleContext.SaveChanges();
         }
+
         #endregion IRepository Methods
 
         #region IAsyncRepository Methods
-        public Task<T> AddAsync(T entity)
+
+        public async Task<T> AddAsync(T entity)
         {
-            throw new NotImplementedException();
+            _vehicleContext.Set<T>().Add(entity);
+            await _vehicleContext.SaveChangesAsync();
+
+            return entity;
         }
 
-        public Task DeleteAsync(T entity)
+        public async Task DeleteAsync(T entity)
         {
-            throw new NotImplementedException();
+            _vehicleContext.Set<T>().Remove(entity);
+            await _vehicleContext.SaveChangesAsync();
         }
 
-        public Task<T> GetByIdAsync(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _vehicleContext.Set<T>().FindAsync(id);
         }
 
         public Task<List<T>> ListAllAsync()
@@ -67,10 +86,12 @@ namespace GT86Registry.Infrastructure.Data
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(T entity)
+        public async Task UpdateAsync(T entity)
         {
-            throw new NotImplementedException();
+            _vehicleContext.Entry(entity).State = EntityState.Modified;
+            await _vehicleContext.SaveChangesAsync();
         }
+
         #endregion IAsyncRepository Methods
     }
 }
