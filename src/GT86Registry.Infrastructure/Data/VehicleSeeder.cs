@@ -13,6 +13,10 @@ namespace GT86Registry.Infrastructure.Data
     /// </summary>
     public class VehicleSeeder
     {
+        private static int BRZ_MODEL_ID = 1;
+        private static int FRS_MODEL_ID = 2;
+        private static int GT86_MODEL_ID = 3;
+
         public static async Task SeedAsync(VehicleDbContext vehicleContext, ILoggerFactory loggerFactory)
         {
             vehicleContext.Database.EnsureDeleted();
@@ -57,6 +61,7 @@ namespace GT86Registry.Infrastructure.Data
                 await vehicleContext.SaveChangesAsync();
             }
 
+            // Create default transmissions
             if (!vehicleContext.Transmissions.Any())
             {
                 vehicleContext.Transmissions.AddRange(GetTransmissions());
@@ -64,11 +69,20 @@ namespace GT86Registry.Infrastructure.Data
                 await vehicleContext.SaveChangesAsync();
             }
 
+            // Create Model_Transmission junction table records
             if (!vehicleContext.ModelTransmissions.Any())
             {
                 vehicleContext.ModelTransmissions.AddRange(GetModelYearTransmissions(vehicleContext));
 
                 await vehicleContext.SaveChangesAsync();
+            }
+
+            // Combine everything to create some test vehicles
+            if (!vehicleContext.Vehicles.Any())
+            {
+                //vehicleContext.Vehicles.AddRange(GetDefaultVehicles(vehicleContext));
+
+                //await vehicleContext.SaveChangesAsync();
             }
         }
 
@@ -114,7 +128,7 @@ namespace GT86Registry.Infrastructure.Data
             }
 
             // Scion FR-S
-            for (int year = 2013; year <= 2017; year++)
+            for (int year = 2013; year < 2017; year++)
             {
                 var frs = new ModelYear(year, 2);
                 modelYears.Add(frs);
@@ -168,353 +182,325 @@ namespace GT86Registry.Infrastructure.Data
                 // Ablaze
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "M7Y").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                 },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "M7Y").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 2).FirstOrDefault()
-                    },
-                new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "M7Y").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 3).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == GT86_MODEL_ID).FirstOrDefault()
                     },
                 // Asphalt
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "61K").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "61K").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "61K").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "61K").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "61K").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 2).FirstOrDefault()
-                    },
-                new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "61K").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 3).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == GT86_MODEL_ID).FirstOrDefault()
                     },
                 // Argento
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "D6S").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "D6S").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 // Firestorm
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "C7P").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "C7P").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "C7P").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 // Halo
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "K1X").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "K1X").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "K1X").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 2).FirstOrDefault()
-                    },
-                new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "K1X").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 3).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == GT86_MODEL_ID).FirstOrDefault()
                     },
                 // Hot Lava
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "H8R").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "H8R").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "H8R").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "H8R").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "H8R").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 2).FirstOrDefault()
-                    },
-                new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "H8R").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 3).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == GT86_MODEL_ID).FirstOrDefault()
                     },
                 // Lunar Storm
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "H6Q").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 // Oceanic
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "K3X").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "K3X").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 2).FirstOrDefault()
-                    },
-                new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "K3X").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 3).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == GT86_MODEL_ID).FirstOrDefault()
                     },
                 // Raven
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "D4S").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "D4S").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "D4S").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "D4S").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "D4S").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 2).FirstOrDefault()
-                    },
-                new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "D4S").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 3).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == GT86_MODEL_ID).FirstOrDefault()
                     },
                 // Silver Ignition
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "J8A").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 // Steel
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "G1U").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "G1U").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "G1U").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 2).FirstOrDefault()
-                    },
-                new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "G1U").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 3).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == GT86_MODEL_ID).FirstOrDefault()
                     },
                 // Ultramarine
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "E8H").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "E8H").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "E8H").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 // Whiteout
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "37J").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "37J").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 // Yuzu
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "C2Z").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == 2).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == FRS_MODEL_ID).FirstOrDefault()
                     },
                 // TOYOTA 86
                 // Supernova Orange
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "NBB").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 3).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == GT86_MODEL_ID).FirstOrDefault()
                     },
                 // Thunder
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "PBA").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2018 && y.ModelId == 3).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2018 && y.ModelId == GT86_MODEL_ID).FirstOrDefault()
                     },
                 // SUBARU
                 // Charlesite Yellow
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "NAD").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 1).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 // Crystal Black Silica
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "D4S").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Crystal Black Silica").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "D4S").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Crystal Black Silica").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "D4S").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Crystal Black Silica").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "D4S").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Crystal Black Silica").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "D4S").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Crystal Black Silica").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 // Crystal Pearl White
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "K1X").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Crystal White Pearl").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "K1X").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Crystal White Pearl").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "K1X").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Crystal White Pearl").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 // Dark Gray Metallic
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "61K").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Dark Gray Metallic").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "61K").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Dark Gray Metallic").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "61K").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Dark Gray Metallic").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "61K").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Dark Gray Metallic").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "61K").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Dark Gray Metallic").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 // Galaxy Blue Silica
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "E8H").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Galaxy Blue Silica").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 // Hyper Blue
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "M3Y").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == 1).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 // Ice Silver Metallic
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "G1U").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Ice Silver Metallic").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "G1U").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Ice Silver Metallic").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "G1U").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Ice Silver Metallic").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 // Lightning Red
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "C7P").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Lightning Red").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "C7P").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Lightning Red").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "C7P").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Lightning Red").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 // Pure Red
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "M7Y").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Pure Red").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "M7Y").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Pure Red").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 // Satin white pearl
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "37J").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Satin White Pearl").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
-                    Color = vehicleContext.Colors.Where(c => c.Code == "37J").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == 1).FirstOrDefault()
+                    Color = vehicleContext.Colors.Where(c => c.Name == "Satin White Pearl").FirstOrDefault(),
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 // Sterling Silver Metallic
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "D6S").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == 1).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "D6S").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == 1).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 // World rally blue (02C)
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "02C").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == 1).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2013 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "02C").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == 1).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2014 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 // World rally blue (K7X)
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "K7X").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == 1).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2015 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "K7X").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == 1).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2016 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     },
                 new ColorsModelYears() {
                     Color = vehicleContext.Colors.Where(c => c.Code == "K7X").FirstOrDefault(),
-                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == 1).FirstOrDefault()
+                    ModelYear = vehicleContext.Years.Where(y => y.Year == 2017 && y.ModelId == BRZ_MODEL_ID).FirstOrDefault()
                     }
             };
         }
@@ -542,6 +528,18 @@ namespace GT86Registry.Infrastructure.Data
             }
 
             return modelYearAndTransmissions;
+        }
+
+        private static IEnumerable<Vehicle> GetDefaultVehicles(VehicleDbContext vehicleContext)
+        {
+            List<Vehicle> vehicles = new List<Vehicle>();
+
+            var sampleBrz = new Vehicle("JF1ZCAC18H9603221");
+            sampleBrz.ModelYearId = 9;
+            sampleBrz.TransmissionId = 1;
+
+            return vehicles;
+
         }
     }
 }
