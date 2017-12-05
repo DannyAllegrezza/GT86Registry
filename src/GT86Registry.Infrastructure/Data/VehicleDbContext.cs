@@ -20,6 +20,7 @@ namespace GT86Registry.Infrastructure.Data
         public DbSet<VehiclesImages> VehiclesImages { get; set; }
         public DbSet<Transmission> Transmissions { get; set; }
         public DbSet<ModelTransmissions> ModelTransmissions { get; set; }
+        public DbSet<VehicleLocation> VehicleLocations { get; set; }
 
         #region Constructors
 

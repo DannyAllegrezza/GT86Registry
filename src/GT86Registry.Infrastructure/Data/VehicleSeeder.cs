@@ -1,4 +1,6 @@
 ﻿using GT86Registry.Core.Entities;
+using GT86Registry.Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -17,10 +19,12 @@ namespace GT86Registry.Infrastructure.Data
         private static int FRS_MODEL_ID = 2;
         private static int GT86_MODEL_ID = 3;
 
-        public static async Task SeedAsync(VehicleDbContext vehicleContext, ILoggerFactory loggerFactory)
+        public static async Task SeedAsync(VehicleDbContext vehicleContext,
+                UserManager<ApplicationUser> userManager,
+                ILoggerFactory loggerFactory)
         {
-            vehicleContext.Database.EnsureDeleted();
-            vehicleContext.Database.Migrate();
+            // vehicleContext.Database.EnsureDeleted();
+            // vehicleContext.Database.Migrate();
             // Create Manufacturers
             if (!vehicleContext.Manufacturers.Any())
             {
@@ -77,12 +81,26 @@ namespace GT86Registry.Infrastructure.Data
                 await vehicleContext.SaveChangesAsync();
             }
 
+            if (!vehicleContext.VehicleLocations.Any())
+            {
+                vehicleContext.VehicleLocations.AddRange(GetDefaultLocations());
+                await vehicleContext.SaveChangesAsync();
+            }
+
+            if (!vehicleContext.Images.Any())
+            {
+                vehicleContext.Images.AddRange(GetDefaultProfilePhotoUri());
+                await vehicleContext.SaveChangesAsync();
+            }
+
             // Combine everything to create some test vehicles
             if (!vehicleContext.Vehicles.Any())
             {
-                //vehicleContext.Vehicles.AddRange(GetDefaultVehicles(vehicleContext));
+                var defaultUser = await userManager.FindByEmailAsync("testuser@gt86registry.com");
 
-                //await vehicleContext.SaveChangesAsync();
+                vehicleContext.Vehicles.AddRange(GetDefaultVehicles(vehicleContext, defaultUser.Id));
+
+                await vehicleContext.SaveChangesAsync();
             }
         }
 
@@ -530,16 +548,40 @@ namespace GT86Registry.Infrastructure.Data
             return modelYearAndTransmissions;
         }
 
-        private static IEnumerable<Vehicle> GetDefaultVehicles(VehicleDbContext vehicleContext)
+        private static IEnumerable<VehicleLocation> GetDefaultLocations()
+        {
+            return new List<VehicleLocation>()
+            {
+                new VehicleLocation(35.813453, -78.819194)
+            };
+        }
+
+        private static IEnumerable<Image> GetDefaultProfilePhotoUri()
+        {
+            var defaultProfilePhoto = new Image();
+            defaultProfilePhoto.Uri = "https://i.imgur.com/8RuGLC6.jpg";
+
+            return new List<Image>()
+            {
+                defaultProfilePhoto
+            };
+        }
+
+        private static IEnumerable<Vehicle> GetDefaultVehicles(VehicleDbContext vehicleContext, string defaultUserId)
         {
             List<Vehicle> vehicles = new List<Vehicle>();
 
-            var sampleBrz = new Vehicle("JF1ZCAC18H9603221");
-            sampleBrz.ModelYearId = 9;
-            sampleBrz.TransmissionId = 1;
+            var sampleBrz = new Vehicle("JF1ZCAC11E9603184");
+            sampleBrz.ModelYearId = 3; // 2017
+            sampleBrz.TransmissionId = 1; // 6-Spd Manual
+            sampleBrz.ColorId = 14; // Pure Red
+            sampleBrz.ProfilePhotoId = 1;
+            sampleBrz.VehicleLocationId = 1;
+            sampleBrz.UserIdentityGuid = defaultUserId;
+
+            vehicles.Add(sampleBrz);
 
             return vehicles;
-
         }
     }
 }

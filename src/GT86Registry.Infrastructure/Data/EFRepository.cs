@@ -85,9 +85,9 @@ namespace GT86Registry.Infrastructure.Data
             return await _vehicleContext.Set<T>().FindAsync(id);
         }
 
-        public Task<List<T>> ListAllAsync()
+        public async Task<List<T>> ListAllAsync()
         {
-            throw new NotImplementedException();
+            return await _vehicleContext.Set<T>().ToListAsync();
         }
 
         public async Task UpdateAsync(T entity)
