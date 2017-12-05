@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using GT86Registry.Core.Interfaces;
 using GT86Registry.Core.Entities;
 
-namespace GT86Registry.Web.Controllers
+namespace GT86Registry.Web.Controllers.Api
 {
     [Route("api/colors")]
     public class ColorController : Controller
