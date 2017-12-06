@@ -21,12 +21,14 @@ namespace GT86Registry.Web
                 var loggerFactory = services.GetRequiredService<ILoggerFactory>();
                 try
                 {
-                    var vehicleContext = services.GetRequiredService<VehicleDbContext>();
-                    VehicleSeeder.SeedAsync(vehicleContext, loggerFactory)
-                        .Wait();
-
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                     AppIdentitySeeder.SeedAsync(userManager).Wait();
+
+
+                    var vehicleContext = services.GetRequiredService<VehicleDbContext>();
+                    VehicleSeeder.SeedAsync(vehicleContext, userManager, loggerFactory)
+                        .Wait();
+
                 }
                 catch (Exception ex)
                 {

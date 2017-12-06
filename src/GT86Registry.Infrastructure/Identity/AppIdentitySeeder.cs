@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GT86Registry.Infrastructure.Identity
@@ -7,20 +8,23 @@ namespace GT86Registry.Infrastructure.Identity
     {
         public static async Task SeedAsync(UserManager<ApplicationUser> userManager)
         {
-            var defaultUser = new ApplicationUser
+            if (!userManager.Users.Any())
             {
-                UserName = "testuser@gt86registry.com",
-                Email = "testuser@gt86registry.com",
-                FirstName = "Danny",
-                LastName = "Allegrezza",
-                City = "Cary",
-                State = "North Carolina",
-                PostalCode = "27560",
-                Country = "USA",
-                InstagramUri = "https://www.instagram.com/dude_danny/"
-            };
+                var defaultUser = new ApplicationUser
+                {
+                    UserName = "testuser@gt86registry.com",
+                    Email = "testuser@gt86registry.com",
+                    FirstName = "Danny",
+                    LastName = "Allegrezza",
+                    City = "Cary",
+                    State = "North Carolina",
+                    PostalCode = "27560",
+                    Country = "USA",
+                    InstagramUri = "https://www.instagram.com/dude_danny/"
+                };
 
-            await userManager.CreateAsync(defaultUser, "J09TxRgIdKNi");
+                await userManager.CreateAsync(defaultUser, "J09TxRgIdKNi!");
+            }
         }
     }
 }

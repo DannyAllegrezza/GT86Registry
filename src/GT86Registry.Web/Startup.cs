@@ -1,4 +1,6 @@
-﻿using GT86Registry.Infrastructure.Data;
+﻿using GT86Registry.Core.Entities;
+using GT86Registry.Core.Interfaces;
+using GT86Registry.Infrastructure.Data;
 using GT86Registry.Infrastructure.Identity;
 using GT86Registry.Web.Services;
 using Microsoft.AspNetCore.Builder;
@@ -36,6 +38,8 @@ namespace GT86Registry.Web
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));
+            services.AddScoped(typeof(IAsyncRepository<>), typeof(EFRepository<>));
 
             services.AddTransient<VehicleSeeder>();
 

@@ -3,6 +3,7 @@ using GT86Registry.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GT86Registry.Infrastructure.Data
@@ -40,11 +41,14 @@ namespace GT86Registry.Infrastructure.Data
 
         public void Delete(int id)
         {
+            var entity = GetById(id);
+            if (entity == null) return;
+            Delete(entity);
         }
 
         public IEnumerable<T> GetAll()
         {
-            throw new NotImplementedException();
+            return _vehicleContext.Set<T>().AsEnumerable();
         }
 
         public T GetById(int id)
@@ -81,9 +85,9 @@ namespace GT86Registry.Infrastructure.Data
             return await _vehicleContext.Set<T>().FindAsync(id);
         }
 
-        public Task<List<T>> ListAllAsync()
+        public async Task<List<T>> ListAllAsync()
         {
-            throw new NotImplementedException();
+            return await _vehicleContext.Set<T>().ToListAsync();
         }
 
         public async Task UpdateAsync(T entity)
