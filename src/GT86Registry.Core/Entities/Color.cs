@@ -26,8 +26,8 @@ namespace GT86Registry.Core.Entities
 
         #region Navigation Properties
 
-        public List<ColorsModelYears> ModelColors { get; set; }
-        public List<Vehicle> Vehicles { get; set; }
+        public virtual List<ColorsModelYears> ModelColors { get; set; } = new List<ColorsModelYears>();
+        public virtual List<Vehicle> Vehicles { get; set; } = new List<Vehicle>();
 
         #endregion Navigation Properties
     }

@@ -40,10 +40,10 @@ namespace GT86Registry.Web
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EFRepository<>));
-
+            services.AddScoped<VehicleRepository>();
             services.AddTransient<VehicleSeeder>();
 
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options => { options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

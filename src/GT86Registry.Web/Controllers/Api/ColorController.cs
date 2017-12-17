@@ -20,9 +20,15 @@ namespace GT86Registry.Web.Controllers.Api
         }
         
         [HttpGet()]
-        public async Task<IActionResult> GetColors()
+        public async Task<IActionResult> Get()
         {
-            var allColors = await _repository.ListAllAsync(); 
+            var allColors = await _repository.ListAllAsync();
+
+            foreach (var color in allColors)
+            {
+                
+            }
+
             return Ok(allColors);
         }
     }
