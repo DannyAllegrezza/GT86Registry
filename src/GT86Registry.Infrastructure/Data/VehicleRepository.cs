@@ -30,5 +30,11 @@ namespace GT86Registry.Infrastructure.Data
             return vehicles;
  
         }
+
+        public Vehicle GetVehicleById(string vin)
+        {
+            var vehicle = _vehicleContext.Vehicles.Find(vin);
+            return vehicle;
+        }
     }
 }

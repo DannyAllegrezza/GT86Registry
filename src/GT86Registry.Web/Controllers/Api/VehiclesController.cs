@@ -26,5 +26,15 @@ namespace GT86Registry.Web.Controllers.Api
 
             return Ok(vehicles);
         }
+
+        [HttpGet]
+        [Route("{vin}")]
+        public async Task<IActionResult> GetByVin(string vin)
+        {
+            if (vin == null) { return BadRequest(); }
+
+            var vehicle = _repository.GetVehicleById(vin);
+            return Ok(vehicle);
+        }
     }
 }

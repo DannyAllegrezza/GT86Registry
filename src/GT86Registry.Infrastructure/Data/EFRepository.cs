@@ -51,7 +51,7 @@ namespace GT86Registry.Infrastructure.Data
             return _vehicleContext.Set<T>().AsEnumerable();
         }
 
-        public T GetById(int id)
+        public virtual T GetById(int id)
         {
             return _vehicleContext.Set<T>().Find(id);
         }
