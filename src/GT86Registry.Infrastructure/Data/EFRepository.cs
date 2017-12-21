@@ -51,7 +51,7 @@ namespace GT86Registry.Infrastructure.Data
             return _vehicleContext.Set<T>().AsEnumerable();
         }
 
-        public T GetById(int id)
+        public virtual T GetById(int id)
         {
             return _vehicleContext.Set<T>().Find(id);
         }
@@ -80,7 +80,7 @@ namespace GT86Registry.Infrastructure.Data
             await _vehicleContext.SaveChangesAsync();
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public virtual async Task<T> GetByIdAsync(int id)
         {
             return await _vehicleContext.Set<T>().FindAsync(id);
         }
