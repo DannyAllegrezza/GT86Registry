@@ -1,8 +1,9 @@
-﻿using GT86Registry.Core.Entities;
+﻿using GT86Registry.Core.DTOs;
+using GT86Registry.Core.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace GT86Registry.Infrastructure.Data
 {
@@ -16,7 +17,7 @@ namespace GT86Registry.Infrastructure.Data
         /// Gets all the Vehicles in the database, along with their related entities.
         /// </summary>
         /// <returns>A collection of Vehicle objects, along with their related entities.</returns>
-        public IEnumerable<Vehicle> GetAllVehicles()
+        public IEnumerable<VehicleDto> GetAllVehicles()
         {
             var vehicles = _vehicleContext.Vehicles
                                 .Include(vehicle => vehicle.ModelYear)
@@ -27,14 +28,31 @@ namespace GT86Registry.Infrastructure.Data
                                 .Include(vehicle => vehicle.Image)
                                 .Include(vehicle => vehicle.VehicleLocation);
 
-            return vehicles;
+            var vehicleDtos = new List<VehicleDto>();
+            foreach (var vehicle in vehicles)
+            {
+                vehicleDtos.Add(new VehicleDto(vehicle));
+            }
+
+            return vehicleDtos;
  
         }
 
-        public Vehicle GetVehicleById(string vin)
+        public VehicleDto GetVehicleById(string vin)
         {
-            var vehicle = _vehicleContext.Vehicles.Find(vin);
-            return vehicle;
+            var singleVehicle = _vehicleContext.Vehicles.Where(vehicle => vehicle.VIN == vin)
+                                .Include(vehicle => vehicle.ModelYear)
+                                    .ThenInclude(v => v.Model)
+                                    .ThenInclude(v => v.Manufacturer)
+                                .Include(vehicle => vehicle.Color)
+                                .Include(vehicle => vehicle.Transmission)
+                                .Include(vehicle => vehicle.Image)
+                                .Include(vehicle => vehicle.VehicleLocation)
+                                .First();
+
+            var vehicleDto = new VehicleDto(singleVehicle);
+
+            return vehicleDto;
         }
     }
 }

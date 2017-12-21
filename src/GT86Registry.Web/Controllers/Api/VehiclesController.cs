@@ -29,7 +29,7 @@ namespace GT86Registry.Web.Controllers.Api
 
         [HttpGet]
         [Route("{vin}")]
-        public async Task<IActionResult> GetByVin(string vin)
+        public IActionResult GetByVin(string vin)
         {
             if (vin == null) { return BadRequest(); }
 
