@@ -17,7 +17,7 @@ namespace GT86Registry.Core.Entities
 
         public string InstagramUri { get; set; }
         public string FacebookUri { get; set; }
-
+        public string Description { get; set; }
         #region Constructors
 
         protected Vehicle()
@@ -48,7 +48,7 @@ namespace GT86Registry.Core.Entities
         public VehicleLocation VehicleLocation { get; set; }
         public int VehicleLocationId { get; set; }
 
-        public List<VehiclesImages> VehicleImages { get; set; }
+        public List<VehiclesImages> VehicleImages { get; set; } = new List<VehiclesImages>();
 
         #endregion Navigation Properties
     }

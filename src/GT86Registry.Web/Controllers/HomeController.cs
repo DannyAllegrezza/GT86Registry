@@ -5,14 +5,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GT86Registry.Web.Models;
+using GT86Registry.Infrastructure.Data;
 
 namespace GT86Registry.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly VehicleRepository _vehicleRepository;
+
+        public HomeController(VehicleRepository vehicleRepository)
+        {
+            _vehicleRepository = vehicleRepository;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            return View(_vehicleRepository.GetAllVehicles());
         }
 
         public IActionResult About()
