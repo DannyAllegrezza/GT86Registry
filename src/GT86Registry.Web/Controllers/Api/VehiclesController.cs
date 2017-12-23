@@ -33,7 +33,7 @@ namespace GT86Registry.Web.Controllers.Api
         {
             if (vin == null) { return BadRequest(); }
 
-            var vehicle = _repository.GetVehicleById(vin);
+            var vehicle = _repository.GetVehicleByVIN(vin);
             return Ok(vehicle);
         }
     }

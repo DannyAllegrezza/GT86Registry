@@ -29,16 +29,21 @@ namespace GT86Registry.Infrastructure.Data
                                 .Include(vehicle => vehicle.VehicleLocation);
 
             var vehicleDtos = new List<VehicleDto>();
+
             foreach (var vehicle in vehicles)
             {
                 vehicleDtos.Add(new VehicleDto(vehicle));
             }
 
             return vehicleDtos;
- 
         }
 
-        public VehicleDto GetVehicleById(string vin)
+        /// <summary>
+        /// Gets a single Vehicle, by VIN, along with with related entities.
+        /// </summary>
+        /// <param name="vin"></param>
+        /// <returns></returns>
+        public VehicleDto GetVehicleByVIN(string vin)
         {
             var singleVehicle = _vehicleContext.Vehicles.Where(vehicle => vehicle.VIN == vin)
                                 .Include(vehicle => vehicle.ModelYear)

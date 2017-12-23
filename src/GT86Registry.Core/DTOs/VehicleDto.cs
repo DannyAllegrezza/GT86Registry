@@ -20,7 +20,7 @@ namespace GT86Registry.Core.DTOs
         public int Year { get; set; }
         public string Transmission { get; set; }
         public VehicleLocation VehicleLocation { get; set; }
-        public List<Image> VehicleImages { get; set; }
+        public List<Image> VehicleImages { get; set; } = new List<Image>();
 
         public VehicleDto()
         {

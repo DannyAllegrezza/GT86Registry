@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GT86Registry.Core\GT86Registry.Core.csproj" />
     <ProjectReference Include="..\GT86Registry.Infrastructure\GT86Registry.Infrastructure.csproj" />
   </ItemGroup>
 
