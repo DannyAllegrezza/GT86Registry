@@ -23,6 +23,7 @@ namespace GT86Registry.Infrastructure.Data
                 UserManager<ApplicationUser> userManager,
                 ILoggerFactory loggerFactory)
         {
+            // Uncomment these two lines to delete and recreate the database
             // vehicleContext.Database.EnsureDeleted();
             // vehicleContext.Database.Migrate();
             // Create Manufacturers
@@ -580,6 +581,7 @@ namespace GT86Registry.Infrastructure.Data
             sampleBrz.UserIdentityGuid = defaultUserId;
 
             vehicles.Add(sampleBrz);
+
 
             return vehicles;
         }
