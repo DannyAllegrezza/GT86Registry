@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 namespace GT86Registry.Web.Controllers.Api
 {
     [Route("api/vehicles")]
-    public class VehiclesController : Controller
+    public class VehiclesApiController : Controller
     {
         private readonly VehicleRepository _repository;
 
-        public VehiclesController(VehicleRepository repository)
+        public VehiclesApiController(VehicleRepository repository)
         {
             _repository = repository;
         }

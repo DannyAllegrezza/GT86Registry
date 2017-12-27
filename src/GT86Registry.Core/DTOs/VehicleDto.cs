@@ -10,6 +10,7 @@ namespace GT86Registry.Core.DTOs
     public class VehicleDto : ISocialMediaLinks
     {
         public string VIN { get; set; }
+        public string Username { get; set; }
         public string InstagramUri { get; set; }
         public string FacebookUri { get; set; }
         public string ImageUri { get; set; }
@@ -30,6 +31,7 @@ namespace GT86Registry.Core.DTOs
         public VehicleDto(Vehicle vehicle)
         {
             VIN = vehicle.VIN;
+            //TODO(dca): store the User info here...
             InstagramUri = vehicle.InstagramUri;
             FacebookUri = vehicle.FacebookUri;
             ImageUri = vehicle.Image.Uri;
