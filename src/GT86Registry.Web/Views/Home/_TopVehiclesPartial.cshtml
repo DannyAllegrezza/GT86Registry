@@ -1,16 +1,40 @@
 ﻿@model IEnumerable<VehicleDto>;
 
-@foreach (var vehicle in Model)
-{
-    <div class="row">
+<div class="row">
+    @foreach (var vehicle in Model)
+    {
+
         <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img src="@vehicle.ImageUri" alt="...">
-                <div class="caption">
-                    <h3>@vehicle.Year @vehicle.Manufacturer @vehicle.Model</h3>
-                    <p></p>
+            <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.VIN">
+                <div class="thumbnail">
+                    <img src="@vehicle.ImageUri" alt="...">
+                    <div class="caption">
+                        <h3>@vehicle.Year @vehicle.Manufacturer @vehicle.Model</h3>
+                        <p></p>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+    }
+
+</div>
+
+@* @model IEnumerable<VehicleDto>;
+
+    <div class="row people">
+        @foreach (var vehicle in Model)
+        {
+            <div class="col-md-4 col-sm-6 item">
+                <img class="img-circle img-responsive" src="@vehicle.ImageUri" />
+                <h3 class="name">@vehicle.Year @vehicle.Manufacturer @vehicle.Model</h3>
+                <p class="title">@vehicle.Username</p>
+                <p class="description">This vehicle does not have any description yet.</p>
+                <div class="social">
+                    <a href="@vehicle.FacebookUri"><i class="fa fa-facebook-official"></i></a>
+                    <a href="@vehicle.InstagramUri"><i class="fa fa-instagram"></i></a>
                 </div>
             </div>
-        </div>
-    </div>
-}
+        }
+    </div> *@
