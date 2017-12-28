@@ -14,7 +14,7 @@ namespace GT86Registry.Core.Entities
         /// The Vehicle Information Number
         /// </summary>
         public string VIN { get; set; }
-
+        public int Mileage { get; set; }
         public string InstagramUri { get; set; }
         public string FacebookUri { get; set; }
         public string Description { get; set; }

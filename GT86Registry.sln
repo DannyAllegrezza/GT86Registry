@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GT86Registry.Web", "src\GT8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GT86Registry.WebAPI", "src\GT86Registry.WebAPI\GT86Registry.WebAPI.csproj", "{E7928A02-0557-4811-B52A-C4F0788A8EF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "tests\UnitTests\UnitTests.csproj", "{7381C962-B44C-47D9-B41F-84C8BA86CECA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "tests\UnitTests\UnitTests.csproj", "{7381C962-B44C-47D9-B41F-84C8BA86CECA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
