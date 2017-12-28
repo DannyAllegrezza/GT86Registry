@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GT86Registry.Core.Entities
+﻿namespace GT86Registry.Core.Entities
 {
     /// <summary>
     /// Represents a join table between the Vehicles and VehiclePhotos tables

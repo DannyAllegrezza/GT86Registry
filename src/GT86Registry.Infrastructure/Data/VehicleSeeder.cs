@@ -23,8 +23,9 @@ namespace GT86Registry.Infrastructure.Data
                 UserManager<ApplicationUser> userManager,
                 ILoggerFactory loggerFactory)
         {
-            // vehicleContext.Database.EnsureDeleted();
-            // vehicleContext.Database.Migrate();
+            // Uncomment these two lines to delete and recreate the database
+            //vehicleContext.Database.EnsureDeleted();
+            //vehicleContext.Database.Migrate();
             // Create Manufacturers
             if (!vehicleContext.Manufacturers.Any())
             {
@@ -89,18 +90,17 @@ namespace GT86Registry.Infrastructure.Data
 
             if (!vehicleContext.Images.Any())
             {
-                vehicleContext.Images.AddRange(GetDefaultProfilePhotoUri());
+                vehicleContext.Images.AddRange(GetDefaultProfilePhotoUri(userManager));
                 await vehicleContext.SaveChangesAsync();
             }
 
             // Combine everything to create some test vehicles
             if (!vehicleContext.Vehicles.Any())
             {
-                var defaultUser = await userManager.FindByEmailAsync("testuser@gt86registry.com");
-
-                vehicleContext.Vehicles.AddRange(GetDefaultVehicles(vehicleContext, defaultUser.Id));
+                vehicleContext.Vehicles.AddRange(GetDefaultVehicles(vehicleContext, userManager));
 
                 await vehicleContext.SaveChangesAsync();
+
             }
         }
 
@@ -552,34 +552,89 @@ namespace GT86Registry.Infrastructure.Data
         {
             return new List<VehicleLocation>()
             {
-                new VehicleLocation(35.813453, -78.819194)
+                new VehicleLocation(35.813453, -78.819194),
+                new VehicleLocation(40.52, -111.87),
+                new VehicleLocation(38.97, -76.50)
             };
         }
 
-        private static IEnumerable<Image> GetDefaultProfilePhotoUri()
+        private static IEnumerable<Image> GetDefaultProfilePhotoUri(UserManager<ApplicationUser> userManager)
         {
-            var defaultProfilePhoto = new Image();
-            defaultProfilePhoto.Uri = "https://i.imgur.com/8RuGLC6.jpg";
+            var defaultUser = userManager.FindByEmailAsync("testuser@gt86registry.com").Result;
+            var defaultProfilePhoto = new Image
+            {
+                Uri = "https://i.imgur.com/8RuGLC6.jpg",
+                UserIdentityGuid = defaultUser.Id
+            };
+
+            var frsUser = userManager.FindByEmailAsync("testfrs@gt86registry.com").Result;
+            var frsProfilePhoto = new Image
+            {
+                Uri = "http://i.imgur.com/cHZgF.jpg",
+                UserIdentityGuid = frsUser.Id
+            };
+
+            var gt86User = userManager.FindByEmailAsync("testgt86@gt86registry.com").Result;
+            var gt86ProfilePhoto = new Image
+            {
+                Uri = "https://listings.tcimg.net/listings/5316/72/36/JF1ZNAA10H8703672/MIYAOIULAV4Z62Q4N2XOYFLS64-600.jpg",
+                UserIdentityGuid = gt86User.Id
+            };
 
             return new List<Image>()
             {
-                defaultProfilePhoto
+                defaultProfilePhoto,
+                frsProfilePhoto,
+                gt86ProfilePhoto
             };
         }
 
-        private static IEnumerable<Vehicle> GetDefaultVehicles(VehicleDbContext vehicleContext, string defaultUserId)
+        private static IEnumerable<Vehicle> GetDefaultVehicles(VehicleDbContext vehicleContext, UserManager<ApplicationUser> userManager)
         {
             List<Vehicle> vehicles = new List<Vehicle>();
 
-            var sampleBrz = new Vehicle("JF1ZCAC11E9603184");
-            sampleBrz.ModelYearId = 3; // 2017
-            sampleBrz.TransmissionId = 1; // 6-Spd Manual
-            sampleBrz.ColorId = 14; // Pure Red
-            sampleBrz.ProfilePhotoId = 1;
-            sampleBrz.VehicleLocationId = 1;
-            sampleBrz.UserIdentityGuid = defaultUserId;
+            var defaultUser = userManager.FindByEmailAsync("testuser@gt86registry.com").Result;
+            var sampleBrz = new Vehicle("JF1ZCAC11E9603184")
+            {
+                ModelYearId = 3, // 2014 BRZ
+                TransmissionId = 1, // 6-Spd Manual
+                ColorId = 14, // World Rally Blue
+                ProfilePhotoId = 1,
+                VehicleLocationId = 1,
+                UserIdentityGuid = defaultUser.Id,
+                Description = "This is my first Subaru! I've always wanted a World Rally Blue vehicle and found a great deal on my BRZ. So far, I have a few mods, including Tein Coilovers, Perrin wheel spacers, Greddy axle-back exhaust and Phase2 Motortrend suspension arms.",
+                Mileage = 57341
+            };
 
             vehicles.Add(sampleBrz);
+
+            var frsUser = userManager.FindByEmailAsync("testfrs@gt86registry.com").Result;
+            var sampleFrs = new Vehicle("JF1ZNAA13E9709794")
+            {
+                ModelYearId = 14, // 2013 FRS
+                TransmissionId = 1, // 6-Spd Manual
+                ColorId = 3, // White
+                VehicleLocationId = 2,
+                ProfilePhotoId = 2,
+                UserIdentityGuid = frsUser.Id,
+                Description = "The FRS is such a fun car. I've been driving mine for 4 years now and still really love it. They're great cars.",
+                Mileage = 21024
+            };
+            vehicles.Add(sampleFrs);
+
+            var gt86User = userManager.FindByEmailAsync("testgt86@gt86registry.com").Result;
+            var samplegt86 = new Vehicle("JF1ZNAA10H8703672")
+            {
+                ModelYearId = 10, // 2017 GT86
+                TransmissionId = 1, // 6-Spd Manual
+                ColorId = 1, // Ablaze
+                VehicleLocationId = 3,
+                ProfilePhotoId = 3,
+                UserIdentityGuid = gt86User.Id,
+                Description = "My GT86 is my first RWD vehicle. I've been taking it to drift events pretty often. My favorite thing about the 86 is the aftermarket selection. There are parts for days!",
+                Mileage = 3765
+            };
+            vehicles.Add(samplegt86);
 
             return vehicles;
         }

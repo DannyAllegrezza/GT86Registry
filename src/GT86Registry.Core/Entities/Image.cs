@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace GT86Registry.Core.Entities
 {
@@ -8,7 +6,13 @@ namespace GT86Registry.Core.Entities
     {
         public int Id { get; set; }
         public string Uri { get; set; }
+        public string UserIdentityGuid { get; set; }
+
+        #region Navigation Properties
+
         public List<Vehicle> Vehicles { get; set; }
         public List<VehiclesImages> VehicleImages { get; set; }
+
+        #endregion Navigation Properties
     }
 }
