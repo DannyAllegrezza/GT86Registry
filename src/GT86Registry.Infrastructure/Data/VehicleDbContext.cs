@@ -21,6 +21,7 @@ namespace GT86Registry.Infrastructure.Data
         public DbSet<Transmission> Transmissions { get; set; }
         public DbSet<ModelTransmissions> ModelTransmissions { get; set; }
         public DbSet<VehicleLocation> VehicleLocations { get; set; }
+        public DbSet<VehicleStatus> VehicleStatuses { get; set; }
 
         #region Constructors
 
@@ -72,12 +73,20 @@ namespace GT86Registry.Infrastructure.Data
             modelBuilder.Entity<VehiclesImages>(ConfigureVehicleImages);
             modelBuilder.Entity<Vehicle>(ConfigureVehicle);
             modelBuilder.Entity<VehicleLocation>(ConfigureVehicleLocation);
+            modelBuilder.Entity<VehicleStatus>(ConfigureVehicleStatus);
         }
 
         private void ConfigureBaseEntity(EntityTypeBuilder<BaseEntity> builder)
         {
             builder.Property(m => m.CreatedDate).IsRequired(true).HasDefaultValue(DateTimeOffset.UtcNow);
             builder.Property(m => m.ModifiedDate).IsRequired(true).HasDefaultValue(DateTimeOffset.UtcNow);
+        }
+
+        private void ConfigureVehicleStatus(EntityTypeBuilder<VehicleStatus> builder)
+        {
+            builder.ToTable("VehicleStatus");
+            builder.HasKey(vs => vs.Id);
+            builder.Property(vs => vs.Name).IsRequired(true).HasMaxLength(150);
         }
 
         private void ConfigureManufacturer(EntityTypeBuilder<Manufacturer> builder)

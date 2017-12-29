@@ -26,6 +26,15 @@ namespace GT86Registry.Infrastructure.Data
             // Uncomment these two lines to delete and recreate the database
             //vehicleContext.Database.EnsureDeleted();
             //vehicleContext.Database.Migrate();
+
+            // Create Vehicle Statuses 
+            if (!vehicleContext.VehicleStatuses.Any())
+            {
+                vehicleContext.VehicleStatuses.AddRange(GetDefaultVehicleStatuses());
+
+                await vehicleContext.SaveChangesAsync();
+            }
+
             // Create Manufacturers
             if (!vehicleContext.Manufacturers.Any())
             {
