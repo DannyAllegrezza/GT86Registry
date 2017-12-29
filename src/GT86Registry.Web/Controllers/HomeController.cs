@@ -23,6 +23,12 @@ namespace GT86Registry.Web.Controllers
             return View(_vehicleRepository.GetAllVehicles());
         }
 
+        [Route("{username}")]
+        public IActionResult UserProfile(string username)
+        {
+            return null;
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";

@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<VehicleDto>;
-
+@{ 
+    ViewBag.Title = "Home";
+}
 <div class="row">
     @foreach (var vehicle in Model)
     {

@@ -9,34 +9,41 @@ namespace GT86Registry.Core.DTOs
     /// </summary>
     public class VehicleDto : ISocialMediaLinks
     {
-        public string VIN { get; set; }
-        public string Username { get; set; }
-        public string InstagramUri { get; set; }
-        public string FacebookUri { get; set; }
-        public string ImageUri { get; set; }
+        #region Properties
+
         public string ColorCode { get; set; }
         public string ColorName { get; set; }
+        public string Description { get; set; }
+        public string FacebookUri { get; set; }
+        public string ImageUri { get; set; }
+        public string InstagramUri { get; set; }
         public string Manufacturer { get; set; }
         public string Model { get; set; }
-        public int Year { get; set; }
         public string Transmission { get; set; }
-        public VehicleLocation VehicleLocation { get; set; }
+        public string Username { get; set; }
         public List<Image> VehicleImages { get; set; } = new List<Image>();
+        public VehicleLocation VehicleLocation { get; set; }
+        public string VIN { get; set; }
+        public int Year { get; set; }
+
+        #endregion Properties
+
+        #region Constructors
 
         public VehicleDto()
         {
-
         }
 
         public VehicleDto(Vehicle vehicle)
         {
             VIN = vehicle.VIN;
-            //TODO(dca): store the User info here...
+            Username = vehicle.UserIdentityGuid;
             InstagramUri = vehicle.InstagramUri;
             FacebookUri = vehicle.FacebookUri;
             ImageUri = vehicle.Image.Uri;
             ColorCode = vehicle.Color.Code;
             ColorName = vehicle.Color.Name;
+            Description = vehicle.Description;
             Manufacturer = vehicle.ModelYear.Model.Manufacturer.Name;
             Model = vehicle.ModelYear.Model.Name;
             Year = vehicle.ModelYear.Year;
@@ -51,5 +58,7 @@ namespace GT86Registry.Core.DTOs
                 }
             }
         }
+
+        #endregion Constructors
     }
 }
