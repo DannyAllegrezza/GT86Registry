@@ -34,6 +34,8 @@ namespace GT86Registry.Infrastructure.Identity.Migrations
 
                     b.Property<string>("Country");
 
+                    b.Property<DateTimeOffset>("CreatedDate");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -45,11 +47,15 @@ namespace GT86Registry.Infrastructure.Identity.Migrations
 
                     b.Property<string>("InstagramUri");
 
+                    b.Property<DateTimeOffset>("LastActivityDate");
+
                     b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<DateTimeOffset>("ModifiedDate");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);

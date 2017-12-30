@@ -12,7 +12,7 @@ namespace GT86Registry.Infrastructure.Identity
             {
                 var defaultUser = new ApplicationUser
                 {
-                    UserName = "testuser@gt86registry.com",
+                    UserName = "test-brz",
                     Email = "testuser@gt86registry.com",
                     FirstName = "Danny",
                     LastName = "Allegrezza",
@@ -27,7 +27,7 @@ namespace GT86Registry.Infrastructure.Identity
 
                 var defaultFrsUser = new ApplicationUser
                 {
-                    UserName = "testfrs@gt86registry.com",
+                    UserName = "test-frs",
                     Email = "testfrs@gt86registry.com",
                     FirstName = "John",
                     LastName = "Appleseed",
@@ -42,7 +42,7 @@ namespace GT86Registry.Infrastructure.Identity
 
                 var defaultGt86User = new ApplicationUser
                 {
-                    UserName = "testgt86@gt86registry.com",
+                    UserName = "test-gt86",
                     Email = "testgt86@gt86registry.com",
                     FirstName = "Bill",
                     LastName = "Doe",

@@ -26,6 +26,15 @@ namespace GT86Registry.Infrastructure.Data
             // Uncomment these two lines to delete and recreate the database
             //vehicleContext.Database.EnsureDeleted();
             //vehicleContext.Database.Migrate();
+
+            // Create Vehicle Statuses 
+            if (!vehicleContext.VehicleStatuses.Any())
+            {
+                vehicleContext.VehicleStatuses.AddRange(GetDefaultVehicleStatuses());
+
+                await vehicleContext.SaveChangesAsync();
+            }
+
             // Create Manufacturers
             if (!vehicleContext.Manufacturers.Any())
             {
@@ -102,6 +111,18 @@ namespace GT86Registry.Infrastructure.Data
                 await vehicleContext.SaveChangesAsync();
 
             }
+        }
+
+        private static IEnumerable<VehicleStatus> GetDefaultVehicleStatuses()
+        {
+            return new List<VehicleStatus>()
+            {
+                new VehicleStatus(Status.Active.ToString(), Status.Active),
+                new VehicleStatus(Status.TrackCar.ToString(), Status.TrackCar),
+                new VehicleStatus(Status.Sold.ToString(), Status.Sold),
+                new VehicleStatus(Status.Totaled.ToString(), Status.Totaled),
+                new VehicleStatus(Status.Stolen.ToString(), Status.Stolen)
+            };
         }
 
         private static IEnumerable<Manufacturer> GetDefaultManufacturers()
@@ -603,7 +624,10 @@ namespace GT86Registry.Infrastructure.Data
                 VehicleLocationId = 1,
                 UserIdentityGuid = defaultUser.Id,
                 Description = "This is my first Subaru! I've always wanted a World Rally Blue vehicle and found a great deal on my BRZ. So far, I have a few mods, including Tein Coilovers, Perrin wheel spacers, Greddy axle-back exhaust and Phase2 Motortrend suspension arms.",
-                Mileage = 57341
+                Mileage = 57341,
+                InstagramUri = SeedData.INSTAGRAM_URI,
+                FacebookUri = SeedData.SUBARU_FACEBOOK_URI,
+                Status = vehicleContext.VehicleStatuses.First(x => x.Name == Status.Active.ToString())
             };
 
             vehicles.Add(sampleBrz);
@@ -618,7 +642,10 @@ namespace GT86Registry.Infrastructure.Data
                 ProfilePhotoId = 2,
                 UserIdentityGuid = frsUser.Id,
                 Description = "The FRS is such a fun car. I've been driving mine for 4 years now and still really love it. They're great cars.",
-                Mileage = 21024
+                Mileage = 21024,
+                InstagramUri = SeedData.TOYOTA_INSTAGRAM_URI,
+                FacebookUri = SeedData.TOYOTA_FACEBOOK_URI,
+                Status = vehicleContext.VehicleStatuses.First(x => x.Name == Status.Active.ToString())
             };
             vehicles.Add(sampleFrs);
 
@@ -632,7 +659,10 @@ namespace GT86Registry.Infrastructure.Data
                 ProfilePhotoId = 3,
                 UserIdentityGuid = gt86User.Id,
                 Description = "My GT86 is my first RWD vehicle. I've been taking it to drift events pretty often. My favorite thing about the 86 is the aftermarket selection. There are parts for days!",
-                Mileage = 3765
+                Mileage = 3765,
+                InstagramUri = SeedData.TOYOTA_INSTAGRAM_URI,
+                FacebookUri = SeedData.TOYOTA_FACEBOOK_URI,
+                Status = vehicleContext.VehicleStatuses.First(x => x.Name == Status.Totaled.ToString())
             };
             vehicles.Add(samplegt86);
 

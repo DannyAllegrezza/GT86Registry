@@ -18,6 +18,8 @@ namespace GT86Registry.Core.Entities
         public string InstagramUri { get; set; }
         public string FacebookUri { get; set; }
         public string Description { get; set; }
+        public int ViewCount { get; set; } = 0;
+
         #region Constructors
 
         protected Vehicle()
@@ -32,6 +34,9 @@ namespace GT86Registry.Core.Entities
         #endregion Constructors
 
         #region Navigation Properties
+
+        public VehicleStatus Status { get; set; }
+        public int StatusId { get; set; }
 
         public Image Image { get; set; }
         public int ProfilePhotoId { get; set; }
