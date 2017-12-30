@@ -9,9 +9,9 @@ namespace GT86Registry.Core.Entities
     public class VehicleStatus
     {
         #region Properties
-        public static string Active = "Active";
         public int Id { get; set; }
         public string Name { get; set; }
+        public Status StatusCode { get; set; }
 
         #endregion Properties
 
@@ -21,7 +21,7 @@ namespace GT86Registry.Core.Entities
         {
         }
 
-        public VehicleStatus(string statusName)
+        public VehicleStatus(string statusName, Status statusCode)
         {
             if (String.IsNullOrEmpty(statusName))
             {
@@ -29,6 +29,7 @@ namespace GT86Registry.Core.Entities
             }
 
             Name = statusName;
+            StatusCode = statusCode;
         }
 
         #endregion Constructors
@@ -38,5 +39,14 @@ namespace GT86Registry.Core.Entities
         public List<Vehicle> Vehicles { get; set; }
 
         #endregion Navigation Properties
+    }
+
+    public enum Status
+    {
+        Active,
+        TrackCar,
+        Sold,
+        Totaled,
+        Stolen
     }
 }

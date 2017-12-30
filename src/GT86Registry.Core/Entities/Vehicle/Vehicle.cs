@@ -36,7 +36,7 @@ namespace GT86Registry.Core.Entities
         #region Navigation Properties
 
         public VehicleStatus Status { get; set; }
-        public int VehicleStatusId { get; set; }
+        public int StatusId { get; set; }
 
         public Image Image { get; set; }
         public int ProfilePhotoId { get; set; }
