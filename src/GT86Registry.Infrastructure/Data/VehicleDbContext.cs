@@ -87,6 +87,7 @@ namespace GT86Registry.Infrastructure.Data
             builder.ToTable("VehicleStatus");
             builder.HasKey(vs => vs.Id);
             builder.Property(vs => vs.Name).IsRequired(true).HasMaxLength(150);
+            builder.Property(vs => vs.StatusCode).IsRequired(true);
         }
 
         private void ConfigureManufacturer(EntityTypeBuilder<Manufacturer> builder)
@@ -162,6 +163,10 @@ namespace GT86Registry.Infrastructure.Data
             builder.HasOne(i => i.Image)
                 .WithMany(v => v.Vehicles)
                 .HasForeignKey(v => v.ProfilePhotoId);
+
+            builder.HasOne(vs => vs.Status)
+                .WithMany(v => v.Vehicles)
+                .HasForeignKey(v => v.StatusId);
         }
 
         private void ConfigureVehicleLocation(EntityTypeBuilder<VehicleLocation> builder)

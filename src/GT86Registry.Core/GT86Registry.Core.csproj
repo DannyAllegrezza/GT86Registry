@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Entities\Enums\" />
+    <Folder Include="Entities\Messages\" />
   </ItemGroup>
 
 </Project>

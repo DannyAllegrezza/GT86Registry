@@ -26,7 +26,8 @@ namespace GT86Registry.Infrastructure.Data
                                 .Include(vehicle => vehicle.Color)
                                 .Include(vehicle => vehicle.Transmission)
                                 .Include(vehicle => vehicle.Image)
-                                .Include(vehicle => vehicle.VehicleLocation);
+                                .Include(vehicle => vehicle.VehicleLocation)
+                                .Include(vehicle => vehicle.Status);
 
             var vehicleDtos = new List<VehicleDto>();
 
@@ -53,6 +54,7 @@ namespace GT86Registry.Infrastructure.Data
                                 .Include(vehicle => vehicle.Transmission)
                                 .Include(vehicle => vehicle.Image)
                                 .Include(vehicle => vehicle.VehicleLocation)
+                                .Include(vehicle => vehicle.Status)
                                 .First();
 
             var vehicleDto = new VehicleDto(singleVehicle);

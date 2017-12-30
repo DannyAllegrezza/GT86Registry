@@ -18,7 +18,7 @@ namespace GT86Registry.Core.Entities
         public string InstagramUri { get; set; }
         public string FacebookUri { get; set; }
         public string Description { get; set; }
-
+        public int ViewCount { get; set; } = 0;
 
         #region Constructors
 

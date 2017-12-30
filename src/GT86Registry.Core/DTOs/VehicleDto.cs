@@ -25,6 +25,8 @@ namespace GT86Registry.Core.DTOs
         public VehicleLocation VehicleLocation { get; set; }
         public string VIN { get; set; }
         public int Year { get; set; }
+        public string Status { get; set; }
+        public int ViewCount { get; set; }
 
         #endregion Properties
 
@@ -49,6 +51,8 @@ namespace GT86Registry.Core.DTOs
             Year = vehicle.ModelYear.Year;
             Transmission = vehicle.Transmission.Name;
             VehicleLocation = new VehicleLocation(vehicle.VehicleLocation.Latitude, vehicle.VehicleLocation.Longitude);
+            ViewCount = vehicle.ViewCount;
+            Status = vehicle.Status.Name;
 
             if (vehicle.VehicleImages != null)
             {
