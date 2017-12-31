@@ -17,7 +17,47 @@ namespace GT86Registry.Infrastructure.Data
         /// Gets all the Vehicles in the database, along with their related entities.
         /// </summary>
         /// <returns>A collection of Vehicle objects, along with their related entities.</returns>
-        public IEnumerable<VehicleDto> GetAllVehicles()
+        public IEnumerable<Vehicle> GetAllVehicles()
+        {
+            var vehicles = _vehicleContext.Vehicles
+                                .Include(vehicle => vehicle.ModelYear)
+                                    .ThenInclude(v => v.Model)
+                                    .ThenInclude(v => v.Manufacturer)
+                                .Include(vehicle => vehicle.Color)
+                                .Include(vehicle => vehicle.Transmission)
+                                .Include(vehicle => vehicle.Image)
+                                .Include(vehicle => vehicle.VehicleLocation)
+                                .Include(vehicle => vehicle.Status);
+
+            return vehicles;
+        }
+
+        /// <summary>
+        /// Gets a single Vehicle, by VIN, along with with related entities.
+        /// </summary>
+        /// <param name="vin"></param>
+        /// <returns></returns>
+        public Vehicle GetVehicleByVIN(string vin)
+        {
+            var singleVehicle = _vehicleContext.Vehicles.Where(vehicle => vehicle.VIN == vin)
+                                .Include(vehicle => vehicle.ModelYear)
+                                    .ThenInclude(v => v.Model)
+                                    .ThenInclude(v => v.Manufacturer)
+                                .Include(vehicle => vehicle.Color)
+                                .Include(vehicle => vehicle.Transmission)
+                                .Include(vehicle => vehicle.Image)
+                                .Include(vehicle => vehicle.VehicleLocation)
+                                .Include(vehicle => vehicle.Status)
+                                .First();
+
+            return singleVehicle;
+        }
+
+        /// <summary>
+        /// Gets all the Vehicles in the database, along with their related entities.
+        /// </summary>
+        /// <returns>A collection of Vehicle objects, along with their related entities.</returns>
+        public IEnumerable<VehicleDto> GetAllVehiclesDto()
         {
             var vehicles = _vehicleContext.Vehicles
                                 .Include(vehicle => vehicle.ModelYear)
@@ -44,7 +84,7 @@ namespace GT86Registry.Infrastructure.Data
         /// </summary>
         /// <param name="vin"></param>
         /// <returns></returns>
-        public VehicleDto GetVehicleByVIN(string vin)
+        public VehicleDto GetVehicleByVINDto(string vin)
         {
             var singleVehicle = _vehicleContext.Vehicles.Where(vehicle => vehicle.VIN == vin)
                                 .Include(vehicle => vehicle.ModelYear)
@@ -62,4 +102,6 @@ namespace GT86Registry.Infrastructure.Data
             return vehicleDto;
         }
     }
+
+
 }

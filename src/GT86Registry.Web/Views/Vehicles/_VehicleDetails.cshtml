@@ -1,19 +1,19 @@
-﻿@model VehicleDto;
+﻿@model Vehicle;
 @{
 }
 
 
 <!-- Portfolio Item Heading -->
 <h1 class="my-4">
-    <h1>@Model.Year @Model.Manufacturer @Model.Model</h1>
-    <small>Registered by @Model.Username</small>
+    <h1>@Model.ModelYear.Year @Model.ModelYear.Model.Manufacturer.Name @Model.ModelYear.Model.Name</h1>
+    <small>Registered by @Model.UserIdentityGuid</small>
 </h1>
 
 <!-- Portfolio Item Row -->
 <div class="row">
 
     <div class="col-md-8">
-        <img class="img-responsive" src="@Model.ImageUri" alt="">
+        <img class="img-responsive" src="@Model.Image.Uri" alt="">
     </div>
 
     <div class="col-md-4">
@@ -21,13 +21,13 @@
         <p>@Model.Description</p>
         <h3 class="my-3">Vehicle Details</h3>
         <ul>
-            <li><code>Status</code> @Model.Status</li>
+            <li><code>Status</code> <span class="btn btn-success">@Model.Status.Name</span></li>
             <li><code>Views</code> @Model.ViewCount</li>
-            <li><code>Year</code> @Model.Year</li>
-            <li><code>Manufacturer</code> @Model.Manufacturer</li>
-            <li><code>Model</code> @Model.Model</li>
-            <li><code>Color</code> @Model.ColorName (@Model.ColorCode)</li>
-            <li><code>Transmission</code> @Model.Transmission</li>
+            <li><code>Year</code> @Model.ModelYear.Year</li>
+            <li><code>Manufacturer</code> @Model.ModelYear.Model.Manufacturer.Name</li>
+            <li><code>Model</code> @Model.ModelYear.Model.Name</li>
+            <li><code>Color</code> @Model.Color.Name (@Model.Color.Code)</li>
+            <li><code>Transmission</code> @Model.Transmission.Name</li>
         </ul>
     </div>
 
