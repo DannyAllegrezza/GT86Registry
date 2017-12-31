@@ -27,6 +27,7 @@ namespace GT86Registry.Web.Controllers
             var vehicle = _vehicleRepository.GetVehicleByVIN(id);
 
             vehicle.ViewCount++;
+            _vehicleRepository.Update(vehicle);
 
             return View("_VehicleDetails", vehicle);
         }
