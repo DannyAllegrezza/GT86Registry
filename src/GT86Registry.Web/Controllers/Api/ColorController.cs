@@ -24,11 +24,6 @@ namespace GT86Registry.Web.Controllers.Api
         {
             var allColors = await _repository.ListAllAsync();
 
-            foreach (var color in allColors)
-            {
-                
-            }
-
             return Ok(allColors);
         }
     }
