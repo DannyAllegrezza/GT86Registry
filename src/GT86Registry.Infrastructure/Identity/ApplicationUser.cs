@@ -49,6 +49,8 @@ namespace GT86Registry.Infrastructure.Identity
 
         public DateTimeOffset ModifiedDate { get; set; }
 
+        public string ProfilePhotoUri { get; set; }
+
         public string PostalCode { get; set; }
 
         public string State { get; set; }

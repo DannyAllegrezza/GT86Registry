@@ -11,9 +11,10 @@ using System;
 namespace GT86Registry.Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    partial class AppIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180101190039_AdditionalAppUserProps")]
+    partial class AdditionalAppUserProps
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,8 +71,6 @@ namespace GT86Registry.Infrastructure.Identity.Migrations
                     b.Property<bool>("PhoneNumberConfirmed");
 
                     b.Property<string>("PostalCode");
-
-                    b.Property<string>("ProfilePhotoUri");
 
                     b.Property<string>("SecurityStamp");
 
