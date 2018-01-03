@@ -151,7 +151,19 @@ namespace GT86Registry.Infrastructure.Data
         private void ConfigureVehicleImages(EntityTypeBuilder<VehiclesImages> builder)
         {
             builder.ToTable("Vehicle_Image");
-            builder.HasKey(v => new { v.VehicleId, v.ImageId });
+            builder.HasKey(v => new { v.VehicleVIN, v.ImageId });
+
+            builder.HasOne(vi => vi.Vehicle)
+                .WithMany(v => v.VehicleImages)
+                .HasForeignKey(vi => vi.VehicleVIN)
+                .IsRequired(true)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(vi => vi.Image)
+                .WithMany(v => v.VehicleImages)
+                .HasForeignKey(vi => vi.ImageId)
+                .IsRequired(true)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
         private void ConfigureVehicle(EntityTypeBuilder<Vehicle> builder)
