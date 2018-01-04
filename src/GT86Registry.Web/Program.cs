@@ -3,6 +3,7 @@ using GT86Registry.Infrastructure.Identity;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,9 +12,14 @@ namespace GT86Registry.Web
 {
     public class Program
     {
+        public static IConfigurationRoot Configuration { get; set; }
+
         public static void Main(string[] args)
         {
             var host = BuildWebHost(args);
+
+            var builder = new ConfigurationBuilder();
+            Configuration = builder.Build();
 
             using (var scope = host.Services.CreateScope())
             {
@@ -22,7 +28,9 @@ namespace GT86Registry.Web
                 try
                 {
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-                    AppIdentitySeeder.SeedAsync(userManager).Wait();
+                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+                    AppIdentitySeeder.SeedAsync(userManager, roleManager).Wait();
 
 
                     var vehicleContext = services.GetRequiredService<VehicleDbContext>();

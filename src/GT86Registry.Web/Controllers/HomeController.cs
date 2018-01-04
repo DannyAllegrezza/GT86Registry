@@ -23,8 +23,8 @@ namespace GT86Registry.Web.Controllers
             return View(_vehicleRepository.GetAllVehicles());
         }
 
-        [Route("{username}")]
-        public IActionResult UserProfile(string username)
+
+        public IActionResult User(string username)
         {
             return null;
         }

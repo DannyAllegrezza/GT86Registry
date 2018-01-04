@@ -4,10 +4,27 @@ using System.Threading.Tasks;
 
 namespace GT86Registry.Infrastructure.Identity
 {
+    /// <summary>
+    /// Helper class used to create and seed Identity users.
+    /// </summary>
     public class AppIdentitySeeder
     {
-        public static async Task SeedAsync(UserManager<ApplicationUser> userManager)
+        public static async Task SeedAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
+            // Create roles
+           
+            string[] roleNames = { "Admin", "Member" };
+            IdentityResult roleResult;
+
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = await roleManager.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    roleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+
             if (!userManager.Users.Any())
             {
                 var defaultUser = new ApplicationUser
