@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GT86Registry.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -23,5 +24,8 @@ namespace GT86Registry.Web.Models.AccountViewModels
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public string VIN { get; set; }
+        public List<Manufacturer> Manufacturers
     }
 }
