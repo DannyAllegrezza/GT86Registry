@@ -2,6 +2,7 @@
 using GT86Registry.Core.Interfaces;
 using GT86Registry.Infrastructure.Data;
 using GT86Registry.Infrastructure.Identity;
+using GT86Registry.Web.Interfaces;
 using GT86Registry.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -47,9 +48,10 @@ namespace GT86Registry.Web
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EFRepository<>));
+
             services.AddScoped<VehicleRepository>();
             services.AddTransient<VehicleSeeder>();
-
+            services.AddScoped<IVehicleService, VehicleService>();
             services.AddMvc().AddJsonOptions(options => 
             {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;

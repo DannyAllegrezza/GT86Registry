@@ -9,8 +9,8 @@ namespace GT86Registry.Web.Interfaces
 {
     public interface IVehicleService
     {
-        Task<IEnumerable<SelectListItem>> GetManufacturers();
+        Task<IEnumerable<SelectListItem>> GetManufacturersByYear(int year);
         Task<IEnumerable<SelectListItem>> GetModels(Manufacturer manufacturer);
-        Task<IEnumerable<SelectListItem>> GetYears();
+        Task<IEnumerable<SelectListItem>> GetAllYears();
     }
 }
