@@ -1,4 +1,5 @@
 ﻿using GT86Registry.Core.Entities;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -32,8 +33,13 @@ namespace GT86Registry.Web.Models.AccountViewModels
 
 
         public string VIN { get; set; }
+
+        [BindRequired]
+        [Display(Name = "Vehicle Year")]
         public int YearId { get; set; }
+
         public int ManufacturerId { get; set; }
+
         public int VehicleModelId { get; set; }
     }
 }

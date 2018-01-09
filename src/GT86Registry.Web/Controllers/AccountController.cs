@@ -226,6 +226,20 @@ namespace GT86Registry.Web.Controllers
             return View(vm);
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetManufacturersByYear(int year)
+        {
+            return Json(await _vehicleService.GetManufacturersByYear(year));
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetModels(int year, string manufacturer)
+        {
+            return Json(await _vehicleService.GetModels(year, manufacturer));
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
