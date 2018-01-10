@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     console.log("registration.js init");
+    // Populate the Manufacturer Select List
     $("#YearId").change(function () {
         $manufacturerId = $("#ManufacturerId");
 
@@ -17,6 +18,7 @@
         });
     });
 
+    // Populate the Model Select List
     $("#ManufacturerId").change(function () {
         $modelId = $("#VehicleModelId");
 

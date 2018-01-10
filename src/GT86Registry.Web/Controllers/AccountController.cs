@@ -11,6 +11,8 @@ using GT86Registry.Web.Models.AccountViewModels;
 using GT86Registry.Web.Services;
 using GT86Registry.Infrastructure.Identity;
 using GT86Registry.Web.Interfaces;
+using GT86Registry.Infrastructure.Data;
+using GT86Registry.Core.Entities;
 
 namespace GT86Registry.Web.Controllers
 {
@@ -24,6 +26,7 @@ namespace GT86Registry.Web.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly IVehicleService _vehicleService;
+        private readonly VehicleRepository _vehicleRepository;
         #endregion Properties
 
         #region Constructors
@@ -32,6 +35,7 @@ namespace GT86Registry.Web.Controllers
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             IVehicleService vehicleService,
+            VehicleRepository vehicleRepository,
             ILogger<AccountController> logger)
         {
             _userManager = userManager;
@@ -39,6 +43,7 @@ namespace GT86Registry.Web.Controllers
             _emailSender = emailSender;
             _logger = logger;
             _vehicleService = vehicleService;
+            _vehicleRepository = vehicleRepository;
         }
         #endregion Constructors
 
@@ -259,7 +264,10 @@ namespace GT86Registry.Web.Controllers
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("User logged in.");
+
+                    // Register the users Vehicle
+                    Vehicle userVehicle = new Vehicle(model.VIN);
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);

@@ -38,8 +38,12 @@ namespace GT86Registry.Web.Models.AccountViewModels
         [Display(Name = "Vehicle Year")]
         public int YearId { get; set; }
 
+        [BindRequired]
+        [Display(Name = "Vehicle Make")]
         public int ManufacturerId { get; set; }
 
+        [BindRequired]
+        [Display(Name = "Vehicle Model")]
         public int VehicleModelId { get; set; }
     }
 }

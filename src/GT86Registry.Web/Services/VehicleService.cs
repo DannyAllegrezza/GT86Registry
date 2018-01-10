@@ -75,21 +75,20 @@ namespace GT86Registry.Web.Services
 
         public async Task<IEnumerable<SelectListItem>> GetModels(int year, string manufacturer)
         {
-            var models = _vehicleContext.VehicleModels
-                        .Include(vm => vm.ModelYears)
-                        .Include(vm => vm.Manufacturer)
-                        .Where(m => m.Manufacturer.Name == manufacturer && m.ModelYears.Select(y => y.Year == year).FirstOrDefault());
+
+            var car = _vehicleContext.Years
+                        .Include(vm => vm.Model)
+                        .Include(vm => vm.Model.Manufacturer);
+
+
+            var filteredCar = car.Where(m => m.Model.Manufacturer.Name == manufacturer && m.Year == year).FirstOrDefault();
 
             var items = new List<SelectListItem>
             {
-                new SelectListItem() { Value = null, Text = "Select Model", Selected = true }
+                new SelectListItem() { Value = null, Text = "Select Model", Selected = true },
+                new SelectListItem() { Value = filteredCar.Model.Name, Text = filteredCar.Model.Name}
             };
-
-            foreach (var model in models)
-            {
-                items.Add(new SelectListItem() { Value = model.Name, Text = model.Name });
-            }
-
+            
             return items;
         }
     }
