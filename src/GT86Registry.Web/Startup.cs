@@ -51,7 +51,7 @@ namespace GT86Registry.Web
 
             services.AddScoped<VehicleRepository>();
             services.AddTransient<VehicleSeeder>();
-            services.AddScoped<IVehicleService, VehicleService>();
+            services.AddScoped<IVehicleViewModelService, VehicleViewModelService>();
             services.AddMvc().AddJsonOptions(options => 
             {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;

@@ -12,9 +12,9 @@ namespace GT86Registry.Web.Controllers.Api
     [Route("api/Years")]
     public class YearsController : Controller
     {
-        private readonly IVehicleService _vehicleService;
+        private readonly IVehicleViewModelService _vehicleService;
 
-        public YearsController(IVehicleService vehicleService)
+        public YearsController(IVehicleViewModelService vehicleService)
         {
             _vehicleService = vehicleService;
         }

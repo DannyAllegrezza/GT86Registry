@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 
 namespace GT86Registry.Web.Interfaces
 {
-    public interface IVehicleService
+    public interface IVehicleViewModelService
     {
         Task<IEnumerable<SelectListItem>> GetManufacturersByYear(int year);
         Task<IEnumerable<SelectListItem>> GetModels(int year, string manufacturer);
         Task<IEnumerable<SelectListItem>> GetAllYears();
+        Task<IEnumerable<SelectListItem>> GetAvailableColorsForModel(int year, string model);
+
+
     }
 }

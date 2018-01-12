@@ -12,14 +12,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GT86Registry.Web.Services
 {
-    public class VehicleService : IVehicleService
+    public class VehicleViewModelService : IVehicleViewModelService
     {
         private readonly IAsyncRepository<ModelYear> _yearRepository;
         private readonly IAsyncRepository<Manufacturer> _manufacturerRepository;
         private readonly IAsyncRepository<Model> _vehicleModelRepository;
         private readonly VehicleDbContext _vehicleContext;
 
-        public VehicleService(IAsyncRepository<ModelYear> yearRepository, 
+        public VehicleViewModelService(IAsyncRepository<ModelYear> yearRepository, 
                     IAsyncRepository<Manufacturer> manufacturerRepository,
                     IAsyncRepository<Model> vehicleModelRepository,
                     VehicleDbContext vehicleContext)
@@ -89,6 +89,33 @@ namespace GT86Registry.Web.Services
                 new SelectListItem() { Value = filteredCar.Model.Name, Text = filteredCar.Model.Name}
             };
             
+            return items;
+        }
+
+        public async void CreateVehicleForUser(string userId, RegisterViewModel viewModel)
+        {
+
+        }
+        
+        public async Task<IEnumerable<SelectListItem>> GetAvailableColorsForModel(int year,  string model)
+        {
+            // TODO (dca): query the join table instead
+            var colorChoices = _vehicleContext.ColorYears
+                                .Include(cy => cy.Color)
+                                .Include(cy => cy.ModelYear.Model)
+                                .Where(c => c.ModelYear.Year == year 
+                                    && c.ModelYear.Model.Name == model);
+
+            var items = new List<SelectListItem>
+            {
+                new SelectListItem() { Value = null, Text = "Select Make", Selected = true }
+            };
+
+            foreach (var color in colorChoices)
+            {
+                items.Add(new SelectListItem() { Value = color.Color.Name, Text = $"{color.Color.Name} ({color.Color.Code})" });
+            }
+
             return items;
         }
     }

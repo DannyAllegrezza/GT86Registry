@@ -31,6 +31,19 @@ namespace GT86Registry.Core.Entities
             VIN = Validation.VIN.IsValid(vin) ? vin : throw new System.Exception("Invalid VIN");
         }
 
+        public Vehicle(string vin, 
+                    ModelYear modelYear, 
+                    Color color, 
+                    Transmission transmission,
+                    string userIdentityGuid)
+        {
+            VIN = Validation.VIN.IsValid(vin) ? vin : throw new System.Exception("Invalid VIN");
+            ModelYear = modelYear;
+            Color = color;
+            Transmission = transmission;
+            UserIdentityGuid = userIdentityGuid;            
+        }
+
         
         #endregion Constructors
 
@@ -57,17 +70,5 @@ namespace GT86Registry.Core.Entities
         public List<VehiclesImages> VehicleImages { get; set; } = new List<VehiclesImages>();
 
         #endregion Navigation Properties
-
-        #region Builder
-        public static class Builder
-        {
-            // Required parameters
-            private static string VIN;
-            private static Manufacturer Manufacturer;
-            private static Model Model;
-            private static ModelYear ModelYear;
-            private static Color Color;
-            private static Transmission Transmission;
-        }
     }
 }

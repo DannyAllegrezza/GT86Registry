@@ -30,6 +30,7 @@ namespace GT86Registry.Web.Models.AccountViewModels
         public IEnumerable<SelectListItem> Manufacturers { get; set; }
         public IEnumerable<SelectListItem> Years { get; set; }
         public IEnumerable<SelectListItem> VehicleModels { get; set; }
+        public IEnumerable<SelectListItem> ColorChoices { get; set; }
 
 
         public string VIN { get; set; }
@@ -40,10 +41,13 @@ namespace GT86Registry.Web.Models.AccountViewModels
 
         [BindRequired]
         [Display(Name = "Vehicle Make")]
-        public int ManufacturerId { get; set; }
+        public string ManufacturerName { get; set; }
 
         [BindRequired]
         [Display(Name = "Vehicle Model")]
-        public int VehicleModelId { get; set; }
+        public string VehicleModelName { get; set; }
+
+        [Display(Name = "Vehicle Color")]
+        public string ColorName { get; set; }
     }
 }

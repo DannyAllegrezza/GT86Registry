@@ -25,7 +25,7 @@ namespace GT86Registry.Web.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
-        private readonly IVehicleService _vehicleService;
+        private readonly IVehicleViewModelService _vehicleService;
         private readonly VehicleRepository _vehicleRepository;
         #endregion Properties
 
@@ -34,7 +34,7 @@ namespace GT86Registry.Web.Controllers
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            IVehicleService vehicleService,
+            IVehicleViewModelService vehicleService,
             VehicleRepository vehicleRepository,
             ILogger<AccountController> logger)
         {
@@ -245,6 +245,13 @@ namespace GT86Registry.Web.Controllers
             return Json(await _vehicleService.GetModels(year, manufacturer));
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetColors(int year, string model)
+        {
+            return Json(await _vehicleService.GetAvailableColorsForModel(year, model));
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -267,7 +274,7 @@ namespace GT86Registry.Web.Controllers
                     _logger.LogInformation("User logged in.");
 
                     // Register the users Vehicle
-                    Vehicle userVehicle = new Vehicle(model.VIN);
+                    //Vehicle userVehicle = new Vehicle(model.VIN, model.);
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
