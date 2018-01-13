@@ -10,6 +10,9 @@ using Microsoft.Extensions.Logging;
 using GT86Registry.Web.Models.AccountViewModels;
 using GT86Registry.Web.Services;
 using GT86Registry.Infrastructure.Identity;
+using GT86Registry.Web.Interfaces;
+using GT86Registry.Infrastructure.Data;
+using GT86Registry.Core.Entities;
 
 namespace GT86Registry.Web.Controllers
 {
@@ -17,22 +20,32 @@ namespace GT86Registry.Web.Controllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
+        #region Properties
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly IVehicleViewModelService _vehicleService;
+        private readonly VehicleRepository _vehicleRepository;
+        #endregion Properties
 
+        #region Constructors
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
+            IVehicleViewModelService vehicleService,
+            VehicleRepository vehicleRepository,
             ILogger<AccountController> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _vehicleService = vehicleService;
+            _vehicleRepository = vehicleRepository;
         }
+        #endregion Constructors
 
         [TempData]
         public string ErrorMessage { get; set; }
@@ -209,8 +222,34 @@ namespace GT86Registry.Web.Controllers
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
         {
+            RegisterViewModel vm = new RegisterViewModel
+            {
+                Years = _vehicleService.GetAllYears().Result
+            };
+
             ViewData["ReturnUrl"] = returnUrl;
-            return View();
+            return View(vm);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetManufacturersByYear(int year)
+        {
+            return Json(await _vehicleService.GetManufacturersByYear(year));
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetModels(int year, string manufacturer)
+        {
+            return Json(await _vehicleService.GetModels(year, manufacturer));
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetColors(int year, string model)
+        {
+            return Json(await _vehicleService.GetAvailableColorsForModel(year, model));
         }
 
         [HttpPost]
@@ -232,7 +271,10 @@ namespace GT86Registry.Web.Controllers
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("User logged in.");
+
+                    // Register the users Vehicle
+                    //Vehicle userVehicle = new Vehicle(model.VIN, model.);
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);

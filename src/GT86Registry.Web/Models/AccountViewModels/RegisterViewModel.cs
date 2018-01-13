@@ -1,4 +1,6 @@
 ﻿using GT86Registry.Core.Entities;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -25,7 +27,27 @@ namespace GT86Registry.Web.Models.AccountViewModels
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+        public IEnumerable<SelectListItem> Manufacturers { get; set; }
+        public IEnumerable<SelectListItem> Years { get; set; }
+        public IEnumerable<SelectListItem> VehicleModels { get; set; }
+        public IEnumerable<SelectListItem> ColorChoices { get; set; }
+
+
         public string VIN { get; set; }
-        public List<Manufacturer> Manufacturers
+
+        [BindRequired]
+        [Display(Name = "Vehicle Year")]
+        public int YearId { get; set; }
+
+        [BindRequired]
+        [Display(Name = "Vehicle Make")]
+        public string ManufacturerName { get; set; }
+
+        [BindRequired]
+        [Display(Name = "Vehicle Model")]
+        public string VehicleModelName { get; set; }
+
+        [Display(Name = "Vehicle Color")]
+        public string ColorName { get; set; }
     }
 }

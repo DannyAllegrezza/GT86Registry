@@ -26,11 +26,40 @@
                 <input asp-for="ConfirmPassword" class="form-control" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
+
+            <h2>Tell us a little bit about your {Car}</h2>
+            <p>We need to know a few details about your car in order to register it in the official registry.</p>
+            <div class="form-group">
+                <label asp-for="VIN"></label>
+                <input asp-for="VIN" class="form-control" />
+                <span asp-validation-for="VIN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="YearId"></label>
+                <select asp-for="YearId" asp-items="@Model.Years" class="form-control"></select>
+                <span asp-validation-for="YearId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ManufacturerName"></label>
+                <select asp-for="ManufacturerName" asp-items="@Model.Manufacturers" class="form-control"></select>
+                <span asp-validation-for="ManufacturerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VehicleModelName"></label>
+                <select asp-for="VehicleModelName" asp-items="@Model.VehicleModels" class="form-control"></select>
+                <span asp-validation-for="VehicleModelName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ColorName"></label>
+                <select asp-for="ColorName" asp-items="@Model.ColorChoices" class="form-control"></select>
+                <span asp-validation-for="ColorName" class="text-danger"></span>
+            </div>
             <button type="submit" class="btn btn-default">Register</button>
         </form>
     </div>
 </div>
 
 @section Scripts {
+    <script src="~/js/registration.js"></script>
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }

@@ -31,6 +31,20 @@ namespace GT86Registry.Core.Entities
             VIN = Validation.VIN.IsValid(vin) ? vin : throw new System.Exception("Invalid VIN");
         }
 
+        public Vehicle(string vin, 
+                    ModelYear modelYear, 
+                    Color color, 
+                    Transmission transmission,
+                    string userIdentityGuid)
+        {
+            VIN = Validation.VIN.IsValid(vin) ? vin : throw new System.Exception("Invalid VIN");
+            ModelYear = modelYear;
+            Color = color;
+            Transmission = transmission;
+            UserIdentityGuid = userIdentityGuid;            
+        }
+
+        
         #endregion Constructors
 
         #region Navigation Properties
