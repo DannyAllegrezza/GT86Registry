@@ -11,8 +11,6 @@ using GT86Registry.Web.Models.AccountViewModels;
 using GT86Registry.Web.Services;
 using GT86Registry.Infrastructure.Identity;
 using GT86Registry.Web.Interfaces;
-using GT86Registry.Infrastructure.Data;
-using GT86Registry.Core.Entities;
 
 namespace GT86Registry.Web.Controllers
 {
