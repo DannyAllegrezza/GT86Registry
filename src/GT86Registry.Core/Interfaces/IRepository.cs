@@ -1,5 +1,6 @@
 ﻿using GT86Registry.Core.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GT86Registry.Core.Interfaces
 {
@@ -11,6 +12,7 @@ namespace GT86Registry.Core.Interfaces
     {
         T GetById(int id);
         IEnumerable<T> GetAll();
+        IQueryable<T> GetAllQueryable();
         T AddEntity(T entity);
         void Add(T entity);
         void Update(T entity);
