@@ -1,41 +1,38 @@
-﻿using GT86Registry.Web.Interfaces;
-using System;
+﻿using GT86Registry.Core.Entities;
+using GT86Registry.Core.Interfaces;
+using GT86Registry.Infrastructure.Data;
+using GT86Registry.Web.Interfaces;
+using GT86Registry.Web.Models.AccountViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using GT86Registry.Core.Entities;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using GT86Registry.Infrastructure.Data;
-using GT86Registry.Web.Models.AccountViewModels;
-using GT86Registry.Core.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace GT86Registry.Web.Services
 {
     public class VehicleViewModelService : IVehicleViewModelService
     {
-        private readonly IAsyncRepository<ModelYear> _yearRepository;
-        private readonly IAsyncRepository<Manufacturer> _manufacturerRepository;
-        private readonly IAsyncRepository<Model> _vehicleModelRepository;
         private readonly IRepository<ColorsModelYears> _colorsRepository;
         private readonly VehicleDbContext _vehicleContext;
+        private readonly IRepository<ModelYear> _yearRepository;
 
-        public VehicleViewModelService(IAsyncRepository<ModelYear> yearRepository, 
-                    IAsyncRepository<Manufacturer> manufacturerRepository,
-                    IAsyncRepository<Model> vehicleModelRepository,
-                    IRepository<ColorsModelYears> colorRepository,
-                    VehicleDbContext vehicleContext)
+        public VehicleViewModelService(
+                IRepository<ModelYear> yearRepository,
+                IRepository<ColorsModelYears> colorRepository,
+                VehicleDbContext vehicleContext)
         {
             _yearRepository = yearRepository;
-            _manufacturerRepository = manufacturerRepository;
-            _vehicleModelRepository = vehicleModelRepository;
             _colorsRepository = colorRepository;
             _vehicleContext = vehicleContext;
         }
 
-        public async Task<IEnumerable<SelectListItem>> GetAllYears()
+        public async void CreateVehicleForUser(string userId, RegisterViewModel viewModel)
         {
-            var allYears = await _yearRepository.ListAllAsync();
+        }
+
+        public IEnumerable<SelectListItem> GetAllYears()
+        {
+            var allYears = _yearRepository.GetAll();
 
             var allDistinctYears = allYears
                                 .GroupBy(my => my.Year)
@@ -49,16 +46,36 @@ namespace GT86Registry.Web.Services
 
             foreach (var year in allDistinctYears)
             {
-                items.Add(new SelectListItem() { Value = year.Year.ToString(), Text = year.Year.ToString() });   
+                items.Add(new SelectListItem() { Value = year.Year.ToString(), Text = year.Year.ToString() });
             }
 
             return items;
         }
 
-        public async Task<IEnumerable<SelectListItem>> GetManufacturersByYear(int year)
+        public IEnumerable<SelectListItem> GetAvailableColorsForModel(int year, string model)
         {
+            var colorChoices = _colorsRepository.GetAllQueryable()
+                            .Include(c => c.Color)
+                            .Include(c => c.ModelYear.Model)
+                            .Where(c => c.ModelYear.Year == year
+                                    && c.ModelYear.Model.Name == model);
 
-            var manufacturers = _vehicleContext.Years
+            var items = new List<SelectListItem>
+            {
+                new SelectListItem() { Value = null, Text = "Select Color", Selected = true }
+            };
+
+            foreach (var color in colorChoices)
+            {
+                items.Add(new SelectListItem() { Value = color.Color.Name, Text = $"{color.Color.Name} ({color.Color.Code})" });
+            }
+
+            return items;
+        }
+
+        public IEnumerable<SelectListItem> GetManufacturersByYear(int year)
+        {
+            var manufacturers = _yearRepository.GetAllQueryable()
                                 .Where(my => my.Year == year)
                                 .Select(my => my.Model.Manufacturer)
                                 .ToList();
@@ -76,13 +93,11 @@ namespace GT86Registry.Web.Services
             return items;
         }
 
-        public async Task<IEnumerable<SelectListItem>> GetModels(int year, string manufacturer)
+        public IEnumerable<SelectListItem> GetModels(int year, string manufacturer)
         {
-
-            var car = _vehicleContext.Years
+            var car = _yearRepository.GetAllQueryable()
                         .Include(vm => vm.Model)
                         .Include(vm => vm.Model.Manufacturer);
-
 
             var filteredCar = car.Where(m => m.Model.Manufacturer.Name == manufacturer && m.Year == year).FirstOrDefault();
 
@@ -91,33 +106,6 @@ namespace GT86Registry.Web.Services
                 new SelectListItem() { Value = null, Text = "Select Model", Selected = true },
                 new SelectListItem() { Value = filteredCar.Model.Name, Text = filteredCar.Model.Name}
             };
-            
-            return items;
-        }
-
-        public async void CreateVehicleForUser(string userId, RegisterViewModel viewModel)
-        {
-
-        }
-        
-        public IEnumerable<SelectListItem> GetAvailableColorsForModel(int year,  string model)
-        {
-
-            var colorChoices = _colorsRepository.GetAllQueryable()
-                            .Include(c => c.Color)
-                            .Include(c => c.ModelYear.Model)
-                            .Where(c => c.ModelYear.Year == year
-                                    && c.ModelYear.Model.Name == model);
-
-            var items = new List<SelectListItem>
-            {
-                new SelectListItem() { Value = null, Text = "Select Color", Selected = true }
-            };
-
-            foreach (var color in colorChoices)
-            {
-                items.Add(new SelectListItem() { Value = color.Color.Name, Text = $"{color.Color.Name} ({color.Color.Code})" });
-            }
 
             return items;
         }
