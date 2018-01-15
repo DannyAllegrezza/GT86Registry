@@ -13,17 +13,15 @@ namespace GT86Registry.Web.Services
     public class VehicleViewModelService : IVehicleViewModelService
     {
         private readonly IRepository<ColorsModelYears> _colorsRepository;
-        private readonly VehicleDbContext _vehicleContext;
         private readonly IRepository<ModelYear> _yearRepository;
 
         public VehicleViewModelService(
                 IRepository<ModelYear> yearRepository,
                 IRepository<ColorsModelYears> colorRepository,
-                VehicleDbContext vehicleContext)
+                IRepository<Transmission> transmissionRepository)
         {
             _yearRepository = yearRepository;
             _colorsRepository = colorRepository;
-            _vehicleContext = vehicleContext;
         }
 
         public async void CreateVehicleForUser(string userId, RegisterViewModel viewModel)
@@ -108,6 +106,23 @@ namespace GT86Registry.Web.Services
             };
 
             return items;
+        }
+
+        public IEnumerable<SelectListItem> GetTransmissionChoicesForModel(int year, string model)
+        {
+            // TODO(dca): Query against the Transmission table or Transmission_Model tbl
+            var transmissionChoices = _yearRepository.GetAllQueryable()
+                                            .Include(v => v.ModelTransmissions);
+
+            var filteredChoices = transmissionChoices.Where(c => c.Model.Name == model && c.Year == year);
+
+            var items = new List<SelectListItem>
+            {
+                new SelectListItem() { Value = null, Text = "Select Transmission", Selected = true }
+            };
+
+            return null;
+
         }
     }
 }

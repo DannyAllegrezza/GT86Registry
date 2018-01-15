@@ -247,6 +247,13 @@ namespace GT86Registry.Web.Controllers
             return Json(_vehicleService.GetAvailableColorsForModel(year, model));
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult GetTransmissions(int year, string model)
+        {
+            return Json(_vehicleService.GetTransmissionChoicesForModel(year, model));
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

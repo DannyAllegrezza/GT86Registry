@@ -31,6 +31,7 @@ namespace GT86Registry.Web.Models.AccountViewModels
         public IEnumerable<SelectListItem> Years { get; set; }
         public IEnumerable<SelectListItem> VehicleModels { get; set; }
         public IEnumerable<SelectListItem> ColorChoices { get; set; }
+        public IEnumerable<SelectListItem> TransmissionChoices { get; set; }
 
 
         public string VIN { get; set; }
@@ -49,5 +50,8 @@ namespace GT86Registry.Web.Models.AccountViewModels
 
         [Display(Name = "Vehicle Color")]
         public string ColorName { get; set; }
+
+        [Display(Name = "Vehicle Transmission")]
+        public string TransmissionName { get; set; }
     }
 }
