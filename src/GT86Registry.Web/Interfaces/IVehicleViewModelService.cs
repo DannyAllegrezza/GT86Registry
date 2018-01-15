@@ -12,5 +12,6 @@ namespace GT86Registry.Web.Interfaces
         IEnumerable<SelectListItem> GetModels(int year, string manufacturer);
         IEnumerable<SelectListItem> GetAllYears();
         IEnumerable<SelectListItem> GetAvailableColorsForModel(int year, string model);
+        IEnumerable<SelectListItem> GetTransmissionChoicesForModel(int year, string model);
     }
 }
