@@ -26,7 +26,6 @@ namespace GT86Registry.Web.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly IVehicleViewModelService _vehicleService;
-        private readonly VehicleRepository _vehicleRepository;
         #endregion Properties
 
         #region Constructors
@@ -35,7 +34,6 @@ namespace GT86Registry.Web.Controllers
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             IVehicleViewModelService vehicleService,
-            VehicleRepository vehicleRepository,
             ILogger<AccountController> logger)
         {
             _userManager = userManager;
@@ -43,7 +41,6 @@ namespace GT86Registry.Web.Controllers
             _emailSender = emailSender;
             _logger = logger;
             _vehicleService = vehicleService;
-            _vehicleRepository = vehicleRepository;
         }
         #endregion Constructors
 
@@ -224,7 +221,7 @@ namespace GT86Registry.Web.Controllers
         {
             RegisterViewModel vm = new RegisterViewModel
             {
-                Years = _vehicleService.GetAllYears().Result
+                Years = _vehicleService.GetAllYears()
             };
 
             ViewData["ReturnUrl"] = returnUrl;
@@ -233,16 +230,16 @@ namespace GT86Registry.Web.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetManufacturersByYear(int year)
+        public IActionResult GetManufacturersByYear(int year)
         {
-            return Json(await _vehicleService.GetManufacturersByYear(year));
+            return Json(_vehicleService.GetManufacturersByYear(year));
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetModels(int year, string manufacturer)
+        public IActionResult GetModels(int year, string manufacturer)
         {
-            return Json(await _vehicleService.GetModels(year, manufacturer));
+            return Json(_vehicleService.GetModels(year, manufacturer));
         }
 
         [HttpGet]
