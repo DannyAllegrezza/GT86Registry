@@ -1,19 +1,17 @@
-﻿using GT86Registry.Core.Entities;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GT86Registry.Web.Interfaces
 {
+    /// <summary>
+    /// Interface for a service which can be used to create VehicleViewModels
+    /// </summary>
     public interface IVehicleViewModelService
     {
-        Task<IEnumerable<SelectListItem>> GetManufacturersByYear(int year);
-        Task<IEnumerable<SelectListItem>> GetModels(int year, string manufacturer);
-        Task<IEnumerable<SelectListItem>> GetAllYears();
-        Task<IEnumerable<SelectListItem>> GetAvailableColorsForModel(int year, string model);
-
-
+        IEnumerable<SelectListItem> GetManufacturersByYear(int year);
+        IEnumerable<SelectListItem> GetModels(int year, string manufacturer);
+        IEnumerable<SelectListItem> GetAllYears();
+        IEnumerable<SelectListItem> GetAvailableColorsForModel(int year, string model);
+        IEnumerable<SelectListItem> GetTransmissionChoicesForModel(int year, string model);
     }
 }

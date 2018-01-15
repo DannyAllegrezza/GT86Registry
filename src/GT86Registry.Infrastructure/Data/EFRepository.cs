@@ -46,9 +46,18 @@ namespace GT86Registry.Infrastructure.Data
             Delete(entity);
         }
 
+        /// <summary>
+        /// Gets all entities of type "T"
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<T> GetAll()
         {
             return _vehicleContext.Set<T>().AsEnumerable();
+        }
+
+        public IQueryable<T> GetAllQueryable()
+        {
+            return _vehicleContext.Set<T>();
         }
 
         public virtual T GetById(int id)
