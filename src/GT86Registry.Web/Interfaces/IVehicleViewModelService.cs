@@ -12,7 +12,7 @@ namespace GT86Registry.Web.Interfaces
         Task<IEnumerable<SelectListItem>> GetManufacturersByYear(int year);
         Task<IEnumerable<SelectListItem>> GetModels(int year, string manufacturer);
         Task<IEnumerable<SelectListItem>> GetAllYears();
-        Task<IEnumerable<SelectListItem>> GetAvailableColorsForModel(int year, string model);
+        IEnumerable<SelectListItem> GetAvailableColorsForModel(int year, string model);
 
 
     }

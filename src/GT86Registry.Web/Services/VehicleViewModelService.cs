@@ -17,13 +17,13 @@ namespace GT86Registry.Web.Services
         private readonly IAsyncRepository<ModelYear> _yearRepository;
         private readonly IAsyncRepository<Manufacturer> _manufacturerRepository;
         private readonly IAsyncRepository<Model> _vehicleModelRepository;
-        private readonly IAsyncRepository<Color> _colorsRepository;
+        private readonly IRepository<ColorsModelYears> _colorsRepository;
         private readonly VehicleDbContext _vehicleContext;
 
         public VehicleViewModelService(IAsyncRepository<ModelYear> yearRepository, 
                     IAsyncRepository<Manufacturer> manufacturerRepository,
                     IAsyncRepository<Model> vehicleModelRepository,
-                    IAsyncRepository<Color> colorRepository,
+                    IRepository<ColorsModelYears> colorRepository,
                     VehicleDbContext vehicleContext)
         {
             _yearRepository = yearRepository;
@@ -100,16 +100,14 @@ namespace GT86Registry.Web.Services
 
         }
         
-        public async Task<IEnumerable<SelectListItem>> GetAvailableColorsForModel(int year,  string model)
+        public IEnumerable<SelectListItem> GetAvailableColorsForModel(int year,  string model)
         {
-            // TODO (dca): query the join table instead
-            var colorChoices = _vehicleContext.ColorYears
-                                .Include(cy => cy.Color)
-                                .Include(cy => cy.ModelYear.Model)
-                                .Where(c => c.ModelYear.Year == year 
-                                    && c.ModelYear.Model.Name == model);
 
-            var colors = await _colorsRepository.ListAllAsync();
+            var colorChoices = _colorsRepository.GetAllQueryable()
+                            .Include(c => c.Color)
+                            .Include(c => c.ModelYear.Model)
+                            .Where(c => c.ModelYear.Year == year
+                                    && c.ModelYear.Model.Name == model);
 
             var items = new List<SelectListItem>
             {

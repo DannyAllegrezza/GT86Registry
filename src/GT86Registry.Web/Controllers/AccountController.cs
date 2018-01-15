@@ -247,9 +247,9 @@ namespace GT86Registry.Web.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetColors(int year, string model)
+        public IActionResult GetColors(int year, string model)
         {
-            return Json(await _vehicleService.GetAvailableColorsForModel(year, model));
+            return Json(_vehicleService.GetAvailableColorsForModel(year, model));
         }
 
         [HttpPost]
