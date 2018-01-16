@@ -1,6 +1,6 @@
 ﻿namespace GT86Registry.Core.Entities
 {
-    public class ModelTransmissions
+    public class ModelTransmissions : BaseEntity
     {
         public int ModelYearId { get; set; }
         public ModelYear ModelYear { get; set; }

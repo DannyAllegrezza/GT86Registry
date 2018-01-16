@@ -13,15 +13,18 @@ namespace GT86Registry.Web.Services
     public class VehicleViewModelService : IVehicleViewModelService
     {
         private readonly IRepository<ColorsModelYears> _colorsRepository;
+        private readonly IRepository<ModelTransmissions> _transmissionRepository;
         private readonly IRepository<ModelYear> _yearRepository;
 
         public VehicleViewModelService(
                 IRepository<ModelYear> yearRepository,
                 IRepository<ColorsModelYears> colorRepository,
-                IRepository<Transmission> transmissionRepository)
+                IRepository<ModelTransmissions> transmissionRepository
+            )
         {
             _yearRepository = yearRepository;
             _colorsRepository = colorRepository;
+            _transmissionRepository = transmissionRepository;
         }
 
         public async void CreateVehicleForUser(string userId, RegisterViewModel viewModel)
@@ -110,19 +113,22 @@ namespace GT86Registry.Web.Services
 
         public IEnumerable<SelectListItem> GetTransmissionChoicesForModel(int year, string model)
         {
-            // TODO(dca): Query against the Transmission table or Transmission_Model tbl
-            var transmissionChoices = _yearRepository.GetAllQueryable()
-                                            .Include(v => v.ModelTransmissions);
-
-            var filteredChoices = transmissionChoices.Where(c => c.Model.Name == model && c.Year == year);
+            var transmissions = _transmissionRepository.GetAllQueryable()
+                                        .Where(t => t.ModelYear.Year == year && t.ModelYear.Model.Name == model)
+                                        .Include(t => t.Transmission)
+                                        .Include(t => t.ModelYear);
 
             var items = new List<SelectListItem>
             {
                 new SelectListItem() { Value = null, Text = "Select Transmission", Selected = true }
             };
 
-            return null;
+            foreach (var transmission in transmissions)
+            {
+                items.Add(new SelectListItem() { Value = transmission.Transmission.Name, Text = transmission.Transmission.Name });
+            }
 
+            return items;
         }
     }
 }
