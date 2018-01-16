@@ -13,17 +13,18 @@ namespace GT86Registry.Web.Services
     public class VehicleViewModelService : IVehicleViewModelService
     {
         private readonly IRepository<ColorsModelYears> _colorsRepository;
-        private readonly VehicleDbContext _vehicleContext;
+        private readonly IRepository<ModelTransmissions> _transmissionRepository;
         private readonly IRepository<ModelYear> _yearRepository;
 
         public VehicleViewModelService(
                 IRepository<ModelYear> yearRepository,
                 IRepository<ColorsModelYears> colorRepository,
-                VehicleDbContext vehicleContext)
+                IRepository<ModelTransmissions> transmissionRepository
+            )
         {
             _yearRepository = yearRepository;
             _colorsRepository = colorRepository;
-            _vehicleContext = vehicleContext;
+            _transmissionRepository = transmissionRepository;
         }
 
         public async void CreateVehicleForUser(string userId, RegisterViewModel viewModel)
@@ -106,6 +107,26 @@ namespace GT86Registry.Web.Services
                 new SelectListItem() { Value = null, Text = "Select Model", Selected = true },
                 new SelectListItem() { Value = filteredCar.Model.Name, Text = filteredCar.Model.Name}
             };
+
+            return items;
+        }
+
+        public IEnumerable<SelectListItem> GetTransmissionChoicesForModel(int year, string model)
+        {
+            var transmissions = _transmissionRepository.GetAllQueryable()
+                                        .Where(t => t.ModelYear.Year == year && t.ModelYear.Model.Name == model)
+                                        .Include(t => t.Transmission)
+                                        .Include(t => t.ModelYear);
+
+            var items = new List<SelectListItem>
+            {
+                new SelectListItem() { Value = null, Text = "Select Transmission", Selected = true }
+            };
+
+            foreach (var transmission in transmissions)
+            {
+                items.Add(new SelectListItem() { Value = transmission.Transmission.Name, Text = transmission.Transmission.Name });
+            }
 
             return items;
         }

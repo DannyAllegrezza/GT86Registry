@@ -55,5 +55,23 @@
         });
     });
 
+    // Populate the Transmission Select List
+    $("#VehicleModelName").change(function () {
+        $transmissionId = $("#TransmissionName");
+
+        $.ajax({
+            url: "/Account/GetTransmissions",
+            type: "GET",
+            data: { year: $("#YearId").val(), model: $("#VehicleModelName").val() },
+            traditional: true,
+            success: function (result) {
+                $transmissionId.empty();
+                $.each(result, function (i, item) {
+                    $transmissionId.append('<option value="' + item["value"] + '"> ' + item["text"] + ' </option>');
+                })
+            }
+        });
+    });
+
 
 });

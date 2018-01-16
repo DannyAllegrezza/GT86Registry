@@ -54,6 +54,13 @@
                 <select asp-for="ColorName" asp-items="@Model.ColorChoices" class="form-control"></select>
                 <span asp-validation-for="ColorName" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="TransmissionName"></label>
+                <select asp-for="TransmissionName" asp-items="@Model.TransmissionChoices" class="form-control"></select>
+                <span asp-validation-for="TransmissionName" class="text-danger"></span>
+            </div>
+
             <button type="submit" class="btn btn-default">Register</button>
         </form>
     </div>
