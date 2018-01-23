@@ -46,12 +46,12 @@ namespace GT86Registry.Web.Models.AccountViewModels
 
         [BindRequired]
         [Display(Name = "Vehicle Model")]
-        public string VehicleModelName { get; set; }
+        public string VehicleModelId { get; set; }
 
         [Display(Name = "Vehicle Color")]
-        public string ColorName { get; set; }
+        public string ColorId { get; set; }
 
         [Display(Name = "Vehicle Transmission")]
-        public string TransmissionName { get; set; }
+        public string TransmissionId { get; set; }
     }
 }

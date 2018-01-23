@@ -11,6 +11,8 @@ using GT86Registry.Web.Models.AccountViewModels;
 using GT86Registry.Web.Services;
 using GT86Registry.Infrastructure.Identity;
 using GT86Registry.Web.Interfaces;
+using GT86Registry.Core.Entities;
+using GT86Registry.Core.Interfaces;
 
 namespace GT86Registry.Web.Controllers
 {
@@ -24,6 +26,7 @@ namespace GT86Registry.Web.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly IVehicleViewModelService _vehicleService;
+        private readonly IVehicleFactory _vehicleFactory;
         #endregion Properties
 
         #region Constructors
@@ -32,6 +35,7 @@ namespace GT86Registry.Web.Controllers
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             IVehicleViewModelService vehicleService,
+            IVehicleFactory vehicleFactory,
             ILogger<AccountController> logger)
         {
             _userManager = userManager;
@@ -39,6 +43,7 @@ namespace GT86Registry.Web.Controllers
             _emailSender = emailSender;
             _logger = logger;
             _vehicleService = vehicleService;
+            _vehicleFactory = vehicleFactory;
         }
         #endregion Constructors
 
@@ -276,7 +281,7 @@ namespace GT86Registry.Web.Controllers
                     _logger.LogInformation("User logged in.");
 
                     // Register the users Vehicle
-                    //Vehicle userVehicle = new Vehicle(model.VIN, model.);
+                    Vehicle userVehicle = 
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);

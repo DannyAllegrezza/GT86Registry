@@ -1,4 +1,5 @@
 ﻿using GT86Registry.Core.Entities;
+using GT86Registry.Core.Factories;
 using GT86Registry.Core.Interfaces;
 using GT86Registry.Infrastructure.Data;
 using GT86Registry.Infrastructure.Identity;
@@ -52,6 +53,7 @@ namespace GT86Registry.Web
             services.AddScoped<VehicleRepository>();
             services.AddTransient<VehicleSeeder>();
             services.AddScoped<IVehicleViewModelService, VehicleViewModelService>();
+            services.AddScoped<IVehicleFactory, VehicleFactory>();
             services.AddMvc().AddJsonOptions(options => 
             {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
