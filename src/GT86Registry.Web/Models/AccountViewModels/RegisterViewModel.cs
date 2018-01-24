@@ -42,7 +42,7 @@ namespace GT86Registry.Web.Models.AccountViewModels
 
         [BindRequired]
         [Display(Name = "Vehicle Make")]
-        public string ManufacturerName { get; set; }
+        public string ManufacturerId { get; set; }
 
         [BindRequired]
         [Display(Name = "Vehicle Model")]

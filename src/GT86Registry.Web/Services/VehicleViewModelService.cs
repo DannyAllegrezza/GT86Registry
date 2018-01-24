@@ -68,7 +68,7 @@ namespace GT86Registry.Web.Services
 
             foreach (var color in colorChoices)
             {
-                items.Add(new SelectListItem() { Value = color.Color.Name, Text = $"{color.Color.Name} ({color.Color.Code})" });
+                items.Add(new SelectListItem() { Value = color.Color.Id.ToString(), Text = $"{color.Color.Name} ({color.Color.Code})" });
             }
 
             return items;
@@ -125,7 +125,7 @@ namespace GT86Registry.Web.Services
 
             foreach (var transmission in transmissions)
             {
-                items.Add(new SelectListItem() { Value = transmission.Transmission.Name, Text = transmission.Transmission.Name });
+                items.Add(new SelectListItem() { Value = transmission.Transmission.Id.ToString(), Text = transmission.Transmission.Name });
             }
 
             return items;
