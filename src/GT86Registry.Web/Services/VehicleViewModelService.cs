@@ -15,6 +15,7 @@ namespace GT86Registry.Web.Services
 
         private readonly IRepository<ColorsModelYears> _colorsRepository;
         private readonly IRepository<ModelTransmissions> _transmissionRepository;
+        private readonly IRepository<Vehicle> _vehicleRepository;
         private readonly IRepository<ModelYear> _yearRepository;
 
         #endregion Properties
@@ -24,19 +25,17 @@ namespace GT86Registry.Web.Services
         public VehicleViewModelService(
                 IRepository<ModelYear> yearRepository,
                 IRepository<ColorsModelYears> colorRepository,
-                IRepository<ModelTransmissions> transmissionRepository
+                IRepository<ModelTransmissions> transmissionRepository,
+                IRepository<Vehicle> vehicleRepository
             )
         {
             _yearRepository = yearRepository;
             _colorsRepository = colorRepository;
             _transmissionRepository = transmissionRepository;
+            _vehicleRepository = vehicleRepository;
         }
 
         #endregion Constructors
-
-        public async void CreateVehicleForUser(string userId, RegisterViewModel viewModel)
-        {
-        }
 
         public IEnumerable<SelectListItem> GetAllYears()
         {

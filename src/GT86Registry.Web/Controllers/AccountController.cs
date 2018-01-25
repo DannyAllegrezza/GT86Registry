@@ -281,7 +281,13 @@ namespace GT86Registry.Web.Controllers
                     _logger.LogInformation("User logged in.");
 
                     // Register the users Vehicle
-                    //Vehicle userVehicle = _vehicleFactory.CreateVehicle(model.VIN, model.YearId, model.colorId, model.TransmissionName, user.Id)
+                    Vehicle userVehicle = _vehicleFactory.CreateVehicle(
+                        model.VIN,
+                        model.YearId,
+                        Int32.Parse(model.ColorId),
+                        Int32.Parse(model.TransmissionId),
+                        user.Id);
+
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
