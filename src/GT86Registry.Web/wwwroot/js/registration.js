@@ -22,11 +22,12 @@
     // Populate the Model Select List
     $("#ManufacturerId").change(function () {
         $modelId = $("#VehicleModelId");
+        $manufId = $("#ManufacturerId").val();
 
         $.ajax({
             url: "/Account/GetModels",
             type: "GET",
-            data: { year: $("#YearId").val(), manufacturer: $("#ManufacturerId").val() },
+            data: { year: $("#YearId").val(), manufacturerId: $("#ManufacturerId").val() },
             traditional: true,
             success: function (result) {
                 $modelId.empty();
@@ -44,7 +45,7 @@
         $.ajax({
             url: "/Account/GetColors",
             type: "GET",
-            data: { year: $("#YearId").val(), model: $("#VehicleModelId").val() },
+            data: { year: $("#YearId").val(), modelId: $("#VehicleModelId").val() },
             traditional: true,
             success: function (result) {
                 $colorId.empty();
@@ -62,7 +63,7 @@
         $.ajax({
             url: "/Account/GetTransmissions",
             type: "GET",
-            data: { year: $("#YearId").val(), model: $("#VehicleModelId").val() },
+            data: { year: $("#YearId").val(), modelId: $("#VehicleModelId").val() },
             traditional: true,
             success: function (result) {
                 $transmissionId.empty();
@@ -73,5 +74,8 @@
         });
     });
 
+    function FetchData(url, data) {
+        // todo (dca): can easily refactor this file so we just call one function to make get requests
+    }
 
 });

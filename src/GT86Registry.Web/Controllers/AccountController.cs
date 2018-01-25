@@ -240,23 +240,23 @@ namespace GT86Registry.Web.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult GetModels(int year, string manufacturer)
+        public IActionResult GetModels(int year, int manufacturerId)
         {
-            return Json(_vehicleService.GetModels(year, manufacturer));
+            return Json(_vehicleService.GetModels(year, manufacturerId));
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult GetColors(int year, string model)
+        public IActionResult GetColors(int year, int modelId)
         {
-            return Json(_vehicleService.GetAvailableColorsForModel(year, model));
+            return Json(_vehicleService.GetAvailableColorsForModel(year, modelId));
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult GetTransmissions(int year, string model)
+        public IActionResult GetTransmissions(int year, int modelId)
         {
-            return Json(_vehicleService.GetTransmissionChoicesForModel(year, model));
+            return Json(_vehicleService.GetTransmissionChoicesForModel(year, modelId));
         }
 
         [HttpPost]
