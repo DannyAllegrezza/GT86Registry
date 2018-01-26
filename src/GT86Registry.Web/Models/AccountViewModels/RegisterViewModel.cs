@@ -32,8 +32,10 @@ namespace GT86Registry.Web.Models.AccountViewModels
 
         public string VIN { get; set; }
 
-        [BindRequired]
+
         [Display(Name = "Vehicle Year")]
+        public int Year { get; set; }
+
         public int YearId { get; set; }
 
         [BindRequired]

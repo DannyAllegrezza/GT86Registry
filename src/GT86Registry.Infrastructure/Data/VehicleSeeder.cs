@@ -24,8 +24,8 @@ namespace GT86Registry.Infrastructure.Data
                 ILoggerFactory loggerFactory)
         {
             // Uncomment these two lines to delete and recreate the database
-            vehicleContext.Database.EnsureDeleted();
-            vehicleContext.Database.Migrate();
+            //vehicleContext.Database.EnsureDeleted();
+            //vehicleContext.Database.Migrate();
 
             // Create Vehicle Statuses 
             if (!vehicleContext.VehicleStatuses.Any())

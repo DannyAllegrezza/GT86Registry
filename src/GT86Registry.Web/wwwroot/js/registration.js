@@ -7,7 +7,7 @@
         $.ajax({
             url: "/Account/GetManufacturersByYear",
             type: "GET",
-            data: { year: $("#YearId").val() },
+            data: { year: $("#YearId option:selected").text() },
             traditional: true,
             success: function (result) {
                 console.log(result);
@@ -27,7 +27,7 @@
         $.ajax({
             url: "/Account/GetModels",
             type: "GET",
-            data: { year: $("#YearId").val(), manufacturerId: $("#ManufacturerId").val() },
+            data: { year: $("#YearId option:selected").text(), manufacturerId: $("#ManufacturerId").val() },
             traditional: true,
             success: function (result) {
                 $modelId.empty();
@@ -45,7 +45,7 @@
         $.ajax({
             url: "/Account/GetColors",
             type: "GET",
-            data: { year: $("#YearId").val(), modelId: $("#VehicleModelId").val() },
+            data: { year: $("#YearId option:selected").text(), modelId: $("#VehicleModelId").val() },
             traditional: true,
             success: function (result) {
                 $colorId.empty();
@@ -63,7 +63,7 @@
         $.ajax({
             url: "/Account/GetTransmissions",
             type: "GET",
-            data: { year: $("#YearId").val(), modelId: $("#VehicleModelId").val() },
+            data: { year: $("#YearId option:selected").text(), modelId: $("#VehicleModelId").val() },
             traditional: true,
             success: function (result) {
                 $transmissionId.empty();

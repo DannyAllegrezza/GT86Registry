@@ -53,7 +53,7 @@ namespace GT86Registry.Web.Services
 
             foreach (var year in allDistinctYears)
             {
-                items.Add(new SelectListItem() { Value = year.Year.ToString(), Text = year.Year.ToString() });
+                items.Add(new SelectListItem() { Value = year.Id.ToString(), Text = year.Year.ToString() });
             }
 
             return items;
