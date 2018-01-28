@@ -15,8 +15,8 @@ Currently, the library is using Entity Framework Core 2 as an ORM. EF Core has m
 #### Creating the migrations
 The migrations are already created for this project, but if they need to be created again you can follow the following steps:
 1. Run the following commands from the `src\GT86Registry.Web` folder
-* `dotnet ef migrations add InitialIdentityModel --context AppIdentityDbContext -p ..\GT86Registry.Infrastructure\GT86Registry.Infrastructure.csproj -s GT86Registry.Web.csproj -o Identity/Migrations`
 * `dotnet ef migrations add InitialVehicleModel --context VehicleDbContext -p ..\GT86Registry.Infrastructure\GT86Registry.Infrastructure.csproj -s GT86Registry.Web.csproj -o Data/Migrations`
+* `dotnet ef migrations add InitialIdentityModel --context AppIdentityDbContext -p ..\GT86Registry.Infrastructure\GT86Registry.Infrastructure.csproj -s GT86Registry.Web.csproj -o Identity/Migrations`
 
 If the Migrations have already been created, follow these steps:
 1. Run the following commands from the `src\GT86Registry.Web` folder

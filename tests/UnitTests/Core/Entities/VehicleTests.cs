@@ -29,6 +29,8 @@ namespace UnitTests.Core.Entities
 
             Vehicle vehicle = _vehicleFactory.CreateVehicle(_vin, modelYear, color, transmission, userIdentityGuid);
 
+            Assert.IsNotNull(vehicle);
+
         }
     }
 }
