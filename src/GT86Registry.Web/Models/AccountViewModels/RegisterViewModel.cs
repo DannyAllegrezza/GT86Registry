@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using GT86Registry.Core.Entities;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -32,11 +33,10 @@ namespace GT86Registry.Web.Models.AccountViewModels
 
         public string VIN { get; set; }
 
+        public int YearId { get; set; }
 
         [Display(Name = "Vehicle Year")]
         public int Year { get; set; }
-
-        public int YearId { get; set; }
 
         [BindRequired]
         [Display(Name = "Vehicle Make")]
@@ -51,5 +51,12 @@ namespace GT86Registry.Web.Models.AccountViewModels
 
         [Display(Name = "Vehicle Transmission")]
         public string TransmissionId { get; set; }
+
+        [Display(Name = "Vehicle Image")]
+        public Image VehicleImage { get; set; }
+
+        public VehicleLocation VehicleLocation { get; set; }
+
+        public VehicleStatus VehicleStatus { get; set; }
     }
 }
