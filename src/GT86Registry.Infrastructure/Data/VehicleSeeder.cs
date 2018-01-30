@@ -664,7 +664,23 @@ namespace GT86Registry.Infrastructure.Data
                 FacebookUri = SeedData.TOYOTA_FACEBOOK_URI,
                 Status = vehicleContext.VehicleStatuses.First(x => x.Name == Status.Totaled.ToString())
             };
+
+            var samplegt86two = new Vehicle("JF1ZNAA10H8703673")
+            {
+                ModelYearId = 10, // 2017 GT86
+                TransmissionId = 1, // 6-Spd Manual
+                ColorId = 1, // Ablaze
+                VehicleLocationId = 3,
+                ProfilePhotoId = 3,
+                UserIdentityGuid = gt86User.Id,
+                Description = "My GT86 is my first RWD vehicle. I've been taking it to drift events pretty often. My favorite thing about the 86 is the aftermarket selection. There are parts for days!",
+                Mileage = 3765,
+                InstagramUri = SeedData.TOYOTA_INSTAGRAM_URI,
+                FacebookUri = SeedData.TOYOTA_FACEBOOK_URI,
+                Status = vehicleContext.VehicleStatuses.First(x => x.Name == Status.Totaled.ToString())
+            };
             vehicles.Add(samplegt86);
+            vehicles.Add(samplegt86two);
 
             return vehicles;
         }

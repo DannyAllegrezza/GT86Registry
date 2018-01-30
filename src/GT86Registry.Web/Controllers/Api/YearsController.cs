@@ -26,7 +26,7 @@ namespace GT86Registry.Web.Controllers.Api
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _vehicleService.GetAllYears());
+            return null;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using GT86Registry.Core.Entities;
 using GT86Registry.Core.Interfaces;
-using GT86Registry.Infrastructure.Data;
 using GT86Registry.Web.Interfaces;
 using GT86Registry.Web.Models.AccountViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,24 +11,31 @@ namespace GT86Registry.Web.Services
 {
     public class VehicleViewModelService : IVehicleViewModelService
     {
+        #region Properties
+
         private readonly IRepository<ColorsModelYears> _colorsRepository;
         private readonly IRepository<ModelTransmissions> _transmissionRepository;
+        private readonly IRepository<Vehicle> _vehicleRepository;
         private readonly IRepository<ModelYear> _yearRepository;
+
+        #endregion Properties
+
+        #region Constructors
 
         public VehicleViewModelService(
                 IRepository<ModelYear> yearRepository,
                 IRepository<ColorsModelYears> colorRepository,
-                IRepository<ModelTransmissions> transmissionRepository
+                IRepository<ModelTransmissions> transmissionRepository,
+                IRepository<Vehicle> vehicleRepository
             )
         {
             _yearRepository = yearRepository;
             _colorsRepository = colorRepository;
             _transmissionRepository = transmissionRepository;
+            _vehicleRepository = vehicleRepository;
         }
 
-        public async void CreateVehicleForUser(string userId, RegisterViewModel viewModel)
-        {
-        }
+        #endregion Constructors
 
         public IEnumerable<SelectListItem> GetAllYears()
         {
@@ -47,19 +53,19 @@ namespace GT86Registry.Web.Services
 
             foreach (var year in allDistinctYears)
             {
-                items.Add(new SelectListItem() { Value = year.Year.ToString(), Text = year.Year.ToString() });
+                items.Add(new SelectListItem() { Value = year.Id.ToString(), Text = year.Year.ToString() });
             }
 
             return items;
         }
 
-        public IEnumerable<SelectListItem> GetAvailableColorsForModel(int year, string model)
+        public IEnumerable<SelectListItem> GetAvailableColorsForModel(int year, int modelId)
         {
             var colorChoices = _colorsRepository.GetAllQueryable()
                             .Include(c => c.Color)
                             .Include(c => c.ModelYear.Model)
                             .Where(c => c.ModelYear.Year == year
-                                    && c.ModelYear.Model.Name == model);
+                                    && c.ModelYear.Model.Id == modelId);
 
             var items = new List<SelectListItem>
             {
@@ -68,7 +74,7 @@ namespace GT86Registry.Web.Services
 
             foreach (var color in colorChoices)
             {
-                items.Add(new SelectListItem() { Value = color.Color.Name, Text = $"{color.Color.Name} ({color.Color.Code})" });
+                items.Add(new SelectListItem() { Value = color.Color.Id.ToString(), Text = $"{color.Color.Name} ({color.Color.Code})" });
             }
 
             return items;
@@ -88,33 +94,33 @@ namespace GT86Registry.Web.Services
 
             foreach (var manufacturer in manufacturers)
             {
-                items.Add(new SelectListItem() { Value = manufacturer.Name, Text = manufacturer.Name });
+                items.Add(new SelectListItem() { Value = manufacturer.Id.ToString(), Text = manufacturer.Name });
             }
 
             return items;
         }
 
-        public IEnumerable<SelectListItem> GetModels(int year, string manufacturer)
+        public IEnumerable<SelectListItem> GetModels(int year, int manufacturerId)
         {
             var car = _yearRepository.GetAllQueryable()
                         .Include(vm => vm.Model)
                         .Include(vm => vm.Model.Manufacturer);
 
-            var filteredCar = car.Where(m => m.Model.Manufacturer.Name == manufacturer && m.Year == year).FirstOrDefault();
+            var filteredCar = car.Where(m => m.Model.Manufacturer.Id == manufacturerId && m.Year == year).FirstOrDefault();
 
             var items = new List<SelectListItem>
             {
                 new SelectListItem() { Value = null, Text = "Select Model", Selected = true },
-                new SelectListItem() { Value = filteredCar.Model.Name, Text = filteredCar.Model.Name}
+                new SelectListItem() { Value = filteredCar.Model.Id.ToString(), Text = filteredCar.Model.Name}
             };
 
             return items;
         }
 
-        public IEnumerable<SelectListItem> GetTransmissionChoicesForModel(int year, string model)
+        public IEnumerable<SelectListItem> GetTransmissionChoicesForModel(int year, int modelId)
         {
             var transmissions = _transmissionRepository.GetAllQueryable()
-                                        .Where(t => t.ModelYear.Year == year && t.ModelYear.Model.Name == model)
+                                        .Where(t => t.ModelYear.Year == year && t.ModelYear.Model.Id == modelId)
                                         .Include(t => t.Transmission)
                                         .Include(t => t.ModelYear);
 
@@ -125,7 +131,7 @@ namespace GT86Registry.Web.Services
 
             foreach (var transmission in transmissions)
             {
-                items.Add(new SelectListItem() { Value = transmission.Transmission.Name, Text = transmission.Transmission.Name });
+                items.Add(new SelectListItem() { Value = transmission.Transmission.Id.ToString(), Text = transmission.Transmission.Name });
             }
 
             return items;

@@ -2,6 +2,7 @@
 using GT86Registry.Core.Interfaces;
 using GT86Registry.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,12 @@ namespace GT86Registry.Web.Controllers.Api
     public class VehiclesApiController : Controller
     {
         private readonly VehicleRepository _repository;
+        private readonly VehicleDbContext _context;
 
-        public VehiclesApiController(VehicleRepository repository)
+        public VehiclesApiController(VehicleRepository repository, VehicleDbContext context)
         {
             _repository = repository;
+            _context = context;
         }
 
         [HttpGet]
@@ -35,6 +38,20 @@ namespace GT86Registry.Web.Controllers.Api
 
             var vehicle = _repository.GetVehicleByVIN(vin);
             return Ok(vehicle);
+        }
+
+        [HttpGet]
+        [Route("{graph}")]
+        public IActionResult GetGraph()
+        {
+            var graph = _context.Years
+                        .Include(y => y.Model)
+                            .ThenInclude(yv => yv.Manufacturer)
+                        .Include(y => y.ModelColors)
+                        .Include(y => y.ModelTransmissions);
+
+            return Ok(graph);
+            // return a full graph of the data structure
         }
     }
 }

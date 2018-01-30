@@ -6,7 +6,7 @@ namespace GT86Registry.Core.Entities
     /// <summary>
     /// Represents the status of a Vehicle, ie: "Currently Owned", "Sold", "Wrecked", "Stolen".
     /// </summary>
-    public class VehicleStatus
+    public class VehicleStatus : BaseEntity
     {
         #region Properties
         public int Id { get; set; }

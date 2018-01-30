@@ -2,12 +2,12 @@
     console.log("registration.js init");
     // Populate the Manufacturer Select List
     $("#YearId").change(function () {
-        $manufacturerId = $("#ManufacturerName");
+        $manufacturerId = $("#ManufacturerId");
 
         $.ajax({
             url: "/Account/GetManufacturersByYear",
             type: "GET",
-            data: { year: $("#YearId").val() },
+            data: { year: $("#YearId option:selected").text() },
             traditional: true,
             success: function (result) {
                 console.log(result);
@@ -20,13 +20,14 @@
     });
 
     // Populate the Model Select List
-    $("#ManufacturerName").change(function () {
-        $modelId = $("#VehicleModelName");
+    $("#ManufacturerId").change(function () {
+        $modelId = $("#VehicleModelId");
+        $manufId = $("#ManufacturerId").val();
 
         $.ajax({
             url: "/Account/GetModels",
             type: "GET",
-            data: { year: $("#YearId").val(), manufacturer: $("#ManufacturerName").val() },
+            data: { year: $("#YearId option:selected").text(), manufacturerId: $("#ManufacturerId").val() },
             traditional: true,
             success: function (result) {
                 $modelId.empty();
@@ -38,13 +39,13 @@
     });
 
     // Populate the Colors Select List
-    $("#VehicleModelName").change(function () {
-        $colorId = $("#ColorName");
+    $("#VehicleModelId").change(function () {
+        $colorId = $("#ColorId");
 
         $.ajax({
             url: "/Account/GetColors",
             type: "GET",
-            data: { year: $("#YearId").val(), model: $("#VehicleModelName").val() },
+            data: { year: $("#YearId option:selected").text(), modelId: $("#VehicleModelId").val() },
             traditional: true,
             success: function (result) {
                 $colorId.empty();
@@ -56,13 +57,13 @@
     });
 
     // Populate the Transmission Select List
-    $("#VehicleModelName").change(function () {
-        $transmissionId = $("#TransmissionName");
+    $("#VehicleModelId").change(function () {
+        $transmissionId = $("#TransmissionId");
 
         $.ajax({
             url: "/Account/GetTransmissions",
             type: "GET",
-            data: { year: $("#YearId").val(), model: $("#VehicleModelName").val() },
+            data: { year: $("#YearId option:selected").text(), modelId: $("#VehicleModelId").val() },
             traditional: true,
             success: function (result) {
                 $transmissionId.empty();
@@ -73,5 +74,8 @@
         });
     });
 
+    function FetchData(url, data) {
+        // todo (dca): can easily refactor this file so we just call one function to make get requests
+    }
 
 });
