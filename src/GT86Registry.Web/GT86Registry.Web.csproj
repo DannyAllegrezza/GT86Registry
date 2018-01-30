@@ -24,4 +24,8 @@
     <ProjectReference Include="..\GT86Registry.Infrastructure\GT86Registry.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 </Project>
