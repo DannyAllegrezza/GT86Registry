@@ -1,4 +1,5 @@
 ﻿using GT86Registry.Core.Interfaces;
+using GT86Registry.Core.Interfaces.Entities;
 using System.Collections.Generic;
 
 namespace GT86Registry.Core.Entities
@@ -6,7 +7,7 @@ namespace GT86Registry.Core.Entities
     /// <summary>
     /// Represents a specific instance of a Vehicle, which is the principal entity in our domain.
     /// </summary>
-    public class Vehicle : BaseEntity, ISocialMediaLinks
+    public class Vehicle : BaseEntity, ISocialMediaLinks, IVehicle
     {
         public string UserIdentityGuid { get; set; }
 

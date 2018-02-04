@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using GT86Registry.Core.Entities;
 using System.Linq;
+using GT86Registry.Core.Interfaces.Entities;
 
 namespace GT86Registry.Core.Factories
 {
@@ -18,7 +19,7 @@ namespace GT86Registry.Core.Factories
             _vehicleStatusRepo = vehicleStatusRepo;
         }
 
-        public Vehicle CreateVehicle(string vin, int modelYearId, int colorId, int transmissionId, string userIdentityGuid)
+        public IVehicle CreateVehicle(string vin, int modelYearId, int colorId, int transmissionId, string userIdentityGuid)
         {
             //todo(dca): always first insert all objects to which the vehicle is the FK (Status, Image, etc)
             var status = _vehicleStatusRepo.GetAllQueryable().Where(x => x.Name == Status.TrackCar.ToString()).First();
@@ -42,9 +43,9 @@ namespace GT86Registry.Core.Factories
             return userVehicle;
         }
 
-        public Vehicle CreateVehicle(string vin, ModelYear modelYear, Color colorId, Transmission transmissionId, string userIdentityGuid)
+        public IVehicle CreateVehicle(string vin, ModelYear modelYear, Color colorId, Transmission transmissionId, string userIdentityGuid)
         {
-            Vehicle vehicle = new Vehicle(vin, modelYear, colorId, transmissionId, userIdentityGuid);
+            IVehicle vehicle = new Vehicle(vin, modelYear, colorId, transmissionId, userIdentityGuid);
 
             return vehicle;
         }
