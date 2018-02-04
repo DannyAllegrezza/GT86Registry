@@ -14,7 +14,7 @@ namespace UnitTests.Core.Entities
         [TestInitialize]
         public void Setup()
         {
-            _vehicleFactory = new VehicleFactory();
+            //_vehicleFactory = new VehicleFactory();
         }
 
         [TestMethod]

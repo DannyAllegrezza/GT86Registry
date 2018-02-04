@@ -1,18 +1,14 @@
-﻿using GT86Registry.Core.Entities;
-using GT86Registry.Core.Factories;
-using GT86Registry.Core.Interfaces;
-using GT86Registry.Infrastructure.Data;
-using GT86Registry.Infrastructure.Identity;
-using GT86Registry.Web.Interfaces;
-using GT86Registry.Web.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GT86Registry.Web
+namespace GT86Registry_Web
 {
     public class Startup
     {
@@ -26,39 +22,7 @@ namespace GT86Registry.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Setup and configure Identity
-            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-                {
-                    options.Password.RequiredLength = 6;
-                    options.Password.RequireNonAlphanumeric = true;
-                    options.Password.RequireUppercase = true;
-                    options.User.RequireUniqueEmail = true;
-                })
-                .AddEntityFrameworkStores<AppIdentityDbContext>()
-                .AddDefaultTokenProviders();
-
-            // Setup CarRegistry database connection, inject in options to CarDbContext
-            services.AddDbContext<VehicleDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("CarRegistryConnection")));
-
-            // Setup Identity database connection and register Identity service
-            services.AddDbContext<AppIdentityDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
-
-            // Add application services.
-            services.AddTransient<IEmailSender, EmailSender>();
-            services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));
-            services.AddScoped(typeof(IAsyncRepository<>), typeof(EFRepository<>));
-
-            services.AddScoped<VehicleRepository>();
-            services.AddTransient<VehicleSeeder>();
-            services.AddScoped<IVehicleViewModelService, VehicleViewModelService>();
-            services.AddScoped<IVehicleFactory, VehicleFactory>();
-            services.AddMvc().AddJsonOptions(options => 
-            {
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            });
-
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,8 +31,10 @@ namespace GT86Registry.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
-                app.UseDatabaseErrorPage();
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                {
+                    HotModuleReplacement = true
+                });
             }
             else
             {
@@ -77,13 +43,15 @@ namespace GT86Registry.Web
 
             app.UseStaticFiles();
 
-            app.UseAuthentication();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapSpaFallbackRoute(
+                    name: "spa-fallback",
+                    defaults: new { controller = "Home", action = "Index" });
             });
         }
     }
