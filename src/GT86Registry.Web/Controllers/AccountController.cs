@@ -13,6 +13,7 @@ using GT86Registry.Infrastructure.Identity;
 using GT86Registry.Web.Interfaces;
 using GT86Registry.Core.Entities;
 using GT86Registry.Core.Interfaces;
+using GT86Registry.Core.Interfaces.Entities;
 
 namespace GT86Registry.Web.Controllers
 {
@@ -281,7 +282,7 @@ namespace GT86Registry.Web.Controllers
                     _logger.LogInformation("User logged in.");
 
                     // Register the users Vehicle
-                    Vehicle userVehicle = _vehicleFactory.CreateVehicle(
+                    IVehicle userVehicle = _vehicleFactory.CreateVehicle(
                         model.VIN,
                         model.YearId,
                         Int32.Parse(model.ColorId),
