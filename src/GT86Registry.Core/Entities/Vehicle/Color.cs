@@ -10,6 +10,8 @@ namespace GT86Registry.Core.Entities
 
         public string Code { get; set; }
 
+        public string HexValue { get; set; }
+
         #region Constructors
 
         protected Color()

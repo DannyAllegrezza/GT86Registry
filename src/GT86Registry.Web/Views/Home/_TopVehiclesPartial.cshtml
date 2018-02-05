@@ -1,7 +1,5 @@
 ﻿@model IEnumerable<Vehicle>;
-@{ 
-    ViewBag.Title = "Home";
-}
+
 <div class="row">
     @foreach (var vehicle in Model)
     {
@@ -16,11 +14,9 @@
                     </div>
                 </div>
             </a>
-
         </div>
 
     }
-
 </div>
 
 @* @model IEnumerable<VehicleDto>;
