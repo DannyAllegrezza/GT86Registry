@@ -24,8 +24,9 @@ namespace GT86Registry.Web.Controllers
         public IActionResult Index()
         {
             var user = _userManager.GetUserAsync(User).Result;
+            var vehicles = _vehicleRepository.GetVehiclesByUserId(user.Id);
 
-            return View(user);
+            return View(vehicles);
         }
     }
 }

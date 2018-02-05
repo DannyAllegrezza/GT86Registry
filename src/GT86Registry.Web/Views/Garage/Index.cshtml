@@ -1,12 +1,11 @@
-﻿@model ApplicationUser;
+﻿@model IEnumerable<Vehicle>;
 
 @inject UserManager<ApplicationUser> UserManager
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = UserManager.GetUserName(User) + " cars";
 }
 
-<h2>@Model.UserName's Cars.</h2>
-<h1>@UserManager.GetUserName(User)</h1>
+<h1>@UserManager.GetUserName(User)'s cars</h1>
 
-
+@Html.Partial("../Home/_TopVehiclesPartial")
