@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GT86Registry.Web.Models.VehicleViewModels
 {
-    public class VehicleViewModel
+    public class AddVehicleViewModel
     {
         public IEnumerable<SelectListItem> ColorChoices { get; set; }
 
@@ -18,6 +18,7 @@ namespace GT86Registry.Web.Models.VehicleViewModels
         public string ManufacturerId { get; set; }
 
         public IEnumerable<SelectListItem> Manufacturers { get; set; }
+
         public IEnumerable<SelectListItem> TransmissionChoices { get; set; }
 
         [Display(Name = "Vehicle Transmission")]
@@ -40,6 +41,7 @@ namespace GT86Registry.Web.Models.VehicleViewModels
         public int Year { get; set; }
 
         public int YearId { get; set; }
+
         public IEnumerable<SelectListItem> Years { get; set; }
     }
 }

@@ -29,12 +29,12 @@ namespace GT86Registry.Web.Controllers
 
         public IActionResult AddVehicle()
         {
-            var vm = new VehicleViewModel();
+            var vm = new AddVehicleViewModel();
 
             return View(vm);
         }
 
-        public IActionResult AddVehicle(VehicleViewModel viewModel)
+        public IActionResult AddVehicle(AddVehicleViewModel viewModel)
         {
             return View();
         }
