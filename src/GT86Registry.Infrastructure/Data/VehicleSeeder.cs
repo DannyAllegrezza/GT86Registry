@@ -581,24 +581,24 @@ namespace GT86Registry.Infrastructure.Data
 
         private static IEnumerable<Image> GetDefaultProfilePhotoUri(UserManager<ApplicationUser> userManager)
         {
-            var defaultUser = userManager.FindByEmailAsync("testuser@gt86registry.com").Result;
+            var defaultUser = userManager.FindByEmailAsync(SeedData.USER_EMAIL_BRZ).Result;
             var defaultProfilePhoto = new Image
             {
                 Uri = "https://i.imgur.com/8RuGLC6.jpg",
                 UserIdentityGuid = defaultUser.Id
             };
 
-            var frsUser = userManager.FindByEmailAsync("testfrs@gt86registry.com").Result;
+            var frsUser = userManager.FindByEmailAsync(SeedData.USER_EMAIL_FRS).Result;
             var frsProfilePhoto = new Image
             {
                 Uri = "http://i.imgur.com/cHZgF.jpg",
                 UserIdentityGuid = frsUser.Id
             };
 
-            var gt86User = userManager.FindByEmailAsync("testgt86@gt86registry.com").Result;
+            var gt86User = userManager.FindByEmailAsync(SeedData.USER_EMAIL_GT86).Result;
             var gt86ProfilePhoto = new Image
             {
-                Uri = "https://listings.tcimg.net/listings/5316/72/36/JF1ZNAA10H8703672/MIYAOIULAV4Z62Q4N2XOYFLS64-600.jpg",
+                Uri = "https://i.imgur.com/3Hxt0pt.jpg",
                 UserIdentityGuid = gt86User.Id
             };
 

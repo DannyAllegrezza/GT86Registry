@@ -8,5 +8,9 @@
 
         public const string TOYOTA_FACEBOOK_URI = "https://www.facebook.com/toyota/";
         public const string SUBARU_FACEBOOK_URI = "https://www.facebook.com/subaruofamerica/";
+
+        public const string USER_EMAIL_BRZ = "testuser@gt86registry.com";
+        public const string USER_EMAIL_FRS = "testfrs@gt86registry.com";
+        public const string USER_EMAIL_GT86 = "testgt86@gt86registry.com";
     }
 }
