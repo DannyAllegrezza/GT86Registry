@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using GT86Registry.Web.Interfaces;
 
 namespace GT86Registry.Web.Models.VehicleViewModels
 {
-    public class EditVehicleViewModel
+    public class EditVehicleViewModel : IVehicleViewModel
     {
+        public string VehicleDescription { get; set; }
     }
 }
