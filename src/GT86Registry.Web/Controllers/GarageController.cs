@@ -22,12 +22,12 @@ namespace GT86Registry.Web.Controllers
         public IActionResult Index()
         {
             var user = _userManager.GetUserAsync(User).Result;
-            var user2 = User.Identity.Name;
-            var vehicles = _vehicleRepository.GetVehiclesByUserId(user.Id);
+            var usersVehicles = _vehicleRepository.GetVehiclesByUserId(user.Id);
 
-            return View(vehicles);
+            return View(usersVehicles);
         }
 
+        [HttpGet]
         public IActionResult AddVehicle()
         {
             var vm = new AddVehicleViewModel();
@@ -35,16 +35,19 @@ namespace GT86Registry.Web.Controllers
             return View(vm);
         }
 
+        [HttpPost]
         public IActionResult AddVehicle(AddVehicleViewModel viewModel)
         {
             return View();
         }
 
+        [HttpGet]
         public IActionResult EditVehicle()
         {
             return View();
         }
 
+        [HttpGet]
         public IActionResult DeleteVehicle()
         {
             return View();
