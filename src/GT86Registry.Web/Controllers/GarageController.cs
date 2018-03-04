@@ -47,6 +47,12 @@ namespace GT86Registry.Web.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult EditVehicle(EditVehicleViewModel viewModel)
+        {
+            return View();
+        }
+
         [HttpGet]
         public IActionResult DeleteVehicle()
         {
