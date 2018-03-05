@@ -7,6 +7,7 @@
 <!-- Portfolio Item Heading -->
 <h1 class="my-4">
     <h1>@Model.ModelYear.Year @Model.ModelYear.Model.Manufacturer.Name @Model.ModelYear.Model.Name</h1>
+    <a asp-controller="Garage" asp-action="EditVehicle" asp-route-vin="@Model.VIN">Edit</a>
     <small>Registered by @Model.UserIdentityGuid</small>
 </h1>
 
