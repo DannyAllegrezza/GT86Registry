@@ -1,0 +1,15 @@
+﻿@model EditVehicleViewModel
+@{
+    ViewData["Title"] = "Edit Your Vehicle";
+}
+
+<h2>Edit Your Vehicle</h2>
+
+<div class="row">
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="VehicleDescription"></label>
+            <textarea asp-for="VehicleDescription" class="form-control"/>
+        </div>
+    </form>
+</div>

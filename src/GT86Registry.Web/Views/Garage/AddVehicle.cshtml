@@ -1,0 +1,58 @@
+﻿@model GT86Registry.Web.Models.VehicleViewModels.AddVehicleViewModel
+
+@{
+    ViewData["Title"] = "Add a new vehicle";
+}
+
+<h2>Add a new Vehicle</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddVehicle">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ColorId" class="control-label"></label>
+                <input asp-for="ColorId" class="form-control" />
+                <span asp-validation-for="ColorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ManufacturerId" class="control-label"></label>
+                <input asp-for="ManufacturerId" class="form-control" />
+                <span asp-validation-for="ManufacturerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TransmissionId" class="control-label"></label>
+                <input asp-for="TransmissionId" class="form-control" />
+                <span asp-validation-for="TransmissionId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VehicleModelId" class="control-label"></label>
+                <input asp-for="VehicleModelId" class="form-control" />
+                <span asp-validation-for="VehicleModelId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VIN" class="control-label"></label>
+                <input asp-for="VIN" class="form-control" />
+                <span asp-validation-for="VIN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="YearId" class="control-label"></label>
+                <input asp-for="YearId" class="form-control" />
+                <span asp-validation-for="YearId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Cancel" class="btn btn-danger" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to Your Garage</a>
+</div>

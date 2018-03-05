@@ -30,7 +30,7 @@ namespace GT86Registry.Infrastructure.Identity
                 var defaultUser = new ApplicationUser
                 {
                     UserName = "test-brz",
-                    Email = "testuser@gt86registry.com",
+                    Email = SeedData.USER_EMAIL_BRZ,
                     FirstName = "Danny",
                     LastName = "Allegrezza",
                     City = "Cary",
@@ -40,12 +40,12 @@ namespace GT86Registry.Infrastructure.Identity
                     InstagramUri = "https://www.instagram.com/dude_danny/"
                 };
 
-                await userManager.CreateAsync(defaultUser, "J09TxRgIdKNi!");
+                await userManager.CreateAsync(defaultUser, "TestUser123!");
 
                 var defaultFrsUser = new ApplicationUser
                 {
                     UserName = "test-frs",
-                    Email = "testfrs@gt86registry.com",
+                    Email = SeedData.USER_EMAIL_FRS,
                     FirstName = "John",
                     LastName = "Appleseed",
                     City = "Greensboro",
@@ -55,12 +55,12 @@ namespace GT86Registry.Infrastructure.Identity
                     InstagramUri = "https://www.instagram.com/dude_danny/"
                 };
 
-                await userManager.CreateAsync(defaultFrsUser, "J09TxRgIdKNi1!");
+                await userManager.CreateAsync(defaultFrsUser, "TestUser123!");
 
                 var defaultGt86User = new ApplicationUser
                 {
                     UserName = "test-gt86",
-                    Email = "testgt86@gt86registry.com",
+                    Email = SeedData.USER_EMAIL_GT86,
                     FirstName = "Bill",
                     LastName = "Doe",
                     City = "Cary",
@@ -70,7 +70,7 @@ namespace GT86Registry.Infrastructure.Identity
                     InstagramUri = "https://www.instagram.com/dude_danny/"
                 };
 
-                await userManager.CreateAsync(defaultGt86User, "J09TxRgIdKNi2!");
+                await userManager.CreateAsync(defaultGt86User, "TestUser123!");
             }
         }
     }

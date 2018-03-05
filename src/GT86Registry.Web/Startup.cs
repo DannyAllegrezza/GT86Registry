@@ -1,5 +1,4 @@
-﻿using GT86Registry.Core.Entities;
-using GT86Registry.Core.Factories;
+﻿using GT86Registry.Core.Factories;
 using GT86Registry.Core.Interfaces;
 using GT86Registry.Infrastructure.Data;
 using GT86Registry.Infrastructure.Identity;
@@ -16,14 +15,52 @@ namespace GT86Registry.Web
 {
     public class Startup
     {
+        #region Properties
+
+        public IConfiguration Configuration { get; }
+
+        #endregion Properties
+
+        #region Constructor
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        #endregion Constructor
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        #region Methods
+
+        // This method gets called by the runtime. 
+        // Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
+                app.UseDatabaseErrorPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+
+            app.UseStaticFiles();
+
+            app.UseAuthentication();
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
+        }
+
+        // This method gets called by the runtime. 
+        // Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             // Setup and configure Identity
@@ -54,37 +91,12 @@ namespace GT86Registry.Web
             services.AddTransient<VehicleSeeder>();
             services.AddScoped<IVehicleViewModelService, VehicleViewModelService>();
             services.AddScoped<IVehicleFactory, VehicleFactory>();
-            services.AddMvc().AddJsonOptions(options => 
+            services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
-
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
-                app.UseDatabaseErrorPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
-
-            app.UseStaticFiles();
-
-            app.UseAuthentication();
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
-        }
+        #endregion Methods
     }
 }

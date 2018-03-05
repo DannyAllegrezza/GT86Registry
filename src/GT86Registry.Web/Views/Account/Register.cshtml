@@ -26,40 +26,7 @@
                 <input asp-for="ConfirmPassword" class="form-control" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
-
-            <h2>Tell us a little bit about your {Car}</h2>
-            <p>We need to know a few details about your car in order to register it in the official registry.</p>
-            <div class="form-group">
-                <label asp-for="VIN"></label>
-                <input asp-for="VIN" class="form-control" />
-                <span asp-validation-for="VIN" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="YearId"></label>
-                <select asp-for="YearId" asp-items="@Model.Years" class="form-control"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="ManufacturerId"></label>
-                <select asp-for="ManufacturerId" asp-items="@Model.Manufacturers" class="form-control"></select>
-                <span asp-validation-for="ManufacturerId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VehicleModelId"></label>
-                <select asp-for="VehicleModelId" asp-items="@Model.VehicleModels" class="form-control"></select>
-                <span asp-validation-for="VehicleModelId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ColorId"></label>
-                <select asp-for="ColorId" asp-items="@Model.ColorChoices" class="form-control"></select>
-                <span asp-validation-for="ColorId" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="TransmissionId"></label>
-                <select asp-for="TransmissionId" asp-items="@Model.TransmissionChoices" class="form-control"></select>
-                <span asp-validation-for="TransmissionId" class="text-danger"></span>
-            </div>
-
+            @Html.Partial("_VehicleRegistrationPartial");
             <button type="submit" class="btn btn-default">Register</button>
         </form>
     </div>

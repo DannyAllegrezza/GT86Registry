@@ -53,6 +53,21 @@ namespace GT86Registry.Infrastructure.Data
             return singleVehicle;
         }
 
+        public IEnumerable<Vehicle> GetVehiclesByUserId(string userGuid)
+        {
+            var vehicles = _vehicleContext.Vehicles.Where(vehicle => vehicle.UserIdentityGuid == userGuid)
+                                .Include(vehicle => vehicle.ModelYear)
+                                    .ThenInclude(v => v.Model)
+                                    .ThenInclude(v => v.Manufacturer)
+                                .Include(vehicle => vehicle.Color)
+                                .Include(vehicle => vehicle.Transmission)
+                                .Include(vehicle => vehicle.Image)
+                                .Include(vehicle => vehicle.VehicleLocation)
+                                .Include(vehicle => vehicle.Status);
+
+            return vehicles;
+        }
+
         /// <summary>
         /// Gets all the Vehicles in the database, along with their related entities.
         /// </summary>
