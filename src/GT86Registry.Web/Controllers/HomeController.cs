@@ -20,7 +20,8 @@ namespace GT86Registry.Web.Controllers
 
         public IActionResult Index()
         {
-            return View(_vehicleRepository.GetAllVehicles());
+            var vehicles = _vehicleRepository.GetAllVehicles();
+            return View("../Vehicles/VehiclesIndex", vehicles);
         }
 
 
