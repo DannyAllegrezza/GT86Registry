@@ -30,6 +30,7 @@ namespace GT86Registry.Web.Controllers
             return null;
         }
 
+        [Route("/about")]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -37,6 +38,7 @@ namespace GT86Registry.Web.Controllers
             return View();
         }
 
+        [Route("/contact")]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
