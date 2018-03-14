@@ -1,8 +1,10 @@
-﻿@model IEnumerable<VehicleDto>;
+﻿@model IEnumerable<TopVehicleViewModel>;
 
 @{
     ViewData["Title"] = "Home";
 }
 
-
+<p>
+    Our latest members!
+</p>
 @Html.Partial("../Home/_TopVehiclesPartial")

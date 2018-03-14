@@ -42,9 +42,16 @@ namespace GT86Registry.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditVehicle()
+        public IActionResult EditVehicle(string vin)
         {
-            return View();
+            var vehicle = _vehicleRepository.GetVehicleByVIN(vin);
+
+            var vm = new EditVehicleViewModel
+            {
+                VehicleDescription = vehicle.Description
+            };
+
+            return View(vm);
         }
 
         [HttpPost]
