@@ -1,11 +1,14 @@
 ﻿using GT86Registry.Core.Entities;
 using GT86Registry.Core.Interfaces;
+using GT86Registry.Infrastructure.Identity;
 using GT86Registry.Web.Interfaces;
-using GT86Registry.Web.Models.AccountViewModels;
+using GT86Registry.Web.Models.VehicleViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GT86Registry.Web.Services
 {
@@ -15,6 +18,7 @@ namespace GT86Registry.Web.Services
 
         private readonly IRepository<ColorsModelYears> _colorsRepository;
         private readonly IRepository<ModelTransmissions> _transmissionRepository;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IRepository<Vehicle> _vehicleRepository;
         private readonly IRepository<ModelYear> _yearRepository;
 
@@ -26,13 +30,15 @@ namespace GT86Registry.Web.Services
                 IRepository<ModelYear> yearRepository,
                 IRepository<ColorsModelYears> colorRepository,
                 IRepository<ModelTransmissions> transmissionRepository,
-                IRepository<Vehicle> vehicleRepository
+                IRepository<Vehicle> vehicleRepository,
+                UserManager<ApplicationUser> userManager
             )
         {
             _yearRepository = yearRepository;
             _colorsRepository = colorRepository;
             _transmissionRepository = transmissionRepository;
             _vehicleRepository = vehicleRepository;
+            _userManager = userManager;
         }
 
         #endregion Constructors
@@ -115,6 +121,44 @@ namespace GT86Registry.Web.Services
             };
 
             return items;
+        }
+
+        public IEnumerable<TopVehicleViewModel> GetTopVehicles()
+        {
+            List<TopVehicleViewModel> vehicleViewModels = new List<TopVehicleViewModel>();
+
+            var vehicles = _vehicleRepository.GetAllQueryable()
+                        .Include(vehicle => vehicle.ModelYear)
+                                            .ThenInclude(v => v.Model)
+                                            .ThenInclude(v => v.Manufacturer)
+                                        .Include(vehicle => vehicle.Color)
+                                        .Include(vehicle => vehicle.Transmission)
+                                        .Include(vehicle => vehicle.Image)
+                                        .Include(vehicle => vehicle.VehicleLocation)
+                                        .Include(vehicle => vehicle.Status);
+
+            foreach (var vehicle in vehicles)
+            {
+                var user = _userManager.FindByIdAsync(vehicle.UserIdentityGuid).Result;
+                var vm = new TopVehicleViewModel()
+                {
+                    ImageUri = vehicle.Image.Uri,
+                    Location = vehicle.VehicleLocation,
+                    OwnerUsername = user.UserName,
+                    Title = $"{vehicle.ModelYear.Year} {vehicle.ModelYear.Model.Manufacturer.Name} {vehicle.ModelYear.Model.Name}",
+                    ViewCount = vehicle.ViewCount,
+                    VIN = vehicle.VIN
+                };
+
+                vehicleViewModels.Add(vm);
+            }
+
+            return vehicleViewModels;
+        }
+
+        public Task<TopVehicleViewModel> GetTopVehicles(int pageIndex, int itemsPage, int? brandId, int? typeId)
+        {
+            throw new System.NotImplementedException();
         }
 
         public IEnumerable<SelectListItem> GetTransmissionChoicesForModel(int year, int modelId)

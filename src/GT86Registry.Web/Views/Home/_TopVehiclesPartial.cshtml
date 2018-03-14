@@ -1,18 +1,26 @@
-﻿@model IEnumerable<Vehicle>;
+﻿@model IEnumerable<TopVehicleViewModel>
+
+
 
 <div class="row">
     @foreach (var vehicle in Model)
     {
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
+        <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+            <div class="card">
                 <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.VIN">
-                    <img src="@vehicle.Image.Uri" alt="...">
+                    <img class="card-img-top" src="@vehicle.ImageUri" />
                 </a>
-                <div class="caption">
-                    <h3>
-                        @vehicle.ModelYear.Year @vehicle.ModelYear.Model.Manufacturer.Name @vehicle.ModelYear.Model.Name
-                        <span> (@vehicle.Status.Name)</span>
-                    </h3>
+                <div class="card-block">
+                    <h4 class="card-title">
+                        <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.VIN">
+                            @vehicle.Title
+                        </a>
+                    </h4>
+                    <div class="meta"><a href="#">@vehicle.OwnerUsername</a></div>
+                    <div class="card-text"></div>
+                </div>
+                <div class="card-footer">
+                    <span class="float-right">Viewed @vehicle.ViewCount times</span>
                 </div>
             </div>
         </div>

@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using GT86Registry.Web.Models.VehicleViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GT86Registry.Web.Interfaces
 {
@@ -13,5 +15,7 @@ namespace GT86Registry.Web.Interfaces
         IEnumerable<SelectListItem> GetAllYears();
         IEnumerable<SelectListItem> GetAvailableColorsForModel(int year, int modelId);
         IEnumerable<SelectListItem> GetTransmissionChoicesForModel(int year, int modelId);
+        IEnumerable<TopVehicleViewModel> GetTopVehicles();
+        Task<TopVehicleViewModel> GetTopVehicles(int pageIndex, int itemsPage, int? brandId, int? typeId);
     }
 }
