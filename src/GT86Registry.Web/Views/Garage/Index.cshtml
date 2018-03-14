@@ -3,12 +3,12 @@
 @inject UserManager<ApplicationUser> UserManager
 
 @{
-    ViewData["Title"] = UserManager.GetUserName(User) + " cars";
+    ViewData["Title"] = $"{UserManager.GetUserName(User)}'s garage";
 }
 
-<h1>@UserManager.GetUserName(User)'s Garage</h1>
-<p>Welcome to your garage!</p>
+<h1>@ViewBag.Title</h1>
+<h2>Welcome to your garage!</h2>
 <p>
-    <a asp-controller="Garage" asp-action="AddVehicle">Add a new Vehicle</a>
+    <a asp-controller="Garage" asp-action="AddVehicle" class="btn btn-default">Add a new Vehicle</a>
 </p>
 @Html.Partial("../Home/_TopVehiclesPartial")
