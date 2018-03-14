@@ -7,6 +7,7 @@ using GT86Registry.Infrastructure.Data;
 using GT86Registry.Web.Models.VehicleViewModels;
 using Microsoft.AspNetCore.Identity;
 using GT86Registry.Infrastructure.Identity;
+using GT86Registry.Web.Interfaces;
 
 namespace GT86Registry.Web.Controllers
 {
@@ -15,16 +16,18 @@ namespace GT86Registry.Web.Controllers
     {
         private readonly VehicleRepository _vehicleRepository;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IVehicleViewModelService _vehicleService;
 
-        public VehiclesController(VehicleRepository repository, UserManager<ApplicationUser> userManager)
+        public VehiclesController(VehicleRepository repository, UserManager<ApplicationUser> userManager, IVehicleViewModelService vehicleService)
         {
             _vehicleRepository = repository;
             _userManager = userManager;
+            _vehicleService = vehicleService;
         }
 
         public IActionResult Index()
         {
-            var vehicles = _vehicleRepository.GetAllVehicles();
+            var vehicles = _vehicleService.GetTopVehicles();
             return View("VehiclesIndex", vehicles);
         }
 
