@@ -8,6 +8,7 @@ using GT86Registry.Web.Models.VehicleViewModels;
 using Microsoft.AspNetCore.Identity;
 using GT86Registry.Infrastructure.Identity;
 using GT86Registry.Web.Interfaces;
+using Microsoft.AspNetCore.Routing;
 
 namespace GT86Registry.Web.Controllers
 {
@@ -31,6 +32,7 @@ namespace GT86Registry.Web.Controllers
             return View("VehiclesIndex", vehicles);
         }
 
+        [Route("vehicles/{id}")]
         public async Task<IActionResult> Details(string id)
         {
             var vehicle = _vehicleRepository.GetVehicleByVIN(id);

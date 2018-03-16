@@ -1,21 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GT86Registry.Web.Models;
-using GT86Registry.Infrastructure.Data;
 using GT86Registry.Web.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using GT86Registry.Infrastructure.Identity;
 
 namespace GT86Registry.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IVehicleViewModelService _vehicleService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public HomeController(IVehicleViewModelService vehicleService)
+        public HomeController(UserManager<ApplicationUser> userManager, IVehicleViewModelService vehicleService)
         {
+            _userManager = userManager;
             _vehicleService = vehicleService;
         }
 
@@ -25,10 +25,13 @@ namespace GT86Registry.Web.Controllers
             return View("../Vehicles/VehiclesIndex", vehicles);
         }
 
-
-        public IActionResult User(string username)
+        [Route("/{username}")]
+        public async Task<IActionResult> GetProfile(string username)
         {
-            return null;
+            //TODO(dca): create a user profile service to go fetch the user, lookup any potential vehicles, show profile page
+            var user = await _userManager.FindByNameAsync(username);
+
+            return Ok(user);
         }
 
         [Route("/about")]
