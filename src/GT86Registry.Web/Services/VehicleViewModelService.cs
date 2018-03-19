@@ -123,9 +123,9 @@ namespace GT86Registry.Web.Services
             return items;
         }
 
-        public IEnumerable<TopVehicleViewModel> GetTopVehicles()
+        public IEnumerable<VehicleOverviewViewModel> GetTopVehicles()
         {
-            List<TopVehicleViewModel> vehicleViewModels = new List<TopVehicleViewModel>();
+            List<VehicleOverviewViewModel> vehicleViewModels = new List<VehicleOverviewViewModel>();
 
             var vehicles = _vehicleRepository.GetAllQueryable()
                         .Include(vehicle => vehicle.ModelYear)
@@ -140,12 +140,12 @@ namespace GT86Registry.Web.Services
             foreach (var vehicle in vehicles)
             {
                 var user = _userManager.FindByIdAsync(vehicle.UserIdentityGuid).Result;
-                var vm = new TopVehicleViewModel()
+                var vm = new VehicleOverviewViewModel()
                 {
                     ImageUri = vehicle.Image.Uri,
                     Location = vehicle.VehicleLocation,
                     OwnerUsername = user.UserName,
-                    Title = $"{vehicle.ModelYear.Year} {vehicle.ModelYear.Model.Manufacturer.Name} {vehicle.ModelYear.Model.Name}",
+                    Title = vehicle.ToString(),
                     ViewCount = vehicle.ViewCount,
                     VIN = vehicle.VIN
                 };
@@ -156,7 +156,7 @@ namespace GT86Registry.Web.Services
             return vehicleViewModels;
         }
 
-        public Task<TopVehicleViewModel> GetTopVehicles(int pageIndex, int itemsPage, int? brandId, int? typeId)
+        public Task<VehicleOverviewViewModel> GetTopVehicles(int pageIndex, int itemsPage, int? brandId, int? typeId)
         {
             throw new System.NotImplementedException();
         }
