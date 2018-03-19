@@ -49,5 +49,15 @@ namespace GT86Registry.Web.Controllers
             return View("_VehicleDetails", vm);
         }
 
+        public async Task<IActionResult> GetProfile(string username)
+        {
+            //TODO(dca): create a user profile service to go fetch the user, lookup any potential vehicles, show profile page
+            var user = await _userManager.FindByNameAsync(username);
+
+            if (user == null) { return BadRequest("User not found!"); }
+
+            var vehicles = _vehicleRepository.GetVehiclesByUserId(user.Id);
+            return Ok(vehicles);
+        }
     }
 }

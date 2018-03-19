@@ -25,15 +25,6 @@ namespace GT86Registry.Web.Controllers
             return View("../Vehicles/VehiclesIndex", vehicles);
         }
 
-        [Route("/{username}")]
-        public async Task<IActionResult> GetProfile(string username)
-        {
-            //TODO(dca): create a user profile service to go fetch the user, lookup any potential vehicles, show profile page
-            var user = await _userManager.FindByNameAsync(username);
-
-            return Ok(user);
-        }
-
         [Route("/about")]
         public IActionResult About()
         {
