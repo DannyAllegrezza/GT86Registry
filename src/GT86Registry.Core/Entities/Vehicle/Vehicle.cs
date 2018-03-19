@@ -70,6 +70,11 @@ namespace GT86Registry.Core.Entities
 
         public List<VehiclesImages> VehicleImages { get; set; } = new List<VehiclesImages>();
 
+        public override string ToString()
+        {
+            return $"{ModelYear.Year} {ModelYear.Model.Manufacturer.Name} {ModelYear.Model.Name}";
+        }
+
         #endregion Navigation Properties
     }
 }
