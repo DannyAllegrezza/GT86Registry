@@ -12,6 +12,17 @@ This project follows an onion architecture.
 ### Data access layer
 Currently, the library is using Entity Framework Core 2 as an ORM. EF Core has many different database drivers, I'm happening to use SQL Server but you could easily swap it out for Postgres, SQLite and others. 
 
+# Getting Started
+1. You'll need the (.NET Core 2.x SDK)[https://www.microsoft.com/net/download/windows] for your appropriate platform.
+2. Clone this repo 
+3. Use your favorite IDE (preferably Visual Studio 2017 or VS Code) and open the .sln file.
+4. Follow the steps below to **run** the migrations. 
+5. Verify that running the migrations has created your new database.
+6. Run the project! 
+
+* In VS2017, simply open the project and run as normal. 
+* In VS Code, navigate to the `src/GT86Registry.Web/` directory and type `dotnet run`
+
 #### Creating the migrations
 The migrations are already created for this project, but if they need to be created again you can follow the following steps:
 1. Run the following commands from the `src\GT86Registry.Web` folder
@@ -27,5 +38,6 @@ If the Migrations have already been created, follow these steps:
 This should create 2 new databases:
 1. `GT86Registry.Identity`
 2. `GT86Registry.CarRegistry`
+
 ## Motivation
 This project came from my desire to test out some of the new functionality of the latest .NET Core 2 offerings through a domain which I love dearly, automobiles. As some may already know, I'm a huge gearhead and have been turning wrenches on cars since age 16, right along side tinkering with computer hardware. 
