@@ -15,7 +15,7 @@ namespace GT86Registry.Web.Interfaces
         IEnumerable<SelectListItem> GetAllYears();
         IEnumerable<SelectListItem> GetAvailableColorsForModel(int year, int modelId);
         IEnumerable<SelectListItem> GetTransmissionChoicesForModel(int year, int modelId);
-        IEnumerable<VehicleOverviewViewModel> GetTopVehicles();
-        Task<VehicleOverviewViewModel> GetTopVehicles(int pageIndex, int itemsPage, int? brandId, int? typeId);
+        IEnumerable<VehicleOverviewViewModel> GetVehicleOverviewViewModels();
+        Task<VehicleOverviewViewModel> GetVehicleOverviewViewModels(int pageIndex, int itemsPage, int? brandId, int? typeId);
     }
 }

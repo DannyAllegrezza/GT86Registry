@@ -27,7 +27,7 @@ namespace GT86Registry.Web.Controllers
         public IActionResult Index()
         {
             var user = _userManager.GetUserAsync(User).Result;
-            var vehicles = _vehicleViewModelService.GetTopVehicles().Where(x => x.OwnerUsername == user.UserName);
+            var vehicles = _vehicleViewModelService.GetVehicleOverviewViewModels().Where(x => x.OwnerUsername == user.UserName);
 
             return View(vehicles);
         }

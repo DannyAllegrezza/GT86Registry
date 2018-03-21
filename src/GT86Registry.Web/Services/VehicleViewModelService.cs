@@ -123,7 +123,7 @@ namespace GT86Registry.Web.Services
             return items;
         }
 
-        public IEnumerable<VehicleOverviewViewModel> GetTopVehicles()
+        public IEnumerable<VehicleOverviewViewModel> GetVehicleOverviewViewModels()
         {
             List<VehicleOverviewViewModel> vehicleViewModels = new List<VehicleOverviewViewModel>();
 
@@ -156,7 +156,7 @@ namespace GT86Registry.Web.Services
             return vehicleViewModels;
         }
 
-        public Task<VehicleOverviewViewModel> GetTopVehicles(int pageIndex, int itemsPage, int? brandId, int? typeId)
+        public Task<VehicleOverviewViewModel> GetVehicleOverviewViewModels(int pageIndex, int itemsPage, int? brandId, int? typeId)
         {
             throw new System.NotImplementedException();
         }
