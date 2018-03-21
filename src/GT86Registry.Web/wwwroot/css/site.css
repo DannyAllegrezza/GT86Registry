@@ -82,6 +82,10 @@ h5 {
     height: auto;
 }
 
+.card-img {
+    height: 200px;
+}
+
 .card-title {
     font-size: 1.28571429em;
     font-weight: 700;
@@ -135,12 +139,12 @@ h5 {
     color: rgba(0, 0, 0, .4);
 }
 
-    .meta a {
-        text-decoration: none;
-        color: rgba(0, 0, 0, .4);
-    }
+.meta a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, .4);
+}
 
-        .meta a:hover {
-            color: rgba(0, 0, 0, .87);
-        }
+.meta a:hover {
+    color: rgba(0, 0, 0, .87);
+}
 
