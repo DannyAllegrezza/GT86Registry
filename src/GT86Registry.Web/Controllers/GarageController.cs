@@ -1,9 +1,12 @@
 ﻿using GT86Registry.Infrastructure.Data;
 using GT86Registry.Infrastructure.Identity;
+using GT86Registry.Web.Interfaces;
 using GT86Registry.Web.Models.VehicleViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GT86Registry.Web.Controllers
 {
@@ -11,20 +14,22 @@ namespace GT86Registry.Web.Controllers
     public class GarageController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IVehicleViewModelService _vehicleViewModelService;
         private readonly VehicleRepository _vehicleRepository;
 
-        public GarageController(VehicleRepository vehicleRepository, UserManager<ApplicationUser> userManager)
+        public GarageController(VehicleRepository vehicleRepository, UserManager<ApplicationUser> userManager, IVehicleViewModelService vehicleViewModelService)
         {
             _vehicleRepository = vehicleRepository;
             _userManager = userManager;
+            _vehicleViewModelService = vehicleViewModelService;
         }
 
         public IActionResult Index()
         {
             var user = _userManager.GetUserAsync(User).Result;
-            var usersVehicles = _vehicleRepository.GetVehiclesByUserId(user.Id);
+            var vehicles = _vehicleViewModelService.GetVehicleOverviewViewModels().Where(x => x.OwnerUsername == user.UserName);
 
-            return View(usersVehicles);
+            return View(vehicles);
         }
 
         [HttpGet]

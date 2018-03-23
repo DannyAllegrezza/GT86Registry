@@ -2,7 +2,7 @@
 
 namespace GT86Registry.Web.Models.VehicleViewModels
 {
-    public class TopVehicleViewModel
+    public class VehicleOverviewViewModel
     {
         public string ImageUri { get; set; }
         public VehicleLocation Location { get; set; }

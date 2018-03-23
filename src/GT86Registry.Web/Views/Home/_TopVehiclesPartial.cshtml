@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TopVehicleViewModel>
+﻿@model IEnumerable<VehicleOverviewViewModel>
 
 
 
@@ -7,9 +7,11 @@
     {
         <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
             <div class="card">
-                <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.VIN">
-                    <img class="card-img-top" src="@vehicle.ImageUri" />
-                </a>
+                <div class="card-img">
+                    <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.VIN">
+                        <img class="card-img-top" src="@vehicle.ImageUri" />
+                    </a>
+                </div>
                 <div class="card-block">
                     <h4 class="card-title">
                         <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.VIN">

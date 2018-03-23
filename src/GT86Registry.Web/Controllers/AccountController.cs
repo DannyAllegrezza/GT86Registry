@@ -14,6 +14,7 @@ using GT86Registry.Web.Interfaces;
 using GT86Registry.Core.Entities;
 using GT86Registry.Core.Interfaces;
 using GT86Registry.Core.Interfaces.Entities;
+using Microsoft.Extensions.Configuration;
 
 namespace GT86Registry.Web.Controllers
 {
@@ -28,6 +29,7 @@ namespace GT86Registry.Web.Controllers
         private readonly ILogger _logger;
         private readonly IVehicleViewModelService _vehicleService;
         private readonly IVehicleFactory _vehicleFactory;
+        private readonly IConfiguration _configuration;
         #endregion Properties
 
         #region Constructors
@@ -37,7 +39,8 @@ namespace GT86Registry.Web.Controllers
             IEmailSender emailSender,
             IVehicleViewModelService vehicleService,
             IVehicleFactory vehicleFactory,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -45,6 +48,7 @@ namespace GT86Registry.Web.Controllers
             _logger = logger;
             _vehicleService = vehicleService;
             _vehicleFactory = vehicleFactory;
+            _configuration = configuration;
         }
         #endregion Constructors
 
@@ -227,7 +231,7 @@ namespace GT86Registry.Web.Controllers
             {
                 Years = _vehicleService.GetAllYears()
             };
-
+            ViewData["VehiclePlatform"] = _configuration["SiteSettings:VehiclePlatform"];
             ViewData["ReturnUrl"] = returnUrl;
             return View(vm);
         }
