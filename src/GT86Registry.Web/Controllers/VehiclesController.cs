@@ -57,7 +57,7 @@ namespace GT86Registry.Web.Controllers
             if (user == null) { return BadRequest("User not found!"); }
 
             var vehicles = _vehicleRepository.GetVehiclesByUserId(user.Id);
-            return Ok(vehicles);
+            return View("../Account/UserProfile", vehicles);
         }
     }
 }
