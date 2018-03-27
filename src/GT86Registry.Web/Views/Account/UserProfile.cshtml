@@ -1,8 +1,8 @@
-﻿@model IEnumerable<Vehicle>
+﻿@model UserProfileViewModel
 
-<div class="row">
-    @foreach (var vehicle in Model)
-    {
-        @vehicle.Description
-    }
-</div>
+@{
+    ViewData["Title"] = $"{Model.VehicleOwner.UserName} Profile";
+}
+
+<p>@Model.VehicleOwner.UserName's Profile</p>
+@Html.Partial("../Home/_VehicleOverviewPartial", Model.OwnerVehicles)
