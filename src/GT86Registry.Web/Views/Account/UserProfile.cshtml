@@ -5,4 +5,10 @@
 }
 
 <p>@Model.VehicleOwner.UserName's Profile</p>
+<ul>
+    <li>@Model.VehicleOwner.FacebookUri</li>
+    <li>@Model.VehicleOwner.InstagramUri</li>
+    <li>@Model.VehicleOwner.LastActivityDate.ToUniversalTime()</li>
+    <li>@Model.VehicleOwner.City, @Model.VehicleOwner.State</li>
+</ul>
 @Html.Partial("../Home/_VehicleOverviewPartial", Model.OwnerVehicles)
