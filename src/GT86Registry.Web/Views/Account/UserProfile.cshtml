@@ -4,11 +4,22 @@
     ViewData["Title"] = $"{Model.VehicleOwner.UserName} Profile";
 }
 
-<p>@Model.VehicleOwner.UserName's Profile</p>
-<ul>
-    <li>@Model.VehicleOwner.FacebookUri</li>
-    <li>@Model.VehicleOwner.InstagramUri</li>
-    <li>@Model.VehicleOwner.LastActivityDate.ToUniversalTime()</li>
-    <li>@Model.VehicleOwner.City, @Model.VehicleOwner.State</li>
-</ul>
+
+
+<div class="row">
+    <div class="col-md-3">
+        <img class="img-rounded" src="@Model.VehicleOwner.ProfilePhotoUri"></img>
+    </div>
+    <div class="col-md-9">
+        <h1>@Model.VehicleOwner.UserName</h1>
+        <h3>@Model.VehicleOwner.City, @Model.VehicleOwner.State</h3>
+        <a href="@Model.VehicleOwner.FacebookUri"><i class="icon-facebook"></i></a>
+        <a href="@Model.VehicleOwner.InstagramUri"><i class="icon-instagram"></i></a>
+    </div>
+</div>
+
+<div class="row">
+    <h1>@Model.VehicleOwner.UserName's Registered Vehicles</h1>
+</div>
+
 @Html.Partial("../Home/_VehicleOverviewPartial", Model.OwnerVehicles)
