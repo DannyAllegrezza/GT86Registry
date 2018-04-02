@@ -8,6 +8,10 @@
     background-color: #f5f5f5;
 }
 
+ul {
+    list-style-type: none;
+}
+
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
@@ -140,17 +144,4 @@ h5 {
     font-weight: 700;
 }
 
-.meta {
-    font-size: 1em;
-    color: rgba(0, 0, 0, .4);
-}
-
-.meta a {
-    text-decoration: none;
-    color: rgba(0, 0, 0, .4);
-}
-
-.meta a:hover {
-    color: rgba(0, 0, 0, .87);
-}
 

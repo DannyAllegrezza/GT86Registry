@@ -96,6 +96,7 @@ namespace GT86Registry.Web
             services.AddScoped<VehicleRepository>();
             services.AddTransient<VehicleSeeder>();
             services.AddScoped<IVehicleViewModelService, VehicleViewModelService>();
+            services.AddScoped<IUserProfileService, UserProfileService>();
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddScoped<IVehicleFactory, VehicleFactory>();
             services.AddMvc().AddJsonOptions(options =>
