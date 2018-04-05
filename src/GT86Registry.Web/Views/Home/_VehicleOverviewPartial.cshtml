@@ -5,25 +5,24 @@
 <div class="row">
     @foreach (var vehicle in Model)
     {
-        <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
-            <div class="card">
-                <div class="card-img">
-                    <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.VIN">
-                        <img class="card-img-top" src="@vehicle.ImageUri" />
-                    </a>
+        <div class="card-box col-md-4 col-sm-6">
+            <div class="card">                            
+                <div class="header">
+                    <img src="@vehicle.ImageUri"/>
+                    <div class="filter"></div>
+                    
+                    <div class="actions">
+                        <button class="btn btn-round btn-fill btn-neutral btn-modern">
+                            View Vehicle
+                        </button>
+                    </div>
                 </div>
-                <div class="card-block">
-                    <h4 class="card-title">
-                        <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.VIN">
-                            @vehicle.Title
-                        </a>
-                    </h4>
-                    <div class="meta"><a href="@vehicle.OwnerUsername">@vehicle.OwnerUsername</a></div>
-                    <div class="card-text"></div>
-                </div>
-                <div class="card-footer">
-                    <span class="float-right">Viewed @vehicle.ViewCount times</span>
-                </div>
+                
+                <div class="content">
+                    <h6 class="category"><a href="@vehicle.OwnerUsername">@vehicle.OwnerUsername</a></h6>
+                    <h4 class="title"><a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.VIN">@vehicle.Title</a></h4>
+                    <p class="description">Viewed @vehicle.ViewCount times</p>
+                </div>                                           
             </div>
         </div>
     }
