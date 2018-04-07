@@ -3,6 +3,11 @@
 
     // Make the images from the card fill the hole space
     hipster_cards.fitBackgroundForCards();
+
+    // set the active menu item class to "active"
+    console.log(location.pathname);
+    $('ul.nav').find('a[href="' + location.pathname + '"]')
+        .closest('li').addClass('active');
 });
 
 

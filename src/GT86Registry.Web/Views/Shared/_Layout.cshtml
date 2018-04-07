@@ -50,12 +50,20 @@
             </div>
 
             <ul class="nav">
-                <li class="active">
+                <li>
                     <a asp-area="" asp-controller="Home" asp-action="Index">
                         <i class="pe-7s-graph"></i>
                         <p>Home</p>
                     </a>
                 </li>
+                @if (SignInManager.IsSignedIn(User)) { 
+                <li>
+                    <a asp-area="" asp-controller="Garage" asp-action="Index">
+                        <i class="pe-7s-car"></i>
+                        <p>My Garage</p>
+                    </a>
+                </li>
+                }
                 <li>
                     <a href="user.html">
                         <i class="pe-7s-user"></i>
