@@ -12,8 +12,8 @@
                     <div class="filter"></div>
                     
                     <div class="actions">
-                        <button class="btn btn-round btn-fill btn-neutral btn-modern">
-                            View Vehicle
+                        <button class="btn btn-round btn-fill btn-neutral btn-modern">                            
+                            <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.VIN">View Vehicle</a>
                         </button>
                     </div>
                 </div>
