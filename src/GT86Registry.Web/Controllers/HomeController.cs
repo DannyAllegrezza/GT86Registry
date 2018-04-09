@@ -1,28 +1,21 @@
-﻿using System.Diagnostics;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using GT86Registry.Web.Models;
+﻿using GT86Registry.Infrastructure.Identity;
 using GT86Registry.Web.Interfaces;
+using GT86Registry.Web.Models;
 using Microsoft.AspNetCore.Identity;
-using GT86Registry.Infrastructure.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace GT86Registry.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IVehicleViewModelService _vehicleService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IVehicleViewModelService _vehicleService;
 
         public HomeController(UserManager<ApplicationUser> userManager, IVehicleViewModelService vehicleService)
         {
             _userManager = userManager;
             _vehicleService = vehicleService;
-        }
-
-        public IActionResult Index()
-        {
-            var vehicles = _vehicleService.GetVehicleOverviewViewModels();
-            return View("../Vehicles/VehiclesIndex", vehicles);
         }
 
         [Route("/about")]
@@ -44,6 +37,12 @@ namespace GT86Registry.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Index()
+        {
+            var vehicles = _vehicleService.GetVehicleOverviewViewModels();
+            return View("../Vehicles/VehiclesIndex", vehicles);
         }
     }
 }

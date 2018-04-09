@@ -10,12 +10,18 @@ namespace GT86Registry.Web.Interfaces
     /// </summary>
     public interface IVehicleViewModelService
     {
-        IEnumerable<SelectListItem> GetManufacturersByYear(int year);
-        IEnumerable<SelectListItem> GetModels(int year, int manufacturerId);
         IEnumerable<SelectListItem> GetAllYears();
+
         IEnumerable<SelectListItem> GetAvailableColorsForModel(int year, int modelId);
+
+        IEnumerable<SelectListItem> GetManufacturersByYear(int year);
+
+        IEnumerable<SelectListItem> GetModels(int year, int manufacturerId);
+
         IEnumerable<SelectListItem> GetTransmissionChoicesForModel(int year, int modelId);
+
         IEnumerable<VehicleOverviewViewModel> GetVehicleOverviewViewModels();
+
         Task<VehicleOverviewViewModel> GetVehicleOverviewViewModels(int pageIndex, int itemsPage, int? brandId, int? typeId);
     }
 }

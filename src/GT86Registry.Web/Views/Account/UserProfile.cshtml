@@ -4,18 +4,35 @@
     ViewData["Title"] = $"{Model.VehicleOwner.UserName} Profile";
 }
 
-
-
 <div class="row">
-    <div class="col-md-2">
-        <img class="img-rounded" src="http://via.placeholder.com/150x150">
+    <div class="col-md-4">
+        <div class="card card-user">
+            <div class="image">
+                <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..." />
+            </div>
+            <div class="content">
+                <div class="author">
+                    <a href="#">
+                        <img class="avatar border-gray" src="images/default_profile_photo.jpg" alt="..." />
+
+                        <h4 class="title">
+                            @Model.VehicleOwner.UserName<br />
+                        <small>@Model.VehicleOwner.UserName</small><br />
+                        <small>@Model.VehicleOwner.City, @Model.VehicleOwner.State</small>
+                    </h4>
+                </a>
+            </div>
+            <p class="description text-center">
+                <!-- TODO: Profile Description text -->
+            </p>
+        </div>
+        <hr>
+        <div class="text-center">
+            <button href="@Model.VehicleOwner.FacebookUri" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
+            <button href="@Model.VehicleOwner.InstagramUri" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
+        </div>
     </div>
-    <div class="col-md-10">
-        <h1>@Model.VehicleOwner.UserName</h1>
-        <h3>@Model.VehicleOwner.City, @Model.VehicleOwner.State</h3>
-        <a href="@Model.VehicleOwner.FacebookUri"><i class="icon-facebook"></i></a>
-        <a href="@Model.VehicleOwner.InstagramUri"><i class="icon-instagram"></i></a>
-    </div>
+</div>
 </div>
 
 <div class="row">

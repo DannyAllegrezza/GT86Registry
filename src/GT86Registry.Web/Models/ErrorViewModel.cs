@@ -1,5 +1,3 @@
-using System;
-
 namespace GT86Registry.Web.Models
 {
     public class ErrorViewModel

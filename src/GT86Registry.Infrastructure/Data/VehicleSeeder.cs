@@ -1,7 +1,6 @@
 ﻿using GT86Registry.Core.Entities;
 using GT86Registry.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -27,7 +26,7 @@ namespace GT86Registry.Infrastructure.Data
             //vehicleContext.Database.EnsureDeleted();
             //vehicleContext.Database.Migrate();
 
-            // Create Vehicle Statuses 
+            // Create Vehicle Statuses
             if (!vehicleContext.VehicleStatuses.Any())
             {
                 vehicleContext.VehicleStatuses.AddRange(GetDefaultVehicleStatuses());
@@ -109,71 +108,7 @@ namespace GT86Registry.Infrastructure.Data
                 vehicleContext.Vehicles.AddRange(GetDefaultVehicles(vehicleContext, userManager));
 
                 await vehicleContext.SaveChangesAsync();
-
             }
-        }
-
-        private static IEnumerable<VehicleStatus> GetDefaultVehicleStatuses()
-        {
-            return new List<VehicleStatus>()
-            {
-                new VehicleStatus(Status.Active.ToString(), Status.Active),
-                new VehicleStatus(Status.TrackCar.ToString(), Status.TrackCar),
-                new VehicleStatus(Status.Sold.ToString(), Status.Sold),
-                new VehicleStatus(Status.Totaled.ToString(), Status.Totaled),
-                new VehicleStatus(Status.Stolen.ToString(), Status.Stolen)
-            };
-        }
-
-        private static IEnumerable<Manufacturer> GetDefaultManufacturers()
-        {
-            var subaruStartDate = new DateTime(1953, 7, 15);
-            var scionStartDate = new DateTime(2003, 6, 9);
-            var scionEndDate = new DateTime(2016, 8, 5);
-            var toyotaStartDate = new DateTime(1937, 8, 28);
-            var nissanStartDate = new DateTime(1933, 12, 26);
-
-            return new List<Manufacturer>()
-            {
-                new Manufacturer("Subaru", subaruStartDate, null),
-                new Manufacturer("Scion", scionEndDate, scionEndDate),
-                new Manufacturer("Toyota", toyotaStartDate, null),
-                new Manufacturer("Nissan", nissanStartDate, null)
-            };
-        }
-
-        private static IEnumerable<Model> GetDefaultVehicleModels()
-        {
-            return new List<Model>()
-            {
-                new Model("BRZ", 1),
-                new Model("FR-S", 2),
-                new Model("GT86", 3),
-                new Model("240SX", 4)
-            };
-        }
-
-        private static IEnumerable<ModelYear> GetDefaultModelYears()
-        {
-            var modelYears = new List<ModelYear>();
-
-            // Subaru BRZ and Toyota GT86
-            for (int year = 2013; year <= 2018; year++)
-            {
-                var brz = new ModelYear(year, 1);
-                var gt86 = new ModelYear(year, 3);
-                modelYears.Add(brz);
-                modelYears.Add(gt86);
-            }
-
-            // Scion FR-S
-            for (int year = 2013; year < 2017; year++)
-            {
-                var frs = new ModelYear(year, 2);
-                modelYears.Add(frs);
-            }
-
-            return modelYears;
         }
 
         private static IEnumerable<Color> GetDefaultColors()
@@ -211,6 +146,185 @@ namespace GT86Registry.Infrastructure.Data
                 new Color("Sterling Silver Metallic", "D7S"),
                 new Color("World Rally Blue Pearl", "02C"),
                 new Color("World Rally Blue Pearl", "K7X")
+            };
+        }
+
+        private static IEnumerable<VehicleLocation> GetDefaultLocations()
+        {
+            return new List<VehicleLocation>()
+            {
+                new VehicleLocation(35.813453, -78.819194),
+                new VehicleLocation(40.52, -111.87),
+                new VehicleLocation(38.97, -76.50)
+            };
+        }
+
+        private static IEnumerable<Manufacturer> GetDefaultManufacturers()
+        {
+            var subaruStartDate = new DateTime(1953, 7, 15);
+            var scionStartDate = new DateTime(2003, 6, 9);
+            var scionEndDate = new DateTime(2016, 8, 5);
+            var toyotaStartDate = new DateTime(1937, 8, 28);
+            var nissanStartDate = new DateTime(1933, 12, 26);
+
+            return new List<Manufacturer>()
+            {
+                new Manufacturer("Subaru", subaruStartDate, null),
+                new Manufacturer("Scion", scionEndDate, scionEndDate),
+                new Manufacturer("Toyota", toyotaStartDate, null),
+                new Manufacturer("Nissan", nissanStartDate, null)
+            };
+        }
+
+        private static IEnumerable<ModelYear> GetDefaultModelYears()
+        {
+            var modelYears = new List<ModelYear>();
+
+            // Subaru BRZ and Toyota GT86
+            for (int year = 2013; year <= 2018; year++)
+            {
+                var brz = new ModelYear(year, 1);
+                var gt86 = new ModelYear(year, 3);
+                modelYears.Add(brz);
+                modelYears.Add(gt86);
+            }
+
+            // Scion FR-S
+            for (int year = 2013; year < 2017; year++)
+            {
+                var frs = new ModelYear(year, 2);
+                modelYears.Add(frs);
+            }
+
+            return modelYears;
+        }
+
+        private static IEnumerable<Image> GetDefaultProfilePhotoUri(UserManager<ApplicationUser> userManager)
+        {
+            var defaultUser = userManager.FindByEmailAsync(SeedData.USER_EMAIL_BRZ).Result;
+            var defaultProfilePhoto = new Image
+            {
+                Uri = "https://i.imgur.com/8RuGLC6.jpg",
+                UserIdentityGuid = defaultUser.Id
+            };
+
+            var frsUser = userManager.FindByEmailAsync(SeedData.USER_EMAIL_FRS).Result;
+            var frsProfilePhoto = new Image
+            {
+                Uri = "http://i.imgur.com/cHZgF.jpg",
+                UserIdentityGuid = frsUser.Id
+            };
+
+            var gt86User = userManager.FindByEmailAsync(SeedData.USER_EMAIL_GT86).Result;
+            var gt86ProfilePhoto = new Image
+            {
+                Uri = "https://i.imgur.com/3Hxt0pt.jpg",
+                UserIdentityGuid = gt86User.Id
+            };
+
+            return new List<Image>()
+            {
+                defaultProfilePhoto,
+                frsProfilePhoto,
+                gt86ProfilePhoto
+            };
+        }
+
+        private static IEnumerable<Model> GetDefaultVehicleModels()
+        {
+            return new List<Model>()
+            {
+                new Model("BRZ", 1),
+                new Model("FR-S", 2),
+                new Model("GT86", 3),
+                new Model("240SX", 4)
+            };
+        }
+
+        private static IEnumerable<Vehicle> GetDefaultVehicles(VehicleDbContext vehicleContext, UserManager<ApplicationUser> userManager)
+        {
+            List<Vehicle> vehicles = new List<Vehicle>();
+
+            var defaultUser = userManager.FindByEmailAsync("testuser@gt86registry.com").Result;
+            var sampleBrz = new Vehicle("JF1ZCAC11E9603184")
+            {
+                ModelYearId = 3, // 2014 BRZ
+                TransmissionId = 1, // 6-Spd Manual
+                ColorId = 14, // World Rally Blue
+                ProfilePhotoId = 1,
+                VehicleLocationId = 1,
+                UserIdentityGuid = defaultUser.Id,
+                Description = "This is my first Subaru! I've always wanted a World Rally Blue vehicle and found a great deal on my BRZ. So far, I have a few mods, including Tein Coilovers, Perrin wheel spacers, Greddy axle-back exhaust and Phase2 Motortrend suspension arms.",
+                Mileage = 57341,
+                InstagramUri = SeedData.INSTAGRAM_URI,
+                FacebookUri = SeedData.SUBARU_FACEBOOK_URI,
+                Status = vehicleContext.VehicleStatuses.First(x => x.Name == Status.Active.ToString())
+            };
+
+            vehicles.Add(sampleBrz);
+
+            var frsUser = userManager.FindByEmailAsync("testfrs@gt86registry.com").Result;
+            var sampleFrs = new Vehicle("JF1ZNAA13E9709794")
+            {
+                ModelYearId = 14, // 2013 FRS
+                TransmissionId = 1, // 6-Spd Manual
+                ColorId = 3, // White
+                VehicleLocationId = 2,
+                ProfilePhotoId = 2,
+                UserIdentityGuid = frsUser.Id,
+                Description = "The FRS is such a fun car. I've been driving mine for 4 years now and still really love it. They're great cars.",
+                Mileage = 21024,
+                InstagramUri = SeedData.TOYOTA_INSTAGRAM_URI,
+                FacebookUri = SeedData.TOYOTA_FACEBOOK_URI,
+                Status = vehicleContext.VehicleStatuses.First(x => x.Name == Status.Active.ToString())
+            };
+            vehicles.Add(sampleFrs);
+
+            var gt86User = userManager.FindByEmailAsync("testgt86@gt86registry.com").Result;
+            var samplegt86 = new Vehicle("JF1ZNAA10H8703672")
+            {
+                ModelYearId = 10, // 2017 GT86
+                TransmissionId = 1, // 6-Spd Manual
+                ColorId = 1, // Ablaze
+                VehicleLocationId = 3,
+                ProfilePhotoId = 3,
+                UserIdentityGuid = gt86User.Id,
+                Description = "My GT86 is my first RWD vehicle. I've been taking it to drift events pretty often. My favorite thing about the 86 is the aftermarket selection. There are parts for days!",
+                Mileage = 3765,
+                InstagramUri = SeedData.TOYOTA_INSTAGRAM_URI,
+                FacebookUri = SeedData.TOYOTA_FACEBOOK_URI,
+                Status = vehicleContext.VehicleStatuses.First(x => x.Name == Status.Totaled.ToString())
+            };
+
+            var samplegt86two = new Vehicle("JF1ZNAA10H8703673")
+            {
+                ModelYearId = 10, // 2017 GT86
+                TransmissionId = 1, // 6-Spd Manual
+                ColorId = 1, // Ablaze
+                VehicleLocationId = 3,
+                ProfilePhotoId = 3,
+                UserIdentityGuid = gt86User.Id,
+                Description = "My GT86 is my first RWD vehicle. I've been taking it to drift events pretty often. My favorite thing about the 86 is the aftermarket selection. There are parts for days!",
+                Mileage = 3765,
+                InstagramUri = SeedData.TOYOTA_INSTAGRAM_URI,
+                FacebookUri = SeedData.TOYOTA_FACEBOOK_URI,
+                Status = vehicleContext.VehicleStatuses.First(x => x.Name == Status.Totaled.ToString())
+            };
+            vehicles.Add(samplegt86);
+            vehicles.Add(samplegt86two);
+
+            return vehicles;
+        }
+
+        private static IEnumerable<VehicleStatus> GetDefaultVehicleStatuses()
+        {
+            return new List<VehicleStatus>()
+            {
+                new VehicleStatus(Status.Active.ToString(), Status.Active),
+                new VehicleStatus(Status.TrackCar.ToString(), Status.TrackCar),
+                new VehicleStatus(Status.Sold.ToString(), Status.Sold),
+                new VehicleStatus(Status.Totaled.ToString(), Status.Totaled),
+                new VehicleStatus(Status.Stolen.ToString(), Status.Stolen)
             };
         }
 
@@ -544,15 +658,6 @@ namespace GT86Registry.Infrastructure.Data
             };
         }
 
-        private static IEnumerable<Transmission> GetTransmissions()
-        {
-            return new List<Transmission>()
-            {
-                new Transmission("6-Spd Manual"),
-                new Transmission("6-Spd Automatic")
-            };
-        }
-
         private static IEnumerable<ModelTransmissions> GetModelYearTransmissions(VehicleDbContext vehicleContext)
         {
             List<ModelTransmissions> modelYearAndTransmissions = new List<ModelTransmissions>();
@@ -569,120 +674,13 @@ namespace GT86Registry.Infrastructure.Data
             return modelYearAndTransmissions;
         }
 
-        private static IEnumerable<VehicleLocation> GetDefaultLocations()
+        private static IEnumerable<Transmission> GetTransmissions()
         {
-            return new List<VehicleLocation>()
+            return new List<Transmission>()
             {
-                new VehicleLocation(35.813453, -78.819194),
-                new VehicleLocation(40.52, -111.87),
-                new VehicleLocation(38.97, -76.50)
+                new Transmission("6-Spd Manual"),
+                new Transmission("6-Spd Automatic")
             };
-        }
-
-        private static IEnumerable<Image> GetDefaultProfilePhotoUri(UserManager<ApplicationUser> userManager)
-        {
-            var defaultUser = userManager.FindByEmailAsync(SeedData.USER_EMAIL_BRZ).Result;
-            var defaultProfilePhoto = new Image
-            {
-                Uri = "https://i.imgur.com/8RuGLC6.jpg",
-                UserIdentityGuid = defaultUser.Id
-            };
-
-            var frsUser = userManager.FindByEmailAsync(SeedData.USER_EMAIL_FRS).Result;
-            var frsProfilePhoto = new Image
-            {
-                Uri = "http://i.imgur.com/cHZgF.jpg",
-                UserIdentityGuid = frsUser.Id
-            };
-
-            var gt86User = userManager.FindByEmailAsync(SeedData.USER_EMAIL_GT86).Result;
-            var gt86ProfilePhoto = new Image
-            {
-                Uri = "https://i.imgur.com/3Hxt0pt.jpg",
-                UserIdentityGuid = gt86User.Id
-            };
-
-            return new List<Image>()
-            {
-                defaultProfilePhoto,
-                frsProfilePhoto,
-                gt86ProfilePhoto
-            };
-        }
-
-        private static IEnumerable<Vehicle> GetDefaultVehicles(VehicleDbContext vehicleContext, UserManager<ApplicationUser> userManager)
-        {
-            List<Vehicle> vehicles = new List<Vehicle>();
-
-            var defaultUser = userManager.FindByEmailAsync("testuser@gt86registry.com").Result;
-            var sampleBrz = new Vehicle("JF1ZCAC11E9603184")
-            {
-                ModelYearId = 3, // 2014 BRZ
-                TransmissionId = 1, // 6-Spd Manual
-                ColorId = 14, // World Rally Blue
-                ProfilePhotoId = 1,
-                VehicleLocationId = 1,
-                UserIdentityGuid = defaultUser.Id,
-                Description = "This is my first Subaru! I've always wanted a World Rally Blue vehicle and found a great deal on my BRZ. So far, I have a few mods, including Tein Coilovers, Perrin wheel spacers, Greddy axle-back exhaust and Phase2 Motortrend suspension arms.",
-                Mileage = 57341,
-                InstagramUri = SeedData.INSTAGRAM_URI,
-                FacebookUri = SeedData.SUBARU_FACEBOOK_URI,
-                Status = vehicleContext.VehicleStatuses.First(x => x.Name == Status.Active.ToString())
-            };
-
-            vehicles.Add(sampleBrz);
-
-            var frsUser = userManager.FindByEmailAsync("testfrs@gt86registry.com").Result;
-            var sampleFrs = new Vehicle("JF1ZNAA13E9709794")
-            {
-                ModelYearId = 14, // 2013 FRS
-                TransmissionId = 1, // 6-Spd Manual
-                ColorId = 3, // White
-                VehicleLocationId = 2,
-                ProfilePhotoId = 2,
-                UserIdentityGuid = frsUser.Id,
-                Description = "The FRS is such a fun car. I've been driving mine for 4 years now and still really love it. They're great cars.",
-                Mileage = 21024,
-                InstagramUri = SeedData.TOYOTA_INSTAGRAM_URI,
-                FacebookUri = SeedData.TOYOTA_FACEBOOK_URI,
-                Status = vehicleContext.VehicleStatuses.First(x => x.Name == Status.Active.ToString())
-            };
-            vehicles.Add(sampleFrs);
-
-            var gt86User = userManager.FindByEmailAsync("testgt86@gt86registry.com").Result;
-            var samplegt86 = new Vehicle("JF1ZNAA10H8703672")
-            {
-                ModelYearId = 10, // 2017 GT86
-                TransmissionId = 1, // 6-Spd Manual
-                ColorId = 1, // Ablaze
-                VehicleLocationId = 3,
-                ProfilePhotoId = 3,
-                UserIdentityGuid = gt86User.Id,
-                Description = "My GT86 is my first RWD vehicle. I've been taking it to drift events pretty often. My favorite thing about the 86 is the aftermarket selection. There are parts for days!",
-                Mileage = 3765,
-                InstagramUri = SeedData.TOYOTA_INSTAGRAM_URI,
-                FacebookUri = SeedData.TOYOTA_FACEBOOK_URI,
-                Status = vehicleContext.VehicleStatuses.First(x => x.Name == Status.Totaled.ToString())
-            };
-
-            var samplegt86two = new Vehicle("JF1ZNAA10H8703673")
-            {
-                ModelYearId = 10, // 2017 GT86
-                TransmissionId = 1, // 6-Spd Manual
-                ColorId = 1, // Ablaze
-                VehicleLocationId = 3,
-                ProfilePhotoId = 3,
-                UserIdentityGuid = gt86User.Id,
-                Description = "My GT86 is my first RWD vehicle. I've been taking it to drift events pretty often. My favorite thing about the 86 is the aftermarket selection. There are parts for days!",
-                Mileage = 3765,
-                InstagramUri = SeedData.TOYOTA_INSTAGRAM_URI,
-                FacebookUri = SeedData.TOYOTA_FACEBOOK_URI,
-                Status = vehicleContext.VehicleStatuses.First(x => x.Name == Status.Totaled.ToString())
-            };
-            vehicles.Add(samplegt86);
-            vehicles.Add(samplegt86two);
-
-            return vehicles;
         }
     }
 }

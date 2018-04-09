@@ -1,11 +1,6 @@
-﻿using GT86Registry.Core.Entities;
-using GT86Registry.Core.Interfaces;
-using GT86Registry.Infrastructure.Data;
+﻿using GT86Registry.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GT86Registry.Web.Controllers.Api
@@ -13,8 +8,8 @@ namespace GT86Registry.Web.Controllers.Api
     [Route("api/vehicles")]
     public class VehiclesApiController : Controller
     {
-        private readonly VehicleRepository _repository;
         private readonly VehicleDbContext _context;
+        private readonly VehicleRepository _repository;
 
         public VehiclesApiController(VehicleRepository repository, VehicleDbContext context)
         {

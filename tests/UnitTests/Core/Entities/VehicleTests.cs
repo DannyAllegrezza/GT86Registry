@@ -1,5 +1,4 @@
 ﻿using GT86Registry.Core.Entities;
-using GT86Registry.Core.Factories;
 using GT86Registry.Core.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -8,8 +7,8 @@ namespace UnitTests.Core.Entities
     [TestClass]
     public class VehicleTests
     {
-        IVehicleFactory _vehicleFactory;
-        const string _vin = "JF1ZCAC11E9603184";
+        private const string _vin = "JF1ZCAC11E9603184";
+        private IVehicleFactory _vehicleFactory;
 
         [TestInitialize]
         public void Setup()
@@ -30,7 +29,6 @@ namespace UnitTests.Core.Entities
             //Vehicle vehicle = _vehicleFactory.CreateVehicle(_vin, modelYear, color, transmission, userIdentityGuid);
 
             //Assert.IsNotNull(vehicle);
-
         }
     }
 }

@@ -10,10 +10,6 @@ namespace GT86Registry.Core.Entities
 
         #region Constructors
 
-        protected ModelYear()
-        {
-        }
-
         /// <summary>
         /// Initializes a new ModelYear
         /// </summary>
@@ -31,15 +27,19 @@ namespace GT86Registry.Core.Entities
             Model = model;
         }
 
+        protected ModelYear()
+        {
+        }
+
         #endregion Constructors
 
         #region Navigation Properties
 
         public Model Model { get; set; }
+        public List<ColorsModelYears> ModelColors { get; set; }
         public int ModelId { get; set; }
         public List<ModelTransmissions> ModelTransmissions { get; set; }
         public List<Vehicle> Vehicles { get; set; }
-        public List<ColorsModelYears> ModelColors { get; set; }
 
         #endregion Navigation Properties
     }

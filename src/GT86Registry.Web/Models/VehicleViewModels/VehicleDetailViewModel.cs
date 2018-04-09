@@ -6,7 +6,7 @@ namespace GT86Registry.Web.Models.VehicleViewModels
 {
     public class VehicleDetailViewModel : IVehicleViewModel
     {
-        public ApplicationUser VehicleOwner { get; set; }
         public Vehicle Vehicle { get; set; }
+        public ApplicationUser VehicleOwner { get; set; }
     }
 }

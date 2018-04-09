@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using GT86Registry.Web.Controllers;
 
 namespace Microsoft.AspNetCore.Mvc

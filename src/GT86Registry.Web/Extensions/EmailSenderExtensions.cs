@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using GT86Registry.Web.Services;
 
 namespace GT86Registry.Web.Services
 {

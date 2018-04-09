@@ -5,10 +5,9 @@
     /// </summary>
     public class VehiclesImages
     {
-        public string VehicleVIN { get; set; }
-        public Vehicle Vehicle { get; set; }
-
-        public int ImageId { get; set; }
         public Image Image { get; set; }
+        public int ImageId { get; set; }
+        public Vehicle Vehicle { get; set; }
+        public string VehicleVIN { get; set; }
     }
 }

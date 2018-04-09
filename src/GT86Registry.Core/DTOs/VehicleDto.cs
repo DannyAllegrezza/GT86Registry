@@ -19,14 +19,14 @@ namespace GT86Registry.Core.DTOs
         public string InstagramUri { get; set; }
         public string Manufacturer { get; set; }
         public string Model { get; set; }
+        public string Status { get; set; }
         public string Transmission { get; set; }
         public string Username { get; set; }
         public List<Image> VehicleImages { get; set; } = new List<Image>();
         public VehicleLocation VehicleLocation { get; set; }
+        public int ViewCount { get; set; }
         public string VIN { get; set; }
         public int Year { get; set; }
-        public string Status { get; set; }
-        public int ViewCount { get; set; }
 
         #endregion Properties
 

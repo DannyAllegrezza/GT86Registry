@@ -21,17 +21,17 @@ namespace GT86Registry.Web.Controllers
             return View();
         }
 
-        public IActionResult UserManagement()
-        {
-            var users = _userManager.Users;
-            return View(users);
-        }
-
         //Roles management
         public IActionResult RoleManagement()
         {
             var roles = _roleManager.Roles;
             return View(roles);
+        }
+
+        public IActionResult UserManagement()
+        {
+            var users = _userManager.Users;
+            return View(users);
         }
     }
 }

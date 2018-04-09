@@ -10,13 +10,20 @@ namespace GT86Registry.Core.Interfaces
     /// <typeparam name="T"></typeparam>
     public interface IRepository<T> where T : BaseEntity
     {
-        T GetById(int id);
-        IEnumerable<T> GetAll();
-        IQueryable<T> GetAllQueryable();
-        T AddEntity(T entity);
         void Add(T entity);
-        void Update(T entity);
+
+        T AddEntity(T entity);
+
         void Delete(T entity);
+
         void Delete(int id);
+
+        IEnumerable<T> GetAll();
+
+        IQueryable<T> GetAllQueryable();
+
+        T GetById(int id);
+
+        void Update(T entity);
     }
 }

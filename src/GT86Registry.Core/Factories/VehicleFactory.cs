@@ -1,10 +1,7 @@
-﻿using GT86Registry.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using GT86Registry.Core.Entities;
-using System.Linq;
+﻿using GT86Registry.Core.Entities;
+using GT86Registry.Core.Interfaces;
 using GT86Registry.Core.Interfaces.Entities;
+using System.Linq;
 
 namespace GT86Registry.Core.Factories
 {

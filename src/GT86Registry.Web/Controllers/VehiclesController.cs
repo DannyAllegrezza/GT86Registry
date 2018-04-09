@@ -12,9 +12,9 @@ namespace GT86Registry.Web.Controllers
     public class VehiclesController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserProfileService _userProfileService;
         private readonly VehicleRepository _vehicleRepository;
         private readonly IVehicleViewModelService _vehicleService;
-        private readonly IUserProfileService _userProfileService;
 
         public VehiclesController(
             VehicleRepository repository,
@@ -47,18 +47,24 @@ namespace GT86Registry.Web.Controllers
             return View("_VehicleDetails", vm);
         }
 
-        public async Task<IActionResult> GetProfile(string username)
-        {
-            var profile = await _userProfileService.GetProfileByUsername(username);
-
-            return View("../Account/UserProfile", profile);
-        }
-
         public IActionResult Index()
         {
             var vehicles = _vehicleService.GetVehicleOverviewViewModels();
 
             return View("VehiclesIndex", vehicles);
+        }
+
+        [Route("map")]
+        public async Task<IActionResult> Map()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> Profile(string username)
+        {
+            var profile = await _userProfileService.GetProfileByUsername(username);
+
+            return View("../Account/UserProfile", profile);
         }
     }
 }

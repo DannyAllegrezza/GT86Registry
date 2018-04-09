@@ -1,5 +1,4 @@
-﻿using GT86Registry.Core.Entities;
-using GT86Registry.Core.Interfaces;
+﻿using GT86Registry.Core.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System;
 
@@ -49,10 +48,8 @@ namespace GT86Registry.Infrastructure.Identity
 
         public DateTimeOffset ModifiedDate { get; set; }
 
-        public string ProfilePhotoUri { get; set; }
-
         public string PostalCode { get; set; }
-
+        public string ProfilePhotoUri { get; set; }
         public string State { get; set; }
     }
 }

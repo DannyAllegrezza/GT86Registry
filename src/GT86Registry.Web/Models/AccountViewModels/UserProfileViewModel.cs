@@ -7,7 +7,7 @@ namespace GT86Registry.Web.Models.AccountViewModels
 {
     public class UserProfileViewModel : IUserProfileViewModel
     {
-        public ApplicationUser VehicleOwner { get; set; }
         public IEnumerable<VehicleOverviewViewModel> OwnerVehicles { get; set; }
+        public ApplicationUser VehicleOwner { get; set; }
     }
 }

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 
 namespace GT86Registry.Core.Interfaces
 {
-    public interface  ITransmissionService
+    public interface ITransmissionService
     {
         IEnumerable<Transmission> GetTransmissionOptionsForModel(int year, string model);
+
         IEnumerable<Transmission> GetTransmissionOptionsForModel(Model model);
     }
 }
