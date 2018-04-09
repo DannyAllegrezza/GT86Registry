@@ -7,7 +7,6 @@ using GT86Registry.Web.Models.VehicleViewModels;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace GT86Registry.Web.Services
 {
@@ -34,7 +33,7 @@ namespace GT86Registry.Web.Services
             var vehicles = _vehicleRepository.GetVehiclesByUserId(user.Id);
 
             foreach (var vehicle in vehicles)
-            {                
+            {
                 ownerVehicles.Add(new VehicleOverviewViewModel()
                 {
                     ImageUri = vehicle.Image.Uri,

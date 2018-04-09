@@ -14,6 +14,11 @@ namespace GT86Registry.Web
     {
         public static IConfigurationRoot Configuration { get; set; }
 
+        public static IWebHost BuildWebHost(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .Build();
+
         public static void Main(string[] args)
         {
             var host = BuildWebHost(args);
@@ -32,11 +37,9 @@ namespace GT86Registry.Web
 
                     AppIdentitySeeder.SeedAsync(userManager, roleManager).Wait();
 
-
                     var vehicleContext = services.GetRequiredService<VehicleDbContext>();
                     VehicleSeeder.SeedAsync(vehicleContext, userManager, loggerFactory)
                         .Wait();
-
                 }
                 catch (Exception ex)
                 {
@@ -47,10 +50,5 @@ namespace GT86Registry.Web
 
             host.Run();
         }
-
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .Build();
     }
 }

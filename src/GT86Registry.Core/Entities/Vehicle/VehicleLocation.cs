@@ -8,6 +8,18 @@ namespace GT86Registry.Core.Entities
         private double _latitude;
         private double _longitude;
 
+        public VehicleLocation(double latitude, double longitude)
+        {
+            Latitude = latitude;
+            Longitude = longitude;
+        }
+
+        protected VehicleLocation()
+        {
+        }
+
+        public int Id { get; set; }
+
         public double Latitude
         {
             get
@@ -48,21 +60,8 @@ namespace GT86Registry.Core.Entities
             }
         }
 
-        public int Id { get; set; }
-
         public DateTimeOffset TimeStamp { get; set; }
 
         public List<Vehicle> Vehicles { get; set; }
-
-        protected VehicleLocation()
-        {
-
-        }
-
-        public VehicleLocation(double latitude, double longitude)
-        {
-            Latitude = latitude;
-            Longitude = longitude;
-        }
     }
 }

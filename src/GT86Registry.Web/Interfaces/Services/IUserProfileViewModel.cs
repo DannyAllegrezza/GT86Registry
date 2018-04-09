@@ -6,7 +6,7 @@ namespace GT86Registry.Web.Interfaces.Services
 {
     public interface IUserProfileViewModel
     {
-        ApplicationUser VehicleOwner { get; set; }
         IEnumerable<VehicleOverviewViewModel> OwnerVehicles { get; set; }
+        ApplicationUser VehicleOwner { get; set; }
     }
 }

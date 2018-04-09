@@ -4,24 +4,22 @@ namespace GT86Registry.Core.Entities
 {
     public class Color : BaseEntity
     {
+        public string Code { get; set; }
+        public string HexValue { get; set; }
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public string Code { get; set; }
-
-        public string HexValue { get; set; }
-
         #region Constructors
-
-        protected Color()
-        {
-        }
 
         public Color(string name, string code)
         {
             Name = name;
             Code = code;
+        }
+
+        protected Color()
+        {
         }
 
         #endregion Constructors

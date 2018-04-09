@@ -123,6 +123,26 @@ namespace GT86Registry.Web.Services
             return items;
         }
 
+        public IEnumerable<SelectListItem> GetTransmissionChoicesForModel(int year, int modelId)
+        {
+            var transmissions = _transmissionRepository.GetAllQueryable()
+                                        .Where(t => t.ModelYear.Year == year && t.ModelYear.Model.Id == modelId)
+                                        .Include(t => t.Transmission)
+                                        .Include(t => t.ModelYear);
+
+            var items = new List<SelectListItem>
+            {
+                new SelectListItem() { Value = null, Text = "Select Transmission", Selected = true }
+            };
+
+            foreach (var transmission in transmissions)
+            {
+                items.Add(new SelectListItem() { Value = transmission.Transmission.Id.ToString(), Text = transmission.Transmission.Name });
+            }
+
+            return items;
+        }
+
         public IEnumerable<VehicleOverviewViewModel> GetVehicleOverviewViewModels()
         {
             List<VehicleOverviewViewModel> vehicleViewModels = new List<VehicleOverviewViewModel>();
@@ -159,26 +179,6 @@ namespace GT86Registry.Web.Services
         public Task<VehicleOverviewViewModel> GetVehicleOverviewViewModels(int pageIndex, int itemsPage, int? brandId, int? typeId)
         {
             throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<SelectListItem> GetTransmissionChoicesForModel(int year, int modelId)
-        {
-            var transmissions = _transmissionRepository.GetAllQueryable()
-                                        .Where(t => t.ModelYear.Year == year && t.ModelYear.Model.Id == modelId)
-                                        .Include(t => t.Transmission)
-                                        .Include(t => t.ModelYear);
-
-            var items = new List<SelectListItem>
-            {
-                new SelectListItem() { Value = null, Text = "Select Transmission", Selected = true }
-            };
-
-            foreach (var transmission in transmissions)
-            {
-                items.Add(new SelectListItem() { Value = transmission.Transmission.Id.ToString(), Text = transmission.Transmission.Name });
-            }
-
-            return items;
         }
     }
 }

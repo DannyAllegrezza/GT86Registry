@@ -8,7 +8,7 @@ namespace GT86Registry.Web.Interfaces
     /// </summary>
     public interface IVehicleViewModel
     {
-        ApplicationUser VehicleOwner {get;set;}
-        Vehicle Vehicle {get;set;}
+        Vehicle Vehicle { get; set; }
+        ApplicationUser VehicleOwner { get; set; }
     }
 }

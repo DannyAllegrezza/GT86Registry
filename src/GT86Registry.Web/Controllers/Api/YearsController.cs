@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using GT86Registry.Web.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using GT86Registry.Web.Interfaces;
+using System.Threading.Tasks;
 
 namespace GT86Registry.Web.Controllers.Api
 {

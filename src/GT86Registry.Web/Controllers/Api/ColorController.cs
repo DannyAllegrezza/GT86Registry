@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using GT86Registry.Core.Entities;
 using GT86Registry.Core.Interfaces;
-using GT86Registry.Core.Entities;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace GT86Registry.Web.Controllers.Api
 {
@@ -18,7 +14,7 @@ namespace GT86Registry.Web.Controllers.Api
         {
             _repository = repository;
         }
-        
+
         [HttpGet()]
         public async Task<IActionResult> Get()
         {

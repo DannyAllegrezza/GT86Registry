@@ -1,24 +1,21 @@
-﻿$(document).ready(function() {
+﻿$(document).ready(function () {
     window_width = $(window).width();
 
     // Make the images from the card fill the hole space
     hipster_cards.fitBackgroundForCards();
 
     // set the active menu item class to "active"
-    console.log(location.pathname);
     $('ul.nav').find('a[href="' + location.pathname + '"]')
         .closest('li').addClass('active');
 });
-
-
 
 hipster_cards = {
     misc: {
         navbar_menu_visible: 0
     },
 
-    fitBackgroundForCards: function() {
-        $('[data-background="image"]').each(function() {
+    fitBackgroundForCards: function () {
+        $('[data-background="image"]').each(function () {
             $this = $(this);
 
             background_src = $this.data("src");
@@ -34,7 +31,7 @@ hipster_cards = {
             }
         });
 
-        $('.card .header img').each(function() {
+        $('.card .header img').each(function () {
             $card = $(this).parent().parent();
             $header = $(this).parent();
 
@@ -50,6 +47,5 @@ hipster_cards = {
                 $header.css(new_css);
             }
         });
-
     },
 }

@@ -6,7 +6,9 @@ namespace GT86Registry.Core.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
         #region Constructors
+
         public Transmission()
         {
         }
@@ -15,10 +17,13 @@ namespace GT86Registry.Core.Entities
         {
             Name = name;
         }
-        #endregion
-        #region Navigation Properties
-        public List<ModelTransmissions> ModelTransmissions { get; set; }
-        #endregion
-    }
 
+        #endregion Constructors
+
+        #region Navigation Properties
+
+        public List<ModelTransmissions> ModelTransmissions { get; set; }
+
+        #endregion Navigation Properties
+    }
 }

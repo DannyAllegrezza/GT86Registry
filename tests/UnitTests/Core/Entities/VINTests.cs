@@ -23,16 +23,16 @@ namespace UnitTests.Core.Entities
         }
 
         [TestMethod]
-        public void VIN_ThrowsException_WhenInputIsTooShort()
-        {
-            Assert.IsFalse(VIN.IsValid(InvalidVin));
-        }
-
-        [TestMethod]
         public void VIN_ReturnsFalse_WhenNull()
         {
             string nullVIN = null;
             Assert.IsFalse(VIN.IsValid(nullVIN));
+        }
+
+        [TestMethod]
+        public void VIN_ThrowsException_WhenInputIsTooShort()
+        {
+            Assert.IsFalse(VIN.IsValid(InvalidVin));
         }
     }
 }

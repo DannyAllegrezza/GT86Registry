@@ -1,7 +1,6 @@
 ﻿using GT86Registry.Core.Entities;
 using GT86Registry.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

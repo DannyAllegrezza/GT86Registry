@@ -32,7 +32,7 @@ namespace GT86Registry.Web
 
         #region Methods
 
-        // This method gets called by the runtime. 
+        // This method gets called by the runtime.
         // Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
@@ -53,19 +53,18 @@ namespace GT86Registry.Web
 
             app.UseMvc(routes =>
             {
-
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute(
                      name: "Profile",
                      template: "{username}",
-                     defaults: new { controller = "Vehicles", action = "GetProfile" }
+                     defaults: new { controller = "Vehicles", action = "Profile" }
                  );
             });
         }
 
-        // This method gets called by the runtime. 
+        // This method gets called by the runtime.
         // Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {

@@ -8,16 +8,12 @@ namespace GT86Registry.Core.Entities
     /// </summary>
     public class Manufacturer : BaseEntity
     {
+        public DateTime? ActiveEndDate { get; set; }
+        public DateTime ActiveStartDate { get; set; }
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime ActiveStartDate { get; set; }
-        public DateTime? ActiveEndDate { get; set; }
 
         #region Constructors
-
-        protected Manufacturer()
-        {
-        }
 
         public Manufacturer(string name, DateTime activeStartDate, DateTime? activeEndDate)
         {
@@ -26,9 +22,11 @@ namespace GT86Registry.Core.Entities
             ActiveEndDate = activeEndDate;
         }
 
+        protected Manufacturer()
+        {
+        }
+
         #endregion Constructors
-
-
 
         #region Navigation Properties
 

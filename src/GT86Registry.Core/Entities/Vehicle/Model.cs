@@ -13,14 +13,14 @@ namespace GT86Registry.Core.Entities
 
         #region Constructors
 
-        protected Model()
-        {
-        }
-
         public Model(string modelName, int manufacturerId)
         {
             Name = modelName;
             ManufacturerId = manufacturerId;
+        }
+
+        protected Model()
+        {
         }
 
         #endregion Constructors

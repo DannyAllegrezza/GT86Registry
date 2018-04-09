@@ -77,5 +77,4 @@
     function FetchData(url, data) {
         // todo (dca): can easily refactor this file so we just call one function to make get requests
     }
-
 });

@@ -12,7 +12,7 @@ namespace GT86Registry.Infrastructure.Identity
         public static async Task SeedAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             // Create roles
-           
+
             string[] roleNames = { "Admin", "Member" };
             IdentityResult roleResult;
 
