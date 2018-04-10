@@ -16,8 +16,10 @@ namespace GT86Registry.Infrastructure.Identity
         public string City { get; set; }
 
         public string Country { get; set; }
-
+    
         public DateTimeOffset CreatedDate { get; set; }
+
+        public string ProfileDescription { get; set;}
 
         public string FacebookUri { get; set; }
 
