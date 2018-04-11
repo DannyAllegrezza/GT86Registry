@@ -55,6 +55,7 @@ namespace GT86Registry.Web.Controllers
 
         #endregion Constructors
 
+        #region Methods
         [TempData]
         public string ErrorMessage { get; set; }
 
@@ -499,6 +500,7 @@ namespace GT86Registry.Web.Controllers
         {
             return View();
         }
+        #endregion Methods
 
         #region Helpers
 

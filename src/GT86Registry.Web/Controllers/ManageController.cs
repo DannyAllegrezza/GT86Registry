@@ -240,7 +240,8 @@ namespace GT86Registry.Web.Controllers
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
-                StatusMessage = StatusMessage
+                StatusMessage = StatusMessage,
+                ProfileDescription = user.ProfileDescription
             };
 
             return View(model);

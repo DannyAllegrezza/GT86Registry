@@ -16,5 +16,6 @@ namespace GT86Registry.Web.Models.ManageViewModels
 
         public string StatusMessage { get; set; }
         public string Username { get; set; }
+        public string ProfileDescription { get; set; }
     }
 }
