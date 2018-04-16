@@ -3,6 +3,7 @@ using GT86Registry.Web.Interfaces;
 using GT86Registry.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Diagnostics;
 
 namespace GT86Registry.Web.Controllers
@@ -10,12 +11,14 @@ namespace GT86Registry.Web.Controllers
     public class HomeController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IConfiguration _configuration;
         private readonly IVehicleViewModelService _vehicleService;
 
-        public HomeController(UserManager<ApplicationUser> userManager, IVehicleViewModelService vehicleService)
+        public HomeController(UserManager<ApplicationUser> userManager, IVehicleViewModelService vehicleService, IConfiguration configuration)
         {
             _userManager = userManager;
             _vehicleService = vehicleService;
+            _configuration = configuration;
         }
 
         [Route("/about")]
@@ -42,6 +45,10 @@ namespace GT86Registry.Web.Controllers
         public IActionResult Index()
         {
             var vehicles = _vehicleService.GetVehicleOverviewViewModels();
+
+
+            ViewData["VehiclePlatform"] = _configuration["SiteSettings:VehiclePlatform"];
+            ViewData["Manufacturers"] = _configuration["SiteSettings:Manufacturers"];
             return View("../Vehicles/VehiclesIndex", vehicles);
         }
     }

@@ -89,6 +89,8 @@ namespace GT86Registry.Web
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+
+            // Check out Ardalis article about why we need to use typeof here
             services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EFRepository<>));
 
