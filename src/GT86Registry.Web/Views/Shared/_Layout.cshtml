@@ -42,6 +42,12 @@
                             <p>Home</p>
                         </a>
                     </li>
+                    <li>
+                        <a asp-area="" asp-controller="Vehicles" asp-action="Registry">
+                            <i class="pe-7s-graph"></i>
+                            <p>Registry</p>
+                        </a>
+                    </li>
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <li>

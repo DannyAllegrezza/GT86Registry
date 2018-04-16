@@ -5,12 +5,16 @@ using GT86Registry.Web.Models.VehicleViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace GT86Registry.Web.Controllers
 {
     public class VehiclesController : Controller
     {
+        private readonly IConfiguration _configuration;
+        private readonly ILogger<VehiclesController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserProfileService _userProfileService;
         private readonly VehicleRepository _vehicleRepository;
@@ -20,13 +24,17 @@ namespace GT86Registry.Web.Controllers
             VehicleRepository repository,
             UserManager<ApplicationUser> userManager,
             IVehicleViewModelService vehicleService,
-            IUserProfileService userProfileService
+            IUserProfileService userProfileService,
+            IConfiguration configuration,
+            ILogger<VehiclesController> logger
             )
         {
             _vehicleRepository = repository;
             _userManager = userManager;
             _vehicleService = vehicleService;
             _userProfileService = userProfileService;
+            _configuration = configuration;
+            _logger = logger;
         }
 
         [Route("vehicles/{id}")]
@@ -50,14 +58,27 @@ namespace GT86Registry.Web.Controllers
         public IActionResult Index()
         {
             var vehicles = _vehicleService.GetVehicleOverviewViewModels();
+            ViewData["VehiclePlatform"] = _configuration["SiteSettings:VehiclePlatform"];
+            ViewData["Manufacturers"] = _configuration["SiteSettings:Manufacturers"];
 
             return View("VehiclesIndex", vehicles);
         }
 
+        /// <summary>
+        /// Fetches all registered users and their associated locations to render on a map. Filtering takes place on client-side
+        /// </summary>
+        /// <returns></returns>
         [Route("map")]
         public async Task<IActionResult> Map()
         {
             return View();
+        }
+
+        [Route("registry")]
+        public async Task<IActionResult> Registry()
+        {
+            var vehicles = _vehicleService.GetVehicleOverviewViewModels();
+            return View("Registry", vehicles);
         }
 
         public async Task<IActionResult> Profile(string username)
