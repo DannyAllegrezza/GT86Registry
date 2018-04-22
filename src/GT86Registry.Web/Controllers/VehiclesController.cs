@@ -74,16 +74,22 @@ namespace GT86Registry.Web.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Displays the core Registry, which contains all vehicles. The client side is responsible for filtering and rendering data.
+        /// </summary>
+        /// <returns></returns>
         [Route("registry")]
         public async Task<IActionResult> Registry()
         {
             var vehicles = _vehicleService.GetVehicleOverviewViewModels();
+            
             return View("Registry", vehicles);
         }
 
         public async Task<IActionResult> Profile(string username)
         {
             var profile = await _userProfileService.GetProfileByUsername(username);
+
 
             return View("../Account/UserProfile", profile);
         }
