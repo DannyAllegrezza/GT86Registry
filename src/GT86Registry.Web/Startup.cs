@@ -1,4 +1,5 @@
-﻿using GT86Registry.Core.Factories;
+﻿using DevExpress.AspNetCore;
+using GT86Registry.Core.Factories;
 using GT86Registry.Core.Interfaces;
 using GT86Registry.Infrastructure.Data;
 using GT86Registry.Infrastructure.Identity;
@@ -48,7 +49,7 @@ namespace GT86Registry.Web
             }
 
             app.UseStaticFiles();
-
+            app.UseDevExpressControls();
             app.UseAuthentication();
 
             app.UseMvc(routes =>
@@ -68,6 +69,11 @@ namespace GT86Registry.Web
         // Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDevExpressControls(options => {
+                options.Bootstrap(bootstrap => {
+                    bootstrap.Mode = DevExpress.AspNetCore.Bootstrap.BootstrapMode.Bootstrap3;
+                });
+            });
             // Setup and configure Identity
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
                 {
