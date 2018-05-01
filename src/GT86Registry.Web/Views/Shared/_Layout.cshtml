@@ -48,8 +48,15 @@
                             <p>Registry</p>
                         </a>
                     </li>
+                    <li>
+                        <a asp-area="" asp-controller="Vehicles" asp-action="Map">
+                            <i class="pe-7s-map-marker"></i>
+                            <p>Global View</p>
+                        </a>
+                    </li>
                     @if (SignInManager.IsSignedIn(User))
                     {
+                        <hr />
                         <li>
                             <a asp-area="" asp-controller="Garage" asp-action="Index">
                                 <i class="pe-7s-car"></i>
@@ -57,12 +64,6 @@
                             </a>
                         </li>
                     }
-                    <li>
-                        <a asp-area="" asp-controller="Vehicles" asp-action="Map">
-                            <i class="pe-7s-map-marker"></i>
-                            <p>Global View</p>
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>
