@@ -256,7 +256,7 @@ namespace GT86Registry.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = _userManager.Users.Single(u => u.Email.Equals(model.Email));
+                var user = _userManager.Users.SingleOrDefault(u => u.Email.Equals(model.Email));
                 if (user != null)
                 {
                     // This doesn't count login failures towards account lockout
