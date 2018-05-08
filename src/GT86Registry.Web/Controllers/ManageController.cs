@@ -241,7 +241,9 @@ namespace GT86Registry.Web.Controllers
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
                 StatusMessage = StatusMessage,
-                ProfileDescription = user.ProfileDescription
+                ProfileDescription = user.ProfileDescription,
+                InstagramUri = user.InstagramUri,
+                FacebookUri = user.FacebookUri
             };
 
             return View(model);
@@ -281,6 +283,12 @@ namespace GT86Registry.Web.Controllers
                     throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
                 }
             }
+
+            user.FacebookUri = model.FacebookUri;
+            user.ProfileDescription = model.ProfileDescription;
+            user.InstagramUri = model.InstagramUri;
+
+            await _userManager.UpdateAsync(user);
 
             StatusMessage = "Your profile has been updated";
             return RedirectToAction(nameof(Index));

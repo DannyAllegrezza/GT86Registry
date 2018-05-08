@@ -19,5 +19,14 @@ namespace GT86Registry.Web.Models.ManageViewModels
 
         [Display(Name = "About me")]
         public string ProfileDescription { get; set; }
+
+        [Display(Name = "Zip Code")]
+        public int ZipCode { get; set; }
+
+        [Display(Name = "Facebook Profile Address")]
+        public string FacebookUri { get; set; }
+
+        [Display(Name = "Instagram Username")]
+        public string InstagramUri { get; set; }
     }
 }
