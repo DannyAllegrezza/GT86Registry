@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Threading.Tasks;
 
 namespace GT86Registry.Web.Controllers
@@ -89,6 +90,10 @@ namespace GT86Registry.Web.Controllers
         public async Task<IActionResult> Profile(string username)
         {
             var profile = await _userProfileService.GetProfileByUsername(username);
+            if (profile.VehicleOwner == null)
+            {
+                throw new ApplicationException($"Unable to load user with ID '{username}'.");
+            }
 
 
             return View("../Account/UserProfile", profile);
