@@ -17,26 +17,28 @@
 
                         <h4 class="title">
                             @Model.VehicleOwner.UserName<br />
-                        <small>@Model.VehicleOwner.UserName</small><br />
-                        <small>@Model.VehicleOwner.City, @Model.VehicleOwner.State</small>
-                    </h4>
-                </a>
+                            <small>@Model.VehicleOwner.UserName</small><br />
+                            <small>@Model.VehicleOwner.City, @Model.VehicleOwner.State</small>
+                        </h4>
+                    </a>
+                </div>
+                <p class="description text-center">
+                    @Model.VehicleOwner.ProfileDescription
+                </p>
             </div>
-            <p class="description text-center">
-                <!-- TODO: Profile Description text -->
-            </p>
-        </div>
-        <hr>
-        <div class="text-center">
-            <a href="@Model.VehicleOwner.FacebookUri" class="btn btn-simple"><i class="fa fa-facebook-square"></i></a>
-            <a href="@Model.VehicleOwner.InstagramUri" class="btn btn-simple"><i class="fa fa-twitter"></i></a>
+            <hr>
+            <div class="text-center">
+                <a href="@Model.VehicleOwner.FacebookUri" class="btn btn-simple"><i class="fa fa-facebook-square"></i></a>
+                <a href="@Model.VehicleOwner.InstagramUri" class="btn btn-simple"><i class="fa fa-twitter"></i></a>
+            </div>
         </div>
     </div>
 </div>
-</div>
 
 <div class="row">
-    <h1>@Model.VehicleOwner.UserName's Registered Vehicles</h1>
+    <div class="col-md-12">
+        <h3>@Model.VehicleOwner.UserName's Registered Vehicles</h3>
+    </div>
 </div>
 
 @Html.Partial("../Home/_VehicleOverviewPartial", Model.OwnerVehicles)

@@ -6,35 +6,12 @@
     ViewData["Title"] = $"{UserManager.GetUserName(User)}'s garage";
 }
 
-<h1>@ViewBag.Title</h1>
-<h2>Welcome to your garage!</h2>
+<div class="row">
+<h2>@ViewBag.Title</h2>
+<h3>Welcome to your garage!</h3>
 <p>
     <a asp-controller="Garage" asp-action="AddVehicle" class="btn btn-default">Add a new Vehicle</a>
 </p>
-
-<div class="row">
-    @foreach (var vehicle in Model)
-    {
-        <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
-            <div class="card">
-                <div class="card-img">
-                    <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.VIN">
-                        <img class="card-img-top" src="@vehicle.ImageUri" />
-                    </a>
-                </div>
-                <div class="card-block">
-                    <h4 class="card-title">
-                        <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.VIN">
-                            @vehicle.Title
-                        </a>
-                    </h4>
-                    <div class="meta"><a href="@vehicle.OwnerUsername">@vehicle.OwnerUsername</a></div>
-                    <div class="card-text"></div>
-                </div>
-                <div class="card-footer">
-                    <span class="float-right">Viewed @vehicle.ViewCount times</span>
-                </div>
-            </div>
-        </div>
-    }
 </div>
+
+@Html.Partial("../Home/_VehicleOverviewPartial", Model)

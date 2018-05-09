@@ -31,7 +31,7 @@ hipster_cards = {
             }
         });
 
-        $('.card .header img').each(function () {
+        $('.vehicle-card .header img').each(function () {
             $card = $(this).parent().parent();
             $header = $(this).parent();
 

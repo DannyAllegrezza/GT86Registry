@@ -143,6 +143,10 @@ namespace GT86Registry.Web.Services
             return items;
         }
 
+        /// <summary>
+        /// Gets all registered vehicles in the database.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<VehicleOverviewViewModel> GetVehicleOverviewViewModels()
         {
             List<VehicleOverviewViewModel> vehicleViewModels = new List<VehicleOverviewViewModel>();
