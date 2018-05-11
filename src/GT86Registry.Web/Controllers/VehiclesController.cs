@@ -1,6 +1,7 @@
 ﻿using GT86Registry.Infrastructure.Data;
 using GT86Registry.Infrastructure.Identity;
 using GT86Registry.Web.Interfaces;
+using GT86Registry.Web.Models;
 using GT86Registry.Web.Models.VehicleViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace GT86Registry.Web.Controllers
@@ -92,7 +94,11 @@ namespace GT86Registry.Web.Controllers
             var profile = await _userProfileService.GetProfileByUsername(username);
             if (profile.VehicleOwner == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{username}'.");
+                var errorViewModel = new ErrorViewModel() {
+                    RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+                };
+
+                return View("Error", errorViewModel);
             }
 
 
