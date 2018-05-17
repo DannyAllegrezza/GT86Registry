@@ -14,6 +14,18 @@ namespace GT86Registry.Core.Entities
             Longitude = longitude;
         }
 
+        public VehicleLocation(int zipcode)
+        {
+            ZipCode = zipcode;
+        }
+
+        public VehicleLocation(double latitude, double longitude, int zipcode)
+        {
+            Latitude = latitude;
+            Longitude = longitude;
+            ZipCode = zipcode;
+        }
+
         protected VehicleLocation()
         {
         }
@@ -61,7 +73,7 @@ namespace GT86Registry.Core.Entities
         }
 
         public DateTimeOffset TimeStamp { get; set; }
-
         public List<Vehicle> Vehicles { get; set; }
+        public int ZipCode { get; set; }
     }
 }
