@@ -10,5 +10,8 @@ namespace GT86Registry.Web.Models.VehicleViewModels
         public string Title { get; set; }
         public int ViewCount { get; set; }
         public string VIN { get; set; }
+        public int Year { get; set; }
+        public string Make { get; set; }
+        public string Model { get; set; }
     }
 }

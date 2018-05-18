@@ -24,8 +24,8 @@ namespace GT86Registry.Infrastructure.Data
                 ILoggerFactory loggerFactory)
         {
             // Uncomment these two lines to delete and recreate the database
-            vehicleContext.Database.EnsureDeleted();
-            vehicleContext.Database.Migrate();
+            //vehicleContext.Database.EnsureDeleted();
+            //vehicleContext.Database.Migrate();
 
             // Create Vehicle Statuses
             if (!vehicleContext.VehicleStatuses.Any())
@@ -154,9 +154,9 @@ namespace GT86Registry.Infrastructure.Data
         {
             return new List<VehicleLocation>()
             {
-                new VehicleLocation(35.813453, -78.819194),
-                new VehicleLocation(40.52, -111.87),
-                new VehicleLocation(38.97, -76.50)
+                new VehicleLocation(35.813453, -78.819194, 27503),
+                new VehicleLocation(40.52, -111.87, 25342),
+                new VehicleLocation(38.97, -76.50, 27560)
             };
         }
 

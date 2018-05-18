@@ -26,10 +26,10 @@
                             @foreach (var vehicle in Model)
                             {
                                 <tr>
-                                    <td>@vehicle.Title</td>
-                                    <td>@vehicle.Title</td>
-                                    <td>@vehicle.Title</td>
-                                    <td>@vehicle.Location.ToString()</td>
+                                    <td>@vehicle.Year</td>
+                                    <td>@vehicle.Make</td>
+                                    <td>@vehicle.Model</td>
+                                    <td>@vehicle.Location.ZipCode</td>
                                     <td>@vehicle.OwnerUsername</td>
                                 </tr>
                             }
