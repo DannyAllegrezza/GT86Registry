@@ -103,34 +103,6 @@ h4,
     margin: 30px 0 15px;
 }
 
-h1,
-.h1 {
-    font-size: 52px;
-}
-
-h2,
-.h2 {
-    font-size: 36px;
-}
-
-h3,
-.h3 {
-    font-size: 28px;
-    margin: 20px 0 10px;
-}
-
-h4,
-.h4 {
-    font-size: 22px;
-    line-height: 30px;
-}
-
-h5,
-.h5 {
-    font-size: 16px;
-    margin-bottom: 15px;
-}
-
 h6,
 .h6 {
     font-size: 14px;
@@ -234,7 +206,7 @@ a {
 
 a:hover,
 a:focus {
-    color: #42d0ed;
+    color: #38a1b6;
     text-decoration: none;
 }
 
