@@ -4,39 +4,42 @@
     ViewData["Title"] = "Registry";
 }
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="header">
-                    <h4 class="title">There are currently <b>@Model.Count()</b> registered vehicles.</h4>
-                    <p class="category">Use this page to search through our interactive database. Do you own a GT86 and want to <a asp-controller="Account" asp-action="Register">join our community?</a></p>
-                </div>
-                <div class="content table-responsive table-full-width">
-                    <table class="table table-hover table-striped">
-                        <thead>
-                            <tr>
-                                <th>Year</th>
-                                <th>Make</th>
-                                <th>Model</th>
-                                <th>Location</th>
-                                <th>Owner</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var vehicle in Model)
-                            {
-                                <tr>
-                                    <td>@vehicle.Year</td>
-                                    <td>@vehicle.Make</td>
-                                    <td>@vehicle.Model</td>
-                                    <td>@vehicle.Location.ZipCode</td>
-                                    <td>@vehicle.OwnerUsername</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+<h1>The Registry</h1>
+<p>Welcome to our official registry! From here, you can easily sort and filter vehicles based on their make, model, year, color, location and more! Change the settings below to update your search.</p>
 
-                </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">There are currently <b>@Model.Count()</b> registered vehicles.</h4>
+                <p class="category">Do you own a GT86 and want to <a asp-controller="Account" asp-action="Register">join our community?</a></p>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Make</th>
+                            <th>Model</th>
+                            <th>Location</th>
+                            <th>Owner</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var vehicle in Model)
+                        {
+                            <tr>
+                                <td>@vehicle.Year</td>
+                                <td>@vehicle.Make</td>
+                                <td>@vehicle.Model</td>
+                                <td>@vehicle.Location.ZipCode</td>
+                                <td>@vehicle.OwnerUsername</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
             </div>
         </div>
     </div>
+</div>

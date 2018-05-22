@@ -3,13 +3,35 @@
     ViewData["Title"] = "Edit Your Vehicle";
 }
 
-<h2>Edit Your Vehicle</h2>
+<h2>@ViewData["Title"]</h2>
 
-<div class="row">
-    <form method="post">
-        <div class="form-group">
-            <label asp-for="@Model.VehicleDescription"></label>
-            <textarea asp-for="VehicleDescription"></textarea>
-        </div>
-    </form>
+<div class="row register-form">
+    <div class="col-md-8">
+        <form class="form-horizontal custom-form">
+            <div class="form-group">
+                <div class="col-sm-4 label-column">
+                    <label asp-for="@Model.Vehicle.Mileage"></label>
+                </div>
+                <div class="col-sm-6 input-column"><textarea asp-for="Vehicle.Mileage"></textarea></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4 label-column">
+                    <label asp-for="@Model.Vehicle.InstagramUri"></label>
+                </div>
+                <div class="col-sm-6 input-column"><textarea asp-for="Vehicle.InstagramUri"></textarea></div>
+            </div>
+                        <div class="form-group">
+                <div class="col-sm-4 label-column">
+                    <label asp-for="@Model.Vehicle.FacebookUri"></label>
+                </div>
+                <div class="col-sm-6 input-column"><textarea asp-for="Vehicle.FacebookUri"></textarea></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4 label-column">
+                    <label asp-for="@Model.Vehicle.Description"></label>
+                </div>
+                <div class="col-sm-6 input-column"><textarea asp-for="VehicleDescription"></textarea></div>
+            </div>
+            <button class="btn btn-default submit-button" type="button">Submit Form</button></form>
+    </div>
 </div>
