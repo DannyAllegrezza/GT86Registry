@@ -50,7 +50,7 @@ namespace GT86Registry.Web.Controllers
 
             var vm = new EditVehicleViewModel
             {
-                VehicleDescription = vehicle.Description
+                Vehicle = vehicle
             };
 
             return View(vm);
@@ -59,6 +59,7 @@ namespace GT86Registry.Web.Controllers
         [HttpPost]
         public IActionResult EditVehicle(EditVehicleViewModel viewModel)
         {
+            _vehicleRepository.Update(viewModel.Vehicle);
             return View();
         }
 

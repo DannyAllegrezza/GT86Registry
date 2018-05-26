@@ -1,6 +1,8 @@
 # GT86Registry.com
 A project to test out the *current* iterations of .NET Core, Web API, and some fun Javascript framework. The end goal is to create a light weight, modern, cross-platform library that caters to automotive enthusiasts. 
 
+<img src="img/gt86registry.JPG">
+
 ## Architecture
 The end goal is to create a modular library that can easy be extended to create additional websites for different vehicles, but for now all functionality of the core library is encapsulated in this project. I may iterate in the future and break this apart, but for the sake of quick-iterations, I have encapsulated all major functionality into this one project. 
 
