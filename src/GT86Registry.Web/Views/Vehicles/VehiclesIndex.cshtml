@@ -4,13 +4,18 @@
     ViewData["Title"] = "Home";
 }
 
+<div class="row">
+    <div class="col-md-12">
+        <h1>
+            Welcome to the unofficial registry for the @ViewData["VehiclePlatform"] platform!
+        </h1>
+        <p>
+            In 2012, Toyota and Subaru collaborated to produce the GT86, an iconic rear-wheel drive vehicle. The goal of this registry is to help GT86 owners document their vehicles and collaborate with fellow enthusiasts. 
+        </p>
+        <p>Do you own a GT86 and want to join our community?<a asp-controller="Account" asp-action="Register"> Register today for free!</a> Already a member? <a asp-controller="Account" asp-action="Register">Log in.</a></p>
 
-<h1>
-    Welcome to the unofficial registry for the @ViewData["VehiclePlatform"] platform!
-</h1>
-<p>
-    In 2012, Toyota and Subaru collaborated to produce the GT86, an iconic rear-wheel drive vehicle. The goal of this registry is to help GT86 owners document their vehicles and collaborate with fellow enthusiasts. 
-</p>
-<p>Do you own a GT86 and want to join our community?<a asp-controller="Account" asp-action="Register"> Register today for free!</a> Already a member? <a asp-controller="Account" asp-action="Register">Log in.</a></p>
+        <h2>Our most recent members</h2>
+    </div>
+</div>
 
 @Html.Partial("../Home/_VehicleOverviewPartial")

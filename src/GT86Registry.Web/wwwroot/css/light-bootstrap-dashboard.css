@@ -99,7 +99,6 @@ h3,
 .h3,
 h4,
 .h4 {
-    font-weight: 300;
     margin: 30px 0 15px;
 }
 
@@ -200,15 +199,6 @@ body {
     background-image: url(../images/pattern.svg);
 }
 
-a {
-    color: #1DC7EA;
-}
-
-a:hover,
-a:focus {
-    color: #38a1b6;
-    text-decoration: none;
-}
 
 a:focus,
 a:active,
@@ -1903,7 +1893,7 @@ fieldset[disabled] .form-control {
     font-weight: 400;
     margin: 5px 0px;
     padding: 15px 15px;
-    font-size: 20px;
+    font-size: 14px;
 }
 
 .navbar .navbar-nav>li>a {
@@ -4175,5 +4165,9 @@ fieldset[disabled] .form-control {
 /* Additional custom CSS */
 
 .profile-photo {
-    max-height: 500px;
+    max-height: 100%;
+}
+
+.vehicle-details-container {
+    background-color: darkgray;
 }
