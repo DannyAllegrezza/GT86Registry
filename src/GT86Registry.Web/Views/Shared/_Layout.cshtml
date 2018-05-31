@@ -20,6 +20,8 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="~/css/pe-icon-7-stroke.css" rel="stylesheet" />
+
+    @RenderSection("Styles", false)
 </head>
 <body>
 
@@ -82,12 +84,7 @@
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-left">
-                            <li>
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-dashboard"></i>
-                                    <p class="hidden-lg hidden-md">Dashboard</p>
-                                </a>
-                            </li>
+
                         </ul>
 
                         <ul class="nav navbar-nav navbar-right">
@@ -101,10 +98,8 @@
             </nav>
 
             <div class="content">
-                <div class="container-fluid">
-                    <div class="col-md-12">
-                        <div class="body-content">@RenderBody()</div>
-                    </div>
+                <div class="container-fluid body-content">
+                    @RenderBody()
                 </div>
             </div>
 
@@ -113,7 +108,7 @@
                     <nav class="pull-left">
                         <ul>
                             <li>
-                                <a href="#">
+                                <a asp-controller="Home" asp-action="Index">
                                     Home
                                 </a>
                             </li>
@@ -147,7 +142,6 @@
 
 <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
 <script src="~/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
-<!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+
 @RenderSection("Scripts", required: false)
 </html>

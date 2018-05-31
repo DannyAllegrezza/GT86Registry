@@ -171,7 +171,10 @@ namespace GT86Registry.Web.Services
                     OwnerUsername = user.UserName,
                     Title = vehicle.ToString(),
                     ViewCount = vehicle.ViewCount,
-                    VIN = vehicle.VIN
+                    VIN = vehicle.VIN,
+                    Year = vehicle.ModelYear.Year,
+                    Make = vehicle.ModelYear.Model.Manufacturer.Name,
+                    Model = vehicle.ModelYear.Model.Name
                 };
 
                 vehicleViewModels.Add(vm);

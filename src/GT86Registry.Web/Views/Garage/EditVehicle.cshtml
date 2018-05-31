@@ -1,15 +1,48 @@
 ﻿@model EditVehicleViewModel
 @{
-    ViewData["Title"] = "Edit Your Vehicle";
+    var headingText = $"Edit your {Model.Vehicle.ToString()}";
+    ViewData["Title"] = headingText;
 }
 
-<h2>Edit Your Vehicle</h2>
+<h1>@headingText</h1>
+<p>Need to the edit the details of your @Model.Vehicle.ToString()? No problem! Just use the form below and quickly update your vehicle.</p>
 
-<div class="row">
-    <form method="post">
-        <div class="form-group">
-            <label asp-for="@Model.VehicleDescription"></label>
-            <textarea asp-for="VehicleDescription"></textarea>
-        </div>
-    </form>
+
+
+<div class="row register-form">
+    <div>
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label asp-for="@Model.Vehicle.Mileage" class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="@Model.Vehicle.Mileage" class="form-control" placeholder="@Model.Vehicle.Mileage">
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Vehicle.InstagramUri" class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="@Model.Vehicle.InstagramUri" class="form-control" placeholder="@Model.Vehicle.InstagramUri">
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Vehicle.FacebookUri" class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="@Model.Vehicle.FacebookUri" class="form-control" placeholder="@Model.Vehicle.FacebookUri">
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Vehicle.Description" class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="@Model.Vehicle.Description" class="form-control" placeholder="@Model.Vehicle.Description">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default">Save</button>
+                </div>
+            </div>
+        </form>
+        
+    </div>
 </div>

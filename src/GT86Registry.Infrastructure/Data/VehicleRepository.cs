@@ -73,7 +73,7 @@ namespace GT86Registry.Infrastructure.Data
                                 .Include(vehicle => vehicle.Image)
                                 .Include(vehicle => vehicle.VehicleLocation)
                                 .Include(vehicle => vehicle.Status)
-                                .First();
+                                .FirstOrDefault();
 
             return singleVehicle;
         }
@@ -94,7 +94,7 @@ namespace GT86Registry.Infrastructure.Data
                                 .Include(vehicle => vehicle.Image)
                                 .Include(vehicle => vehicle.VehicleLocation)
                                 .Include(vehicle => vehicle.Status)
-                                .First();
+                                .FirstOrDefault();
 
             var vehicleDto = new VehicleDto(singleVehicle);
 

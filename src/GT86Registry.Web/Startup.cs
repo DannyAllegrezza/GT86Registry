@@ -18,14 +18,16 @@ namespace GT86Registry.Web
         #region Properties
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment Environment { get; }
 
         #endregion Properties
 
         #region Constructor
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            Environment = env;
         }
 
         #endregion Constructor
