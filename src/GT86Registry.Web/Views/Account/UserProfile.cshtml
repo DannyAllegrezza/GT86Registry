@@ -1,44 +1,89 @@
 ﻿@model UserProfileViewModel
 
 @{
-    ViewData["Title"] = $"{Model.VehicleOwner.UserName} Profile";
+    ViewData["Title"] = $"{Model.VehicleOwner.UserName}'s Profile";
+    var ProfilePhotoUri = (!String.IsNullOrEmpty(Model.VehicleOwner.ProfilePhotoUri) ? Model.VehicleOwner.ProfilePhotoUri : "images/default_profile_photo.jpg");
 }
 
 <div class="row">
-    <div class="col-md-4">
-        <div class="card card-user">
-            <div class="image">
-                <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..." />
+    <div class="col-sm-2">
+        <a href="/@Model.VehicleOwner.UserName" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="@ProfilePhotoUri"></a>
+    </div>
+    <div class="col-sm-10">
+        <h1 class="">@Model.VehicleOwner.UserName</h1>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-3">
+        <ul class="list-group">
+            <li class="list-group-item text-muted" contenteditable="false">Profile</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Joined</strong></span> @Model.VehicleOwner.CreatedDate.ToString("MMMM dd, yyyy")</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Last seen</strong></span> Yesterday</li>
+        </ul>
+        <!-- Social Media Section-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Social Media <i class="fa fa-link fa-1x"></i>
             </div>
-            <div class="content">
-                <div class="author">
-                    <a href="#">
-                        <img class="avatar border-gray" src="images/default_profile_photo.jpg" alt="..." />
+            <div class="panel-body">
+                <a href="http://bootply.com" class="">bootply.com</a>
+            </div>
+        </div>
 
-                        <h4 class="title">
-                            @Model.VehicleOwner.UserName<br />
-                            <small>@Model.VehicleOwner.UserName</small><br />
-                            <small>@Model.VehicleOwner.City, @Model.VehicleOwner.State</small>
-                        </h4>
-                    </a>
-                </div>
-                <p class="description text-center">
-                    @Model.VehicleOwner.ProfileDescription
-                </p>
+        <ul class="list-group">
+            <li class="list-group-item text-muted">
+                Activity <i class="fa fa-dashboard fa-1x"></i>
+            </li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Shares</strong></span> 125</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Likes</strong></span> 13</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Posts</strong></span> 37</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Followers</strong></span> 78</li>
+        </ul>
+        <div class="panel panel-default">
+            <div class="panel-heading">Social Media</div>
+            <div class="panel-body">
+                <i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x"></i>
+                <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i> <i class="fa fa-google-plus fa-2x"></i>
             </div>
-            <hr>
-            <div class="text-center">
-                <a href="@Model.VehicleOwner.FacebookUri" class="btn btn-simple"><i class="fa fa-facebook-square"></i></a>
-                <a href="@Model.VehicleOwner.InstagramUri" class="btn btn-simple"><i class="fa fa-twitter"></i></a>
+        </div>
+    </div>
+    <!--/col-3-->
+    <div class="col-sm-9" style="" contenteditable="false">
+        <div class="panel panel-default">
+            <div class="panel-heading">@Model.VehicleOwner.UserName's Bio</div>
+            <div class="panel-body">
+                @(!String.IsNullOrEmpty(Model.VehicleOwner.ProfileDescription) ? Model.VehicleOwner.ProfileDescription : "This use has not entered a profile description yet.")
+            </div>
+        </div>
+        <div class="panel panel-default target">
+            <div class="panel-heading" contenteditable="false">@Model.VehicleOwner.UserName's Registered Vehicles</div>
+            <div class="panel-body">
+                <div class="row">
+                    @Html.Partial("../Home/_VehicleOverviewPartial", Model.OwnerVehicles)
+                    @*@foreach (var vehicle in Model.OwnerVehicles)
+                    {
+                        <div class="col-md-4">
+                            <div class="thumbnail">
+                                <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.VIN">
+                                    <img alt="300x200" src="@vehicle.">
+                                </a>
+
+                                <div class="caption">
+                                    <h3>
+                                        @vehicle.ToString()
+                                    </h3>
+                                    <p>
+                                        Loves catnip and naps. Not fond of children.
+                                    </p>
+                                    <p>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }*@
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-<div class="row">
-    <div class="col-md-12">
-        <h3>@Model.VehicleOwner.UserName's Registered Vehicles</h3>
-    </div>
-</div>
-
-@Html.Partial("../Home/_VehicleOverviewPartial", Model.OwnerVehicles)

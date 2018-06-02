@@ -91,6 +91,7 @@ namespace GT86Registry.Web.Controllers
 
         public async Task<IActionResult> Profile(string username)
         {
+            
             var profile = await _userProfileService.GetProfileByUsername(username);
             if (profile.VehicleOwner == null)
             {
@@ -102,7 +103,7 @@ namespace GT86Registry.Web.Controllers
             }
 
 
-            return View("../Account/UserProfile", profile);
+            return View("~/Views/Account/UserProfile.cshtml", profile);
         }
     }
 }

@@ -40,20 +40,26 @@
                 <ul class="nav">
                     <li>
                         <a asp-area="" asp-controller="Home" asp-action="Index">
-                            <i class="pe-7s-graph"></i>
+                            <i class="pe-7s-home"></i>
                             <p>Home</p>
                         </a>
                     </li>
                     <li>
                         <a asp-area="" asp-controller="Vehicles" asp-action="Registry">
                             <i class="pe-7s-note2"></i>
-                            <p>Registry</p>
+                            <p>View The Registry</p>
                         </a>
                     </li>
                     <li>
                         <a asp-area="" asp-controller="Vehicles" asp-action="Map">
                             <i class="pe-7s-map-marker"></i>
                             <p>Global View</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="About">
+                            <i class="pe-7s-info"></i>
+                            <p>About</p>
                         </a>
                     </li>
                     @if (SignInManager.IsSignedIn(User))
@@ -63,6 +69,12 @@
                             <a asp-area="" asp-controller="Garage" asp-action="Index">
                                 <i class="pe-7s-car"></i>
                                 <p>My Garage</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-controller="Manage" asp-action="Index">
+                                <i class="pe-7s-user"></i>
+                                <p>My Profile</p>
                             </a>
                         </li>
                     }
@@ -88,6 +100,7 @@
                         </ul>
 
                         <ul class="nav navbar-nav navbar-right">
+
                             <li>
                                 @await Html.PartialAsync("_LoginPartial")
                             </li>
