@@ -44,7 +44,7 @@ namespace GT86Registry.Web.Controllers
 
         public IActionResult Index()
         {
-            var vehicles = _vehicleService.GetVehicleOverviewViewModels();
+            var vehicles = _vehicleService.GetNewestRegisteredVehicles();
 
 
             ViewData["VehiclePlatform"] = _configuration["SiteSettings:VehiclePlatform"];

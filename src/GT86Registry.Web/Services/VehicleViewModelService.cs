@@ -174,7 +174,8 @@ namespace GT86Registry.Web.Services
                     VIN = vehicle.VIN,
                     Year = vehicle.ModelYear.Year,
                     Make = vehicle.ModelYear.Model.Manufacturer.Name,
-                    Model = vehicle.ModelYear.Model.Name
+                    Model = vehicle.ModelYear.Model.Name,
+                    CreatedDate = vehicle.CreatedDate
                 };
 
                 vehicleViewModels.Add(vm);
@@ -186,6 +187,13 @@ namespace GT86Registry.Web.Services
         public Task<VehicleOverviewViewModel> GetVehicleOverviewViewModels(int pageIndex, int itemsPage, int? brandId, int? typeId)
         {
             throw new System.NotImplementedException();
+        }
+
+        public IEnumerable<VehicleOverviewViewModel> GetNewestRegisteredVehicles()
+        {
+            var vehicles = GetVehicleOverviewViewModels().OrderByDescending(x => x.CreatedDate).Take(3);
+
+            return vehicles;
         }
     }
 }

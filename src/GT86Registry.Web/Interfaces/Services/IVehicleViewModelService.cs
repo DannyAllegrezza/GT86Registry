@@ -22,6 +22,8 @@ namespace GT86Registry.Web.Interfaces
 
         IEnumerable<VehicleOverviewViewModel> GetVehicleOverviewViewModels();
 
+        IEnumerable<VehicleOverviewViewModel> GetNewestRegisteredVehicles();
+
         Task<VehicleOverviewViewModel> GetVehicleOverviewViewModels(int pageIndex, int itemsPage, int? brandId, int? typeId);
     }
 }

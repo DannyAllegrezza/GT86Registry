@@ -60,7 +60,7 @@ namespace GT86Registry.Web.Controllers
 
         public IActionResult Index()
         {
-            var vehicles = _vehicleService.GetVehicleOverviewViewModels();
+            var vehicles = _vehicleService.GetNewestRegisteredVehicles();
             ViewData["VehiclePlatform"] = _configuration["SiteSettings:VehiclePlatform"];
             ViewData["Manufacturers"] = _configuration["SiteSettings:Manufacturers"];
 
@@ -101,7 +101,6 @@ namespace GT86Registry.Web.Controllers
 
                 return View("Error", errorViewModel);
             }
-
 
             return View("~/Views/Account/UserProfile.cshtml", profile);
         }
