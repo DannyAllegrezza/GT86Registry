@@ -3,6 +3,7 @@ using GT86Registry.Core.Interfaces;
 using GT86Registry.Infrastructure.Data;
 using GT86Registry.Infrastructure.Identity;
 using GT86Registry.Web.Interfaces;
+using GT86Registry.Web.Models.Configuration;
 using GT86Registry.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -91,6 +92,9 @@ namespace GT86Registry.Web
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+
+            // Add Configuration
+            services.Configure<SiteSettingsConfiguration>(Configuration.GetSection("SiteSettings"));
 
             // Check out Ardalis article about why we need to use typeof here
             services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));

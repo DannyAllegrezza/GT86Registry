@@ -1,5 +1,4 @@
 @using Microsoft.AspNetCore.Identity
-@using GT86Registry.Web.Models
 @using GT86Registry.Infrastructure.Identity;
 
 @inject SignInManager<ApplicationUser> SignInManager
@@ -21,8 +20,6 @@
             <li><a href="/@UserName">View My Profile</a></li>
             <li><a asp-controller="Manage" asp-action="Index">Edit My Profile</a></li>
             <li><a asp-controller="Garage" asp-action="Index">View My Garage</a></li>
-            @*<li><a href="#">Another action</a></li>
-            <li><a href="#">Something</a></li>*@
             <li class="divider"></li>
             <li>
                 <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" >

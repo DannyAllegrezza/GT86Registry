@@ -1,4 +1,5 @@
 ﻿using GT86Registry.Core.Entities;
+using System;
 
 namespace GT86Registry.Web.Models.VehicleViewModels
 {
@@ -13,6 +14,7 @@ namespace GT86Registry.Web.Models.VehicleViewModels
         public int Year { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
+        public DateTimeOffset CreatedDate { get; set; }
 
         public override string ToString()
         {

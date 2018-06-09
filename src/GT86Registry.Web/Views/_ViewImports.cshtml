@@ -1,4 +1,5 @@
 @using Microsoft.AspNetCore.Identity
+
 @using GT86Registry.Web.Models.AccountViewModels
 @using GT86Registry.Web.Models.ManageViewModels
 @using GT86Registry.Infrastructure.Identity
@@ -6,4 +7,9 @@
 @using GT86Registry.Core.Entities
 @using GT86Registry.Web.Models.VehicleViewModels
 @using GT86Registry.Web.Models
+
+@using GT86Registry.Web.Models.Configuration
+@using Microsoft.Extensions.Options
+@inject IOptions<SiteSettingsConfiguration> SiteSettings
+
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
