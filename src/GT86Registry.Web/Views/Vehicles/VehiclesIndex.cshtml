@@ -1,22 +1,25 @@
-﻿@model IEnumerable<VehicleOverviewViewModel>;
+﻿@model IEnumerable<VehicleOverviewViewModel>
+
 
 @{
-    ViewData["Title"] = "Home";
+        ViewData["Title"] = "Home";
 }
 
 <div class="row">
     <div class="col-md-12">
         <h1>
-            Welcome to the unofficial registry for the @ViewData["VehiclePlatform"] platform!
+            Welcome to the unofficial registry for the @SiteSettings.Value.VehiclePlatform platform!
         </h1>
         <p>
-            In 2012, Toyota and Subaru collaborated to produce the GT86, an iconic rear-wheel drive vehicle. The goal of this registry is to help GT86 owners document their vehicles and collaborate with fellow enthusiasts. 
+            In 2012, Toyota and Subaru collaborated to produce the @SiteSettings.Value.VehiclePlatform, an iconic rear-wheel drive vehicle. The goal of this registry is to help @SiteSettings.Value.VehiclePlatform owners document their vehicles and collaborate with fellow enthusiasts.
         </p>
-        <p>Do you own a GT86 and want to join our community?<a asp-controller="Account" asp-action="Register"> Register today for free!</a> Already a member? <a asp-controller="Account" asp-action="Register">Log in.</a></p>
 
-        <h2>Latest entries to the Registry
-            <small>View all</small>
-        </h2>
+        <h3>Do you own a @SiteSettings.Value.VehiclePlatform and want to join our community?</h3>
+        <p><a asp-controller="Account" asp-action="Register"> Register today for free!</a> Already a member? <a asp-controller="Account" asp-action="Register">Log in.</a></p>
+
+        <h3>Latest additions to the registry
+            <small><a asp-controller="Vehicles" asp-action="Registry">View all </a></small>
+        </h3>
     </div>
 </div>
 

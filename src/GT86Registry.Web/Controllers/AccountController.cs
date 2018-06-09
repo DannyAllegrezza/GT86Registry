@@ -3,6 +3,7 @@ using GT86Registry.Core.Interfaces.Entities;
 using GT86Registry.Infrastructure.Identity;
 using GT86Registry.Web.Interfaces;
 using GT86Registry.Web.Models.AccountViewModels;
+using GT86Registry.Web.Models.Configuration;
 using GT86Registry.Web.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
 using System.Security.Claims;
@@ -23,7 +25,6 @@ namespace GT86Registry.Web.Controllers
     {
         #region Properties
 
-        private readonly IConfiguration _configuration;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -41,8 +42,8 @@ namespace GT86Registry.Web.Controllers
             IEmailSender emailSender,
             IVehicleViewModelService vehicleService,
             IVehicleFactory vehicleFactory,
-            ILogger<AccountController> logger,
-            IConfiguration configuration)
+            ILogger<AccountController> logger
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -50,7 +51,6 @@ namespace GT86Registry.Web.Controllers
             _logger = logger;
             _vehicleService = vehicleService;
             _vehicleFactory = vehicleFactory;
-            _configuration = configuration;
         }
 
         #endregion Constructors
@@ -415,7 +415,7 @@ namespace GT86Registry.Web.Controllers
             {
                 Years = _vehicleService.GetAllYears()
             };
-            ViewData["VehiclePlatform"] = _configuration["SiteSettings:VehiclePlatform"];
+
             ViewData["ReturnUrl"] = returnUrl;
             return View(vm);
         }

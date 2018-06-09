@@ -6,9 +6,7 @@ using GT86Registry.Web.Models.VehicleViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -16,7 +14,6 @@ namespace GT86Registry.Web.Controllers
 {
     public class VehiclesController : Controller
     {
-        private readonly IConfiguration _configuration;
         private readonly ILogger<VehiclesController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserProfileService _userProfileService;
@@ -28,7 +25,6 @@ namespace GT86Registry.Web.Controllers
             UserManager<ApplicationUser> userManager,
             IVehicleViewModelService vehicleService,
             IUserProfileService userProfileService,
-            IConfiguration configuration,
             ILogger<VehiclesController> logger
             )
         {
@@ -36,7 +32,6 @@ namespace GT86Registry.Web.Controllers
             _userManager = userManager;
             _vehicleService = vehicleService;
             _userProfileService = userProfileService;
-            _configuration = configuration;
             _logger = logger;
         }
 
@@ -61,8 +56,6 @@ namespace GT86Registry.Web.Controllers
         public IActionResult Index()
         {
             var vehicles = _vehicleService.GetNewestRegisteredVehicles();
-            ViewData["VehiclePlatform"] = _configuration["SiteSettings:VehiclePlatform"];
-            ViewData["Manufacturers"] = _configuration["SiteSettings:Manufacturers"];
 
             return View("VehiclesIndex", vehicles);
         }
