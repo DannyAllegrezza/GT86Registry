@@ -7,6 +7,7 @@ using GT86Registry.Web.Models.Configuration;
 using GT86Registry.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -50,7 +51,9 @@ namespace GT86Registry.Web
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
 
             app.UseAuthentication();
 
@@ -71,6 +74,16 @@ namespace GT86Registry.Web
         // Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add Configuration
+            services.Configure<SiteSettingsConfiguration>(Configuration.GetSection("SiteSettings"));
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
             // Setup and configure Identity
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
                 {
@@ -92,10 +105,6 @@ namespace GT86Registry.Web
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-
-            // Add Configuration
-            services.Configure<SiteSettingsConfiguration>(Configuration.GetSection("SiteSettings"));
-
             // Check out Ardalis article about why we need to use typeof here
             services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EFRepository<>));

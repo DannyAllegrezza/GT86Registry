@@ -53,35 +53,14 @@
         <div class="panel panel-default">
             <div class="panel-heading">@Model.VehicleOwner.UserName's Bio</div>
             <div class="panel-body">
-                @(!String.IsNullOrEmpty(Model.VehicleOwner.ProfileDescription) ? Model.VehicleOwner.ProfileDescription : "This use has not entered a profile description yet.")
+                @(!String.IsNullOrEmpty(Model.VehicleOwner.ProfileDescription) ? Model.VehicleOwner.ProfileDescription : "This user has not entered a profile description yet.")
             </div>
         </div>
         <div class="panel panel-default target">
             <div class="panel-heading" contenteditable="false">@Model.VehicleOwner.UserName's Registered Vehicles</div>
             <div class="panel-body">
                 <div class="row">
-                    @Html.Partial("../Home/_VehicleOverviewPartial", Model.OwnerVehicles)
-                    @*@foreach (var vehicle in Model.OwnerVehicles)
-                    {
-                        <div class="col-md-4">
-                            <div class="thumbnail">
-                                <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.VIN">
-                                    <img alt="300x200" src="@vehicle.">
-                                </a>
-
-                                <div class="caption">
-                                    <h3>
-                                        @vehicle.ToString()
-                                    </h3>
-                                    <p>
-                                        Loves catnip and naps. Not fond of children.
-                                    </p>
-                                    <p>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    }*@
+                    <partial name="../Home/_VehicleOverviewPartial" model="Model.OwnerVehicles" />
                 </div>
             </div>
         </div>

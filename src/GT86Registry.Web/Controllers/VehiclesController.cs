@@ -1,5 +1,6 @@
 ﻿using GT86Registry.Infrastructure.Data;
 using GT86Registry.Infrastructure.Identity;
+using GT86Registry.Web.Helpers;
 using GT86Registry.Web.Interfaces;
 using GT86Registry.Web.Models;
 using GT86Registry.Web.Models.VehicleViewModels;
@@ -88,11 +89,7 @@ namespace GT86Registry.Web.Controllers
             var profile = await _userProfileService.GetProfileByUsername(username);
             if (profile.VehicleOwner == null)
             {
-                var errorViewModel = new ErrorViewModel() {
-                    RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
-                };
-
-                return View("Error", errorViewModel);
+                return new PageNotFound();
             }
 
             return View("~/Views/Account/UserProfile.cshtml", profile);
