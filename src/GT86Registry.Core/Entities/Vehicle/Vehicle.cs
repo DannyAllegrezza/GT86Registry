@@ -42,7 +42,7 @@ namespace GT86Registry.Core.Entities
             UserIdentityGuid = userIdentityGuid;
         }
 
-        protected Vehicle()
+        public Vehicle()
         {
         }
 
