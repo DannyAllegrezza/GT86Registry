@@ -84,6 +84,7 @@ namespace GT86Registry.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddRouting(options => options.LowercaseUrls = true);
             // Setup and configure Identity
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
                 {
