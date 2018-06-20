@@ -5,10 +5,12 @@ using GT86Registry.Infrastructure.Identity;
 using GT86Registry.Web.Interfaces;
 using GT86Registry.Web.Models.Configuration;
 using GT86Registry.Web.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -116,10 +118,17 @@ namespace GT86Registry.Web
             services.AddScoped<IUserProfileService, UserProfileService>();
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddScoped<IVehicleFactory, VehicleFactory>();
-            services.AddMvc().AddJsonOptions(options =>
-            {
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            });
+            services.AddMvc(config =>
+                    {
+                        var policy = new AuthorizationPolicyBuilder()
+                                         .RequireAuthenticatedUser()
+                                         .Build();
+                        config.Filters.Add(new AuthorizeFilter(policy));
+                    })
+                .AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                });
         }
 
         #endregion Methods

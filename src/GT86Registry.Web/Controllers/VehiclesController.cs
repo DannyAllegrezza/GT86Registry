@@ -2,17 +2,17 @@
 using GT86Registry.Infrastructure.Identity;
 using GT86Registry.Web.Helpers;
 using GT86Registry.Web.Interfaces;
-using GT86Registry.Web.Models;
 using GT86Registry.Web.Models.VehicleViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace GT86Registry.Web.Controllers
 {
+    [AllowAnonymous]
     public class VehiclesController : Controller
     {
         private readonly ILogger<VehiclesController> _logger;

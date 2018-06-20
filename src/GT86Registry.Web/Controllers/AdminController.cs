@@ -1,10 +1,12 @@
 ﻿using GT86Registry.Infrastructure.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GT86Registry.Web.Controllers
 {
     //[Authorize(Roles = "Administrator")]
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
