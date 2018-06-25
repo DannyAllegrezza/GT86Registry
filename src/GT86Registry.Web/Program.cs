@@ -30,12 +30,13 @@ namespace GT86Registry.Web
             {
                 var services = scope.ServiceProvider;
                 var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+                var config = services.GetRequiredService<IConfiguration>();
                 try
                 {
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-
-                    AppIdentitySeeder.SeedAsync(userManager, roleManager).Wait();
+                    var adminPw = config["SeedAdminPW"];
+                    AppIdentitySeeder.SeedAsync(userManager, roleManager, adminPw).Wait();
 
                     var vehicleContext = services.GetRequiredService<VehicleDbContext>();
                     VehicleSeeder.SeedAsync(vehicleContext, userManager, loggerFactory)

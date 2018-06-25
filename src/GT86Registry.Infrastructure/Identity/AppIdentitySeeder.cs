@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,24 +10,26 @@ namespace GT86Registry.Infrastructure.Identity
     /// </summary>
     public class AppIdentitySeeder
     {
-        public static async Task SeedAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        private const string _testUserPw = "TestUser123!";
+        public static async Task SeedAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, string adminPW)
         {
-            // Create roles
-
-            string[] roleNames = { "Admin", "Member" };
-            IdentityResult roleResult;
-
-            foreach (var roleName in roleNames)
-            {
-                var roleExist = await roleManager.RoleExistsAsync(roleName);
-                if (!roleExist)
-                {
-                    roleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
-                }
-            }
-
             if (!userManager.Users.Any())
             {
+                var adminAppUser = new ApplicationUser()
+                {
+                    UserName = "admin",
+                    Email = SeedData.ADMIN_EMAIL,
+                    FirstName = "Administrator",
+                    City = "Cary",
+                    State = "North Carolina",
+                    PostalCode = "27560",
+                    Country = "USA",
+                    InstagramUri = SeedData.ADMIN_INSTAGRAM
+                };
+
+                var adminId = await EnsureUserAsync(userManager, roleManager, adminPW, adminAppUser);
+                await EnsureRoleAsync(userManager, roleManager, adminId, ApplicationRoles.AdministratorRole);
+
                 var defaultUser = new ApplicationUser
                 {
                     UserName = "test-brz",
@@ -40,7 +43,8 @@ namespace GT86Registry.Infrastructure.Identity
                     InstagramUri = "https://www.instagram.com/dude_danny/"
                 };
 
-                await userManager.CreateAsync(defaultUser, "TestUser123!");
+                var defaultUserId = await EnsureUserAsync(userManager, roleManager, _testUserPw, defaultUser);
+                await EnsureRoleAsync(userManager, roleManager, defaultUserId, ApplicationRoles.ModeratorRole);
 
                 var defaultFrsUser = new ApplicationUser
                 {
@@ -55,7 +59,9 @@ namespace GT86Registry.Infrastructure.Identity
                     InstagramUri = "https://www.instagram.com/dude_danny/"
                 };
 
-                await userManager.CreateAsync(defaultFrsUser, "TestUser123!");
+                var defaultFrsUserId = await EnsureUserAsync(userManager, roleManager, _testUserPw, defaultFrsUser);
+                await EnsureRoleAsync(userManager, roleManager, defaultFrsUserId, ApplicationRoles.MemberRole);
+
 
                 var defaultGt86User = new ApplicationUser
                 {
@@ -70,8 +76,43 @@ namespace GT86Registry.Infrastructure.Identity
                     InstagramUri = "https://www.instagram.com/dude_danny/"
                 };
 
-                await userManager.CreateAsync(defaultGt86User, "TestUser123!");
+                var defaultGt86UserId = await EnsureUserAsync(userManager, roleManager, _testUserPw, defaultGt86User);
+                await EnsureRoleAsync(userManager, roleManager, defaultGt86UserId, ApplicationRoles.MemberRole);
             }
+        }
+
+        public static async Task<IdentityResult> EnsureRoleAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, string userId, string role)
+        {
+            IdentityResult roleResult = null;
+
+            if (!await roleManager.RoleExistsAsync(role))
+            {
+                roleResult = await roleManager.CreateAsync(new IdentityRole(role));
+            }
+
+            var user = await userManager.FindByIdAsync(userId);
+
+            roleResult = await userManager.AddToRoleAsync(user, role);
+
+            return roleResult;
+        }
+
+        private static async Task<string> EnsureUserAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, string password, ApplicationUser appUser)
+        {
+            IdentityResult userResult = null;
+
+            var user = await userManager.FindByNameAsync(appUser.UserName);
+            if (user == null)
+            {
+                userResult = await userManager.CreateAsync(appUser, password);
+                if (!userResult.Succeeded)
+                {
+                    throw new Exception(userResult.Errors.ToString());
+                }
+            }
+
+
+            return appUser.Id;
         }
     }
 }
