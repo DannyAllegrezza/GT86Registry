@@ -2,6 +2,7 @@
 using GT86Registry.Core.Interfaces;
 using GT86Registry.Infrastructure.Data;
 using GT86Registry.Infrastructure.Identity;
+using GT86Registry.Web.Authorization;
 using GT86Registry.Web.Interfaces;
 using GT86Registry.Web.Models.Configuration;
 using GT86Registry.Web.Services;
@@ -118,6 +119,7 @@ namespace GT86Registry.Web
             services.AddScoped<IUserProfileService, UserProfileService>();
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddScoped<IVehicleFactory, VehicleFactory>();
+            services.AddScoped<IAuthorizationHandler, UserIsOwnerAuthorizationHandler>();
             services.AddMvc(config =>
                     {
                         var policy = new AuthorizationPolicyBuilder()
