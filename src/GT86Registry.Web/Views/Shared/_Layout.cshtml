@@ -77,6 +77,22 @@
                                 <p>My Profile</p>
                             </a>
                         </li>
+                        if (User.IsInRole(ApplicationRoles.AdministratorRole))
+                        {
+                            <li>
+                                <a asp-area="" asp-controller="Admin" asp-action="RoleManagement">
+                                    <i class="pe-7s-user"></i>
+                                    <p>Role Management</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Admin" asp-action="UserManagement">
+                                    <i class="pe-7s-user"></i>
+                                    <p>User Management</p>
+                                </a>
+                            </li>
+
+                        }
                     }
                 </ul>
             </div>

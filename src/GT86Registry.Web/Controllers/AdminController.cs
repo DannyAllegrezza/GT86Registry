@@ -25,6 +25,20 @@ namespace GT86Registry.Web.Controllers
             return View();
         }
 
+        public IActionResult RoleManagement()
+        {
+            var roles = _roleManager.Roles;
+            return View(roles);
+        }
+
+        public IActionResult UserManagement()
+        {
+            var users = _userManager.Users;
+            return View(users);
+        }
+
+
+
         #region Role Management
 
         public IActionResult AddNewrole()
@@ -121,17 +135,7 @@ namespace GT86Registry.Web.Controllers
             return RedirectToAction("RoleManagement", _roleManager.Roles);
         }
 
-        public IActionResult RoleManagement()
-        {
-            var roles = _roleManager.Roles;
-            return View(roles);
-        }
 
-        public IActionResult UserManagement()
-        {
-            var users = _userManager.Users;
-            return View(users);
-        }
 
         #endregion Role Management
 
