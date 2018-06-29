@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GT86Registry.Web.Models.AdminViewModels
 {
-    public class AddUserViewModel : ISocialMediaLinks
+    public class AddUserViewModel
     {
         public string City { get; set; }
 
@@ -39,6 +39,9 @@ namespace GT86Registry.Web.Models.AdminViewModels
         public string PostalCode { get; set; }
 
         public string ProfilePhotoUri { get; set; }
+
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
 
         public string State { get; set; }
 
