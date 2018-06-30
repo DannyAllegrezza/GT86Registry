@@ -37,6 +37,8 @@ namespace GT86Registry.Web.Controllers
             return View(users);
         }
 
+        #region User Management
+
         public IActionResult AddUser()
         {
             return View();
@@ -62,12 +64,32 @@ namespace GT86Registry.Web.Controllers
                 return RedirectToAction("UserManagement", _userManager.Users);
             }
 
-            foreach(IdentityError error in result.Errors)
+            foreach (IdentityError error in result.Errors)
             {
                 ModelState.AddModelError("", error.Description);
             }
 
             return View(addUserViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user != null)
+            {
+                IdentityResult result = await _userManager.DeleteAsync(user);
+                if (result.Succeeded)
+                    return RedirectToAction("UserManagement");
+                else
+                    ModelState.AddModelError("", "Something went wrong while deleting this user.");
+            }
+            else
+            {
+                ModelState.AddModelError("", "This user can't be found");
+            }
+            return View("UserManagement", _userManager.Users);
         }
 
         public async Task<IActionResult> EditUser(string id)
@@ -77,7 +99,13 @@ namespace GT86Registry.Web.Controllers
             if (user == null)
                 return RedirectToAction("UserManagement", _userManager.Users);
 
-            var vm = new EditUserViewModel() { Id = user.Id, Email = user.Email, UserName = user.UserName };
+            var vm = new EditUserViewModel() {
+                Id = user.Id,
+                Email = user.Email,
+                UserName = user.UserName,
+                City = user.City,
+                Country = user.Country
+            };
 
             return View(vm);
         }
@@ -107,25 +135,7 @@ namespace GT86Registry.Web.Controllers
             return RedirectToAction("UserManagement", _userManager.Users);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> DeleteUser(string userId)
-        {
-            var user = await _userManager.FindByIdAsync(userId);
-
-            if (user != null)
-            {
-                IdentityResult result = await _userManager.DeleteAsync(user);
-                if (result.Succeeded)
-                    return RedirectToAction("UserManagement");
-                else
-                    ModelState.AddModelError("", "Something went wrong while deleting this user.");
-            }
-            else
-            {
-                ModelState.AddModelError("", "This user can't be found");
-            }
-            return View("UserManagement", _userManager.Users);
-        }
+        #endregion User Management
 
         #region Role Management
 
@@ -222,7 +232,6 @@ namespace GT86Registry.Web.Controllers
 
             return RedirectToAction("RoleManagement", _roleManager.Roles);
         }
-
 
         #endregion Role Management
 
