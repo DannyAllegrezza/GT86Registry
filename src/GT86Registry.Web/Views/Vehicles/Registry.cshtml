@@ -24,19 +24,30 @@
                             <th>Model</th>
                             <th>Location</th>
                             <th>Owner</th>
+                            @if (User.IsInRole(ApplicationRoles.AdministratorRole))
+                            {
+                                <th>Edit</th>
+                            }
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var vehicle in Model)
                         {
-                            <tr>
-                                <td><a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.VIN">View Vehicle</a></td>
-                                <td>@vehicle.Year</td>
-                                <td>@vehicle.Make</td>
-                                <td>@vehicle.Model</td>
-                                <td>@vehicle.Location.ZipCode</td>
-                                <td><a href="@vehicle.OwnerUsername">@vehicle.OwnerUsername</a></td>
-                            </tr>
+                        <tr>
+                            <td><a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.VIN">View Vehicle</a></td>
+                            <td>@vehicle.Year</td>
+                            <td>@vehicle.Make</td>
+                            <td>@vehicle.Model</td>
+                            <td>@vehicle.Location.ZipCode</td>
+                            <td><a href="@vehicle.OwnerUsername">@vehicle.OwnerUsername</a></td>
+                            @if (User.IsInRole(ApplicationRoles.AdministratorRole))
+                            {
+                                <td>
+                                    <a asp-controller="Garage" asp-action="EditVehicle" asp-route-vin="@vehicle.VIN">Edit Vehicle</a>
+                                </td>
+
+                            }
+                        </tr>
                         }
                     </tbody>
                 </table>
