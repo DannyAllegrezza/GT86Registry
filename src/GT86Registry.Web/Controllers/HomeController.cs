@@ -1,15 +1,14 @@
 ﻿using GT86Registry.Infrastructure.Identity;
 using GT86Registry.Web.Interfaces;
 using GT86Registry.Web.Models;
-using GT86Registry.Web.Models.Configuration;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using System.Diagnostics;
 
 namespace GT86Registry.Web.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

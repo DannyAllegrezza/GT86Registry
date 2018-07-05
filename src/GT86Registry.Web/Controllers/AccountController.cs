@@ -16,7 +16,6 @@ using System.Threading.Tasks;
 
 namespace GT86Registry.Web.Controllers
 {
-    [Authorize]
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {

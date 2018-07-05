@@ -24,7 +24,7 @@
                     <input asp-for="ConfirmPassword" class="form-control" />
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
-                @Html.Partial("_VehicleRegistrationPartial")
+                <partial name="_VehicleRegistrationPartial" />
                 <button type="submit" class="btn btn-default">Register</button>
         </div>
     </form>

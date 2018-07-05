@@ -2,7 +2,6 @@
 using GT86Registry.Web.Models.ManageViewModels;
 using GT86Registry.Web.Services;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -14,7 +13,6 @@ using System.Threading.Tasks;
 
 namespace GT86Registry.Web.Controllers
 {
-    [Authorize]
     [Route("[controller]/[action]")]
     public class ManageController : Controller
     {
