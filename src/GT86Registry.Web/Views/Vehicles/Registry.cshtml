@@ -18,12 +18,12 @@
                 <table class="table table-hover table-striped">
                     <thead>
                         <tr>
-                            <th>Vehicle</th>
+                            <th>Owner</th>
                             <th>Year</th>
                             <th>Make</th>
                             <th>Model</th>
                             <th>Location</th>
-                            <th>Owner</th>
+                            <th>Vehicle</th>
                             @if (User.IsInRole(ApplicationRoles.AdministratorRole))
                             {
                                 <th>Edit</th>
@@ -34,12 +34,12 @@
                         @foreach (var vehicle in Model)
                         {
                         <tr>
-                            <td><a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.VIN">View Vehicle</a></td>
+                            <td><a href="@vehicle.OwnerUsername">@vehicle.OwnerUsername</a></td>
                             <td>@vehicle.Year</td>
                             <td>@vehicle.Make</td>
                             <td>@vehicle.Model</td>
                             <td>@vehicle.Location.ZipCode</td>
-                            <td><a href="@vehicle.OwnerUsername">@vehicle.OwnerUsername</a></td>
+                            <td><a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.VIN">View Vehicle</a></td>
                             @if (User.IsInRole(ApplicationRoles.AdministratorRole))
                             {
                                 <td>
