@@ -1,0 +1,71 @@
+﻿@inject SignInManager<ApplicationUser> SignInManager
+
+<div class="sidebar" data-color="red" data-image="/images/navbar-photo.jpg">
+    <!-- Change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
+    <div class="sidebar-wrapper">
+        <div class="logo">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="simple-text">
+                <img src="~/images/logo.png" class="img-responsive" alt="GT86Registry.com - The premier registry for the GT86 platform!" />
+            </a>
+        </div>
+
+        <ul class="nav">
+            <li>
+                <a asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="pe-7s-home"></i>
+                    <p>Home</p>
+                </a>
+            </li>
+            <li>
+                <a asp-area="" asp-controller="Vehicles" asp-action="Registry">
+                    <i class="pe-7s-note2"></i>
+                    <p>View The Registry</p>
+                </a>
+            </li>
+            <li>
+                <a asp-area="" asp-controller="Vehicles" asp-action="Map">
+                    <i class="pe-7s-map-marker"></i>
+                    <p>Global View</p>
+                </a>
+            </li>
+            <li>
+                <a asp-area="" asp-controller="Home" asp-action="About">
+                    <i class="pe-7s-info"></i>
+                    <p>About</p>
+                </a>
+            </li>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <hr />
+                <li>
+                    <a asp-area="" asp-controller="Garage" asp-action="Index">
+                        <i class="pe-7s-car"></i>
+                        <p>My Garage</p>
+                    </a>
+                </li>
+                <li>
+                    <a asp-area="" asp-controller="Manage" asp-action="Index">
+                        <i class="pe-7s-user"></i>
+                        <p>My Profile</p>
+                    </a>
+                </li>
+                if (User.IsInRole(ApplicationRoles.AdministratorRole))
+                {
+                    <li>
+                        <a asp-area="" asp-controller="Admin" asp-action="RoleManagement">
+                            <i class="pe-7s-edit"></i>
+                            <p>Role Management</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Admin" asp-action="UserManagement">
+                            <i class="pe-7s-add-user"></i>
+                            <p>User Management</p>
+                        </a>
+                    </li>
+
+                }
+            }
+        </ul>
+    </div>
+</div>
