@@ -17,12 +17,12 @@
       }
     },
     "GT86Registry.Web": {
-      "commandName": "IISExpress",
+      "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:50336/"
+      "applicationUrl": "https://localhost:50336/"
     }
   }
 }

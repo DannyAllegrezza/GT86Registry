@@ -212,7 +212,7 @@ namespace GT86Registry.Infrastructure.Data
             var frsUser = userManager.FindByEmailAsync(SeedData.USER_EMAIL_FRS).Result;
             var frsProfilePhoto = new Image
             {
-                Uri = "http://i.imgur.com/cHZgF.jpg",
+                Uri = "https://i.imgur.com/cHZgF.jpg",
                 UserIdentityGuid = frsUser.Id
             };
 
