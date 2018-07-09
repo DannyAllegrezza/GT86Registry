@@ -15,15 +15,15 @@
                 <p class="category">Do you own a @SiteSettings.Value.VehiclePlatform and want to <a asp-controller="Account" asp-action="Register">join our community?</a></p>
             </div>
             <div class="content table-responsive table-full-width">
-                <table class="table table-hover table-striped">
+                <table id="registry" class="table table-hover table-striped">
                     <thead>
                         <tr>
-                            <th>Vehicle</th>
+                            <th>Owner</th>
                             <th>Year</th>
                             <th>Make</th>
                             <th>Model</th>
                             <th>Location</th>
-                            <th>Owner</th>
+                            <th>Vehicle</th>
                             @if (User.IsInRole(ApplicationRoles.AdministratorRole))
                             {
                                 <th>Edit</th>
@@ -33,21 +33,21 @@
                     <tbody>
                         @foreach (var vehicle in Model)
                         {
-                        <tr>
-                            <td><a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.VIN">View Vehicle</a></td>
-                            <td>@vehicle.Year</td>
-                            <td>@vehicle.Make</td>
-                            <td>@vehicle.Model</td>
-                            <td>@vehicle.Location.ZipCode</td>
-                            <td><a href="@vehicle.OwnerUsername">@vehicle.OwnerUsername</a></td>
-                            @if (User.IsInRole(ApplicationRoles.AdministratorRole))
-                            {
-                                <td>
-                                    <a asp-controller="Garage" asp-action="EditVehicle" asp-route-vin="@vehicle.VIN">Edit Vehicle</a>
-                                </td>
+                            <tr>
+                                <td><a href="@vehicle.OwnerUsername">@vehicle.OwnerUsername</a></td>
+                                <td>@vehicle.Year</td>
+                                <td>@vehicle.Make</td>
+                                <td>@vehicle.Model</td>
+                                <td>@vehicle.Location.ZipCode</td>
+                                <td><a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.VIN">View Vehicle</a></td>
+                                @if (User.IsInRole(ApplicationRoles.AdministratorRole))
+                                {
+                                    <td>
+                                        <a asp-controller="Garage" asp-action="EditVehicle" asp-route-vin="@vehicle.VIN">Edit Vehicle</a>
+                                    </td>
 
-                            }
-                        </tr>
+                                }
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -56,3 +56,20 @@
         </div>
     </div>
 </div>
+
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/lib/datatables.net-bs/css/dataTables.bootstrap.css" />
+}
+
+@section Scripts{
+    <script type="text/javascript" src="~/lib/datatables.net/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="~/lib/datatables.net-bs/js/dataTables.bootstrap.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $('#registry').DataTable();
+        });
+    </script>
+}

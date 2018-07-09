@@ -57,7 +57,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">@ViewData["Title"]</a>
+                        <a asp-area="" asp-controller="@ViewContext.RouteData.Values["Controller"]" asp-action="@ViewContext.RouteData.Values["Action"]" class="navbar-brand">@ViewData["Title"]</a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-left"></ul>
@@ -101,7 +101,6 @@
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
 
@@ -109,7 +108,6 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery"
-                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                 crossorigin="anonymous">
         </script>
 
