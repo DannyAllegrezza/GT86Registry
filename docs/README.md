@@ -1,4 +1,10 @@
 # GT86Registry.com
+
+[![Build status](https://ci.appveyor.com/api/projects/status/2y84mtiwgc0iowlk?svg=true)](https://ci.appveyor.com/project/DannyAllegrezza/gt86registry)
+
+[![Build status (master)](https://ci.appveyor.com/api/projects/status/2y84mtiwgc0iowlk/branch/master?svg=true)](https://ci.appveyor.com/project/DannyAllegrezza/gt86registry/branch/master)
+
+
 A project to test out the *current* iterations of .NET Core, Web API, and some fun Javascript framework. The end goal is to create a light weight, modern, cross-platform library that caters to automotive enthusiasts. 
 
 <img src="img/gt86registry.JPG">
