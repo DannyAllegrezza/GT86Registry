@@ -1,9 +1,16 @@
 ﻿@model RegisterViewModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Account Registration";
 }
 
 <h1>@ViewData["Title"]</h1>
+
+<p class="page-description">Registration is quick and of course free! Please note that we do require your vehicle information number (VIN) in order to validate your vehicle. <a id="show-more-info">More info</a></p>
+
+<div id="more-info">
+    <p>Your VIN is <b>only</b> used to help us validate your @SiteSettings.Value.VehiclePlatform.</p>
+</div>
+
 
 <div class="row">
     <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
