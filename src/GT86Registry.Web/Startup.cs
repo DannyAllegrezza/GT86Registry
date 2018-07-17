@@ -120,6 +120,7 @@ namespace GT86Registry.Web
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddScoped<IVehicleFactory, VehicleFactory>();
             services.AddScoped<IAuthorizationHandler, UserIsOwnerAuthorizationHandler>();
+            services.AddScoped<IVinDecoderService, VinDecoderService>();
             services.AddSingleton<IAuthorizationHandler, VehicleAdministratorsAuthorizationHandler>();
 
             services.AddMvc(config =>
