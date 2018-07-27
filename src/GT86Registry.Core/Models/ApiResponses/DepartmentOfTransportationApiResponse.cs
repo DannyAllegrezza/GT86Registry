@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GT86Registry.Core.Models.ApiResponses
+﻿namespace GT86Registry.Core.Models.ApiResponses
 {
 
     public class DepartmentOfTransportationApiResponse
