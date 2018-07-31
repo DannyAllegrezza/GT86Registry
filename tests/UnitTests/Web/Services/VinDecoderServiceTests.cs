@@ -13,7 +13,7 @@ namespace UnitTests.Web.Services
         [TestMethod]
         public async Task GetDecodedVin_DecodesCorrectly_WhenVinIsValid()
         {
-            var webLoader = new WebLoader(NhtsaGovUri.BuildUrl(_vin));
+            var webLoader = new WebLoader();
 
             var service = new VinDecoderService(webLoader);
 

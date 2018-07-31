@@ -1,10 +1,12 @@
 ﻿using GT86Registry.Core.Factories;
 using GT86Registry.Core.Interfaces;
+using GT86Registry.Core.Models;
 using GT86Registry.Infrastructure.Data;
 using GT86Registry.Infrastructure.Identity;
 using GT86Registry.Web.Authorization;
 using GT86Registry.Web.Interfaces;
 using GT86Registry.Web.Models.Configuration;
+using GT86Registry.Web.Models.VinDataLoaders;
 using GT86Registry.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -120,8 +122,10 @@ namespace GT86Registry.Web
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddScoped<IVehicleFactory, VehicleFactory>();
             services.AddScoped<IAuthorizationHandler, UserIsOwnerAuthorizationHandler>();
-            services.AddScoped<IVinDecoderService, VinDecoderService>();
             services.AddSingleton<IAuthorizationHandler, VehicleAdministratorsAuthorizationHandler>();
+
+            services.AddScoped<IVinDataProvider, WebLoader>();
+            services.AddScoped<IVinDecoderService, VinDecoderService>();
 
             services.AddMvc(config =>
                     {

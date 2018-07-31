@@ -17,6 +17,7 @@ namespace GT86Registry.Web.Services
         public async Task<Result> GetDecodedVin(string vin)
         {
             var data = await _loader.LoadDataForVin(vin);
+
             return data;
         }
     }

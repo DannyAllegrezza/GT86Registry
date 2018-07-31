@@ -1,14 +1,50 @@
 ﻿$(document).ready(function () {
     console.log("registration.js init");
-
+    hideVehicleDetails();
+    registerVinEventListener();
     setShowMoreEventListener();
-    configureManufacturerSelectList();
-    configureModelSelectList();
-    configureColorsSelectList();
-    configureTransmissionSelectList();
+    //configureManufacturerSelectList();
+    //configureModelSelectList();
+    //configureColorsSelectList();
+    //configureTransmissionSelectList();
 
     function FetchData(url, data) {
         // todo (dca): can easily refactor this file so we just call one function to make get requests
+    }
+
+    function hideVehicleDetails() {
+        $("#vehicle-details").hide();
+    }
+
+    function registerVinEventListener() {
+        $("#VIN").keyup(function () {
+            var vin = $(this).val();
+
+            if (isValidVin(vin)) {
+                $.ajax({
+                    url: `/api/vehicles/${vin}`,
+                    type: "GET",
+                    traditional: true,
+                    success: function (result) {
+                        console.log(result);
+
+                        $("#vehicle-details").slideToggle();
+
+                        $('#YearId option:contains(' + result.modelYear + ')').each(function () {
+                            if ($(this).text() == result.modelYear) {
+                                $(this).attr('selected', 'selected');
+                                return false;
+                            }
+                            return true;
+                        });
+
+                    },
+                    error: function (result) {
+                        console.log(result);
+                    }
+                });
+            }
+        })
     }
 
     function setShowMoreEventListener() {
@@ -94,5 +130,9 @@
                 }
             });
         });
+    }
+
+    function isValidVin(vin) {
+        return vin.length == 17;
     }
 });

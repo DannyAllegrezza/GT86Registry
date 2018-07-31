@@ -7,21 +7,23 @@ using System.Threading.Tasks;
 namespace GT86Registry.Web.Models.VinDataLoaders
 {
     public class WebLoader : IVinDataProvider
-    {
-        private string _url { get; }
-
-        public WebLoader(string url)
-        {
-            _url = url;
-        }
-        
+    {        
         public async Task<Result> LoadDataForVin(string vin)
         {
             var client = new HttpClient();
-            var response = await client.GetAsync(_url);
+            var endpoint = NhtsaGovUri.BuildUrl(vin);
+
+            var response = await client.GetAsync(endpoint);
             var content = await response.Content.ReadAsAsync<DepartmentOfTransportationApiResponse>();
 
-            return content.Results.FirstOrDefault();
+            var result = content.Results.FirstOrDefault();
+
+            if (!string.IsNullOrEmpty(result.AdditionalErrorText))
+            {
+                return null;
+            }
+
+            return result;
         }
     }
 
