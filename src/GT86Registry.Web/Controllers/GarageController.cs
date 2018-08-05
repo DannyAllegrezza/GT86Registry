@@ -1,4 +1,4 @@
-﻿using GT86Registry.Core.Auth;
+﻿using GT86Registry.Infrastructure.Auth;
 using GT86Registry.Infrastructure.Data;
 using GT86Registry.Infrastructure.Identity;
 using GT86Registry.Web.Helpers;

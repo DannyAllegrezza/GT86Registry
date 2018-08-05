@@ -1,5 +1,5 @@
-﻿using GT86Registry.Core.Auth;
-using GT86Registry.Core.Entities;
+﻿using GT86Registry.Core.Entities;
+using GT86Registry.Infrastructure.Auth;
 using GT86Registry.Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;

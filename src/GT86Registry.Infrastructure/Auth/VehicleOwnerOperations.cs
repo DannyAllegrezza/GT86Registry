@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization.Infrastructure;
 
-namespace GT86Registry.Core.Auth
+namespace GT86Registry.Infrastructure.Auth
 {
     public class VehicleOwnerOperations
     {
