@@ -26,7 +26,8 @@ Currently, the library is using Entity Framework Core 2 as an ORM. EF Core has m
 3. Use your favorite IDE (preferably Visual Studio 2017 or VS Code) and open the .sln file.
 4. Follow the steps below to **run** the migrations. 
 5. Verify that running the migrations has created your new database.
-6. Run the project! 
+6. This project uses `dotnet user-secrets`. From the `GT86Registry.Web` folder, type in `dotnet user-secrets set SeedAdminPW  "YOUR_PW"`. NOTE: the password must follow the rules set in `Startup.cs` under the Identity configuration.
+7. Run the project! 
 
 * In VS2017, simply open the project and run as normal. 
 * In VS Code, navigate to the `src/GT86Registry.Web/` directory and type `dotnet run`
