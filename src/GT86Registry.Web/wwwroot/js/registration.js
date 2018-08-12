@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    console.log("registration.js init");
+    console.log("registration.js init - test VIN JF1ZNAA12J8701217");
     hideVehicleDetails();
     registerVinEventListener();
     setShowMoreEventListener();

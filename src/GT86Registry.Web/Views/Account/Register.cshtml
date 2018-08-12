@@ -5,10 +5,22 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<p class="page-description">Registration is quick and of course free! Please note that we do require your vehicle information number (VIN) in order to validate your vehicle. <a id="show-more-info">More info</a></p>
+<div class="page-description">
+    <p>We're excited for you to join our @SiteSettings.Value.VehiclePlatform community! As a member, you'll enjoy the following features:<p>
 
-<div id="more-info">
-    <p>Your VIN is <b>only</b> used to help us validate your @SiteSettings.Value.VehiclePlatform.</p>
+    <ul>
+        <li>Register your vehicle in our <a href="">official registry</a></li>
+        <li>Create an online profile for your vehicle and build</li>
+        <li>Communicate with other @SiteSettings.Value.VehiclePlatform enthusiasts</li>
+        <li>Provide feedback on how to enhance the website</li>
+    </ul>
+
+    <p>Please note that we do require your vehicle information number (VIN) in order to validate your @SiteSettings.Value.VehiclePlatform. <a id="show-more-info">More info</a></p>
+
+    <div id="more-info">
+        <p>Your VIN is <b>only</b> used to help us validate your @SiteSettings.Value.VehiclePlatform. Your VIN is generally located in a few places. The most common are on the top of your dashboard, visible through the windshield or the inside of your driver door sill.</p>
+    </div>
+
 </div>
 
 
@@ -21,15 +33,11 @@
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Password"></label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -66,30 +74,10 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-default">Register</button>
+            <button type="submit" class="btn btn-primary">Register</button>
         </div>
     </form>
 </div>
-
-@*
-<div class="row">
-    <div class="register-photo">
-        <div class="form-container">
-            <div class="image-holder"></div>
-            <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
-                <h2 class="text-center"><strong>Create</strong> an account.</h2>
-                <div class="form-group"><input class="form-control" asp-for="Email" placeholder="Email" /></div>
-                <div class="form-group"><input class="form-control" asp-for="Password" placeholder="Password" /></div>
-                <div class="form-group"><input class="form-control" asp-for="ConfirmPassword" placeholder="Password (repeat)" /></div>
-                <div class="form-group">
-                    <div class="checkbox"><label class="control-label"><input type="checkbox" />I agree to the license terms.</label></div>
-                </div>
-                <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Sign Up</button></div><a href="#" class="already">You already have an account? Login here.</a>
-            </form>
-        </div>
-    </div>
-</div>
-*@
 
 @section Scripts {
     <script src="~/js/registration.js"></script>
