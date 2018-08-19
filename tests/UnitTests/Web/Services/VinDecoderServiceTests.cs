@@ -15,7 +15,7 @@ namespace UnitTests.Web.Services
         {
             var webLoader = new WebLoader();
 
-            var service = new VinDecoderService(webLoader);
+            var service = new VinDecoderService(webLoader, null);
 
             var result = await service.GetDecodedVin(_vin);
 

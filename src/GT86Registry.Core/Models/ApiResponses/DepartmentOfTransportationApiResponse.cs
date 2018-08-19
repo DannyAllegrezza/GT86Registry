@@ -1,6 +1,5 @@
 ﻿namespace GT86Registry.Core.Models.ApiResponses
 {
-
     public class DepartmentOfTransportationApiResponse
     {
         public int Count { get; set; }
@@ -88,6 +87,7 @@
         public string FuelTypePrimary { get; set; }
         public string FuelTypeSecondary { get; set; }
         public string GVWR { get; set; }
+        public bool IsValidForSite { get; set; }
         public string KeylessIgnition { get; set; }
         public string LaneDepartureWarning { get; set; }
         public string LaneKeepSystem { get; set; }

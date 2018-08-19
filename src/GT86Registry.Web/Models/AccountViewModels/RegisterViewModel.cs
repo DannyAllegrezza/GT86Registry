@@ -19,6 +19,7 @@ namespace GT86Registry.Web.Models.AccountViewModels
         public string Password { get; set; }
 
         [Required]
+        [StringLength(17)]
         [Display(Name = "Vehicle Information Number (VIN)")]
         public string VIN { get; set; }
 

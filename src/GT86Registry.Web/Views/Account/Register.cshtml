@@ -9,10 +9,10 @@
     <p>We're excited for you to join our @SiteSettings.Value.VehiclePlatform community! As a member, you'll enjoy the following features:<p>
 
     <ul>
-        <li>Register your vehicle in our <a href="">official registry</a></li>
-        <li>Create an online profile for your vehicle and build</li>
+        <li>Register your vehicle in our <a asp-action="Registry" asp-controller="Vehicles">official registry</a></li>
+        <li>Create an online profile for your vehicle</li>
         <li>Communicate with other @SiteSettings.Value.VehiclePlatform enthusiasts</li>
-        <li>Provide feedback on how to enhance the website</li>
+        <li>Provide feedback on how to enhance this website</li>
     </ul>
 
     <p>Please note that we do require your vehicle information number (VIN) in order to validate your @SiteSettings.Value.VehiclePlatform. <a id="show-more-info">More info</a></p>
@@ -30,48 +30,25 @@
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Email" class="form-control" placeholder="What is your email address?"/>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Password"></label>
-                <input asp-for="Password" class="form-control" />
+                <input asp-for="Password" class="form-control" placeholder="Password must be at least 8 characters long"/>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="VIN"></label>
-                <input asp-for="VIN" class="form-control" />
+                <input asp-for="VIN" class="form-control" placeholder="Your VIN is a 17 digit identifier specific to your vehicle"/>
                 <span asp-validation-for="VIN" class="text-danger"></span>
             </div>
 
             <div id="vehicle-details">
-                <div class="form-group">
-                    <label asp-for="YearId"></label>
-                    <select asp-for="YearId" asp-items="@Model.Years" class="form-control"></select>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ManufacturerId"></label>
-                    <select asp-for="ManufacturerId" asp-items="@Model.Manufacturers" class="form-control"></select>
-                    <span asp-validation-for="ManufacturerId" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="VehicleModelId"></label>
-                    <select asp-for="VehicleModelId" asp-items="@Model.VehicleModels" class="form-control"></select>
-                    <span asp-validation-for="VehicleModelId" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ColorId"></label>
-                    <select asp-for="ColorId" asp-items="@Model.ColorChoices" class="form-control"></select>
-                    <span asp-validation-for="ColorId" class="text-danger"></span>
-                </div>
 
-                <div class="form-group">
-                    <label asp-for="TransmissionId"></label>
-                    <select asp-for="TransmissionId" asp-items="@Model.TransmissionChoices" class="form-control"></select>
-                    <span asp-validation-for="TransmissionId" class="text-danger"></span>
-                </div>
+                
             </div>
 
             <button type="submit" class="btn btn-primary">Register</button>
@@ -80,8 +57,8 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/registration.js"></script>
     @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/js/registration.js"></script>
 }
 
 @section Styles {
