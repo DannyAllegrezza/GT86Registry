@@ -38,7 +38,14 @@
     }
 
     function renderSuccessMessage(result) {
-        var vehicleText = `We've successfully validated your ${result.modelYear} ${result.make} ${result.model}!`
+        var vehicleText = `We've successfully validated your ${result.modelYear} ${result.make} ${result.model}!`;
+
+        $("#vehicle-details").text(vehicleText);
+    }
+
+    function renderErrorMessage(result) {
+        var vehicleText = `The VIN you provided is invalid. Please try again.`;
+
         $("#vehicle-details").text(vehicleText);
     }
 });

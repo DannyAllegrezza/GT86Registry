@@ -28,6 +28,13 @@
     <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
         <div class="col-md-6">
             <div asp-validation-summary="All" class="text-danger"></div>
+            
+            <div class="form-group">
+                <label asp-for="VIN"></label>
+                <input asp-for="VIN" class="form-control" placeholder="Your VIN is a 17 digit identifier specific to your vehicle"/>
+                <span asp-validation-for="VIN" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="Email"></label>
                 <input asp-for="Email" class="form-control" placeholder="What is your email address?"/>
@@ -40,11 +47,6 @@
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="VIN"></label>
-                <input asp-for="VIN" class="form-control" placeholder="Your VIN is a 17 digit identifier specific to your vehicle"/>
-                <span asp-validation-for="VIN" class="text-danger"></span>
-            </div>
 
             <div id="vehicle-details">
 
