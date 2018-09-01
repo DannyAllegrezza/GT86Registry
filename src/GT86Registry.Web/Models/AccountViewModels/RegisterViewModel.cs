@@ -19,35 +19,7 @@ namespace GT86Registry.Web.Models.AccountViewModels
         public string Password { get; set; }
 
         [Required]
-        [StringLength(17)]
-        [Display(Name = "Vehicle Information Number (VIN)")]
-        public string VIN { get; set; }
-
-        
-        [Display(Name = "Transmission")]
-        public string TransmissionId { get; set; }
-
-        [Display(Name = "Color")]
-        public string ColorId { get; set; }
-
-        [Display(Name = "Manufacturer")]
-        public string ManufacturerId { get; set; }
-
-        [Display(Name = "Model")]
-        public string VehicleModelId { get; set; }
-
-        [Display(Name = "Year")]
-        public int YearId { get; set; }
-        public int Year { get; set; }
-
-        public Image VehicleImage { get; set; }
-        public VehicleStatus VehicleStatus { get; set; }
-        public VehicleLocation VehicleLocation { get; set; }
-
-        public IEnumerable<SelectListItem> ColorChoices { get; set; }
-        public IEnumerable<SelectListItem> Manufacturers { get; set; }
-        public IEnumerable<SelectListItem> TransmissionChoices { get; set; }
-        public IEnumerable<SelectListItem> VehicleModels { get; set; }
-        public IEnumerable<SelectListItem> Years { get; set; }
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
     }
 }

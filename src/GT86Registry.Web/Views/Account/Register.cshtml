@@ -15,11 +15,11 @@
         <li>Provide feedback on how to enhance this website</li>
     </ul>
 
-    <p>Please note that we do require your vehicle information number (VIN) in order to validate your @SiteSettings.Value.VehiclePlatform. <a id="show-more-info">More info</a></p>
+    @*<p>Please note that we do require your vehicle information number (VIN) in order to validate your @SiteSettings.Value.VehiclePlatform. <a id="show-more-info">More info</a></p>
 
     <div id="more-info">
         <p>Your VIN is <b>only</b> used to help us validate your @SiteSettings.Value.VehiclePlatform. Your VIN is generally located in a few places. The most common are on the top of your dashboard, visible through the windshield or the inside of your driver door sill.</p>
-    </div>
+    </div>*@
 
 </div>
 
@@ -30,9 +30,9 @@
             <div asp-validation-summary="All" class="text-danger"></div>
             
             <div class="form-group">
-                <label asp-for="VIN"></label>
-                <input asp-for="VIN" class="form-control" placeholder="Your VIN is a 17 digit identifier specific to your vehicle"/>
-                <span asp-validation-for="VIN" class="text-danger"></span>
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" class="form-control" placeholder="User Name"/>
+                <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -60,7 +60,6 @@
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
-    <script src="~/js/registration.js"></script>
 }
 
 @section Styles {
