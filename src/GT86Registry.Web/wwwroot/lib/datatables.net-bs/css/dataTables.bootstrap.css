@@ -23,6 +23,7 @@ div.dataTables_wrapper div.dataTables_length label {
   font-weight: normal;
   text-align: left;
   white-space: nowrap;
+  padding-left: 10px;
 }
 div.dataTables_wrapper div.dataTables_length select {
   width: 75px;
@@ -30,6 +31,7 @@ div.dataTables_wrapper div.dataTables_length select {
 }
 div.dataTables_wrapper div.dataTables_filter {
   text-align: right;
+  padding-right: 10px;
 }
 div.dataTables_wrapper div.dataTables_filter label {
   font-weight: normal;
@@ -43,10 +45,12 @@ div.dataTables_wrapper div.dataTables_filter input {
 }
 div.dataTables_wrapper div.dataTables_info {
   padding-top: 8px;
+  padding-left: 10px;
   white-space: nowrap;
 }
 div.dataTables_wrapper div.dataTables_paginate {
   margin: 0;
+  padding-right: 10px;
   white-space: nowrap;
   text-align: right;
 }

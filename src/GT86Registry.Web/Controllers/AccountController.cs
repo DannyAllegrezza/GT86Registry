@@ -407,13 +407,13 @@ namespace GT86Registry.Web.Controllers
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
         {
-            RegisterViewModel vm = new RegisterViewModel
-            {
-                Years = _vehicleService.GetAllYears()
-            };
+            //RegisterViewModel vm = new RegisterViewModel
+            //{
+            //    Years = _vehicleService.GetAllYears()
+            //};
 
             ViewData["ReturnUrl"] = returnUrl;
-            return View(vm);
+            return View();
         }
 
         [HttpPost]
@@ -424,7 +424,7 @@ namespace GT86Registry.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -438,12 +438,12 @@ namespace GT86Registry.Web.Controllers
                     _logger.LogInformation("User logged in.");
 
                     // Register the users Vehicle
-                    IVehicle userVehicle = _vehicleFactory.CreateVehicle(
-                        model.VIN,
-                        model.YearId,
-                        Int32.Parse(model.ColorId),
-                        Int32.Parse(model.TransmissionId),
-                        user.Id);
+                    //IVehicle userVehicle = _vehicleFactory.CreateVehicle(
+                    //    model.VIN,
+                    //    model.YearId,
+                    //    Int32.Parse(model.ColorId),
+                    //    Int32.Parse(model.TransmissionId),
+                    //    user.Id);
 
                     return RedirectToLocal(returnUrl);
                 }

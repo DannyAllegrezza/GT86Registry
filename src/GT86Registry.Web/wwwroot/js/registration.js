@@ -1,80 +1,51 @@
 ﻿$(document).ready(function () {
-    console.log("registration.js init");
-    // Populate the Manufacturer Select List
-    $("#YearId").change(function () {
-        $manufacturerId = $("#ManufacturerId");
+    console.log("registration.js init - test VIN JF1ZNAA12J8701217");
 
-        $.ajax({
-            url: "/Account/GetManufacturersByYear",
-            type: "GET",
-            data: { year: $("#YearId option:selected").text() },
-            traditional: true,
-            success: function (result) {
-                console.log(result);
-                $manufacturerId.empty();
-                $.each(result, function (i, item) {
-                    $manufacturerId.append('<option value="' + item["value"] + '"> ' + item["text"] + ' </option>');
-                })
+    registerVinEventListener();
+    setShowMoreEventListener();
+
+    function registerVinEventListener() {
+        $("#VIN").keyup(function () {
+            var vin = $(this).val();
+
+            if (isVinInputValid(vin)) {
+                $.ajax({
+                    url: `/api/vehicles/${vin}`,
+                    type: "GET",
+                    traditional: true,
+                    success: function (result) {
+                        console.log(`SUCCESS! -- ${result}`);
+                        renderSuccessMessage(result);
+                    },
+                    error: function (result) {
+                        console.log(`ERROR! -- ${result}`);
+                        renderErrorMessage(result);
+                    }
+                });
             }
         });
-    });
+    }
 
-    // Populate the Model Select List
-    $("#ManufacturerId").change(function () {
-        $modelId = $("#VehicleModelId");
-        $manufId = $("#ManufacturerId").val();
-
-        $.ajax({
-            url: "/Account/GetModels",
-            type: "GET",
-            data: { year: $("#YearId option:selected").text(), manufacturerId: $("#ManufacturerId").val() },
-            traditional: true,
-            success: function (result) {
-                $modelId.empty();
-                $.each(result, function (i, item) {
-                    $modelId.append('<option value="' + item["value"] + '"> ' + item["text"] + ' </option>');
-                })
-            }
+    function setShowMoreEventListener() {
+        $("#more-info").hide();
+        $("#show-more-info").click(() => {
+            $("#more-info").slideToggle();
         });
-    });
+    }
 
-    // Populate the Colors Select List
-    $("#VehicleModelId").change(function () {
-        $colorId = $("#ColorId");
+    function isVinInputValid(vin) {
+        return vin.length === 17;
+    }
 
-        $.ajax({
-            url: "/Account/GetColors",
-            type: "GET",
-            data: { year: $("#YearId option:selected").text(), modelId: $("#VehicleModelId").val() },
-            traditional: true,
-            success: function (result) {
-                $colorId.empty();
-                $.each(result, function (i, item) {
-                    $colorId.append('<option value="' + item["value"] + '"> ' + item["text"] + ' </option>');
-                })
-            }
-        });
-    });
+    function renderSuccessMessage(result) {
+        var vehicleText = `We've successfully validated your ${result.modelYear} ${result.make} ${result.model}!`;
 
-    // Populate the Transmission Select List
-    $("#VehicleModelId").change(function () {
-        $transmissionId = $("#TransmissionId");
+        $("#vehicle-details").text(vehicleText);
+    }
 
-        $.ajax({
-            url: "/Account/GetTransmissions",
-            type: "GET",
-            data: { year: $("#YearId option:selected").text(), modelId: $("#VehicleModelId").val() },
-            traditional: true,
-            success: function (result) {
-                $transmissionId.empty();
-                $.each(result, function (i, item) {
-                    $transmissionId.append('<option value="' + item["value"] + '"> ' + item["text"] + ' </option>');
-                })
-            }
-        });
-    });
+    function renderErrorMessage(result) {
+        var vehicleText = `The VIN you provided is invalid. Please try again.`;
 
-    function FetchData(url, data) {
-        // todo (dca): can easily refactor this file so we just call one function to make get requests
+        $("#vehicle-details").text(vehicleText);
     }
 });

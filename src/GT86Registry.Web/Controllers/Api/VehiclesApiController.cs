@@ -1,20 +1,23 @@
 ﻿using GT86Registry.Infrastructure.Data;
+using GT86Registry.Web.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace GT86Registry.Web.Controllers.Api
 {
+    [AllowAnonymous]
     [Route("api/vehicles")]
     public class VehiclesApiController : Controller
     {
-        private readonly VehicleDbContext _context;
         private readonly VehicleRepository _repository;
+        private readonly IVinDecoderService _vinService;
 
-        public VehiclesApiController(VehicleRepository repository, VehicleDbContext context)
+        public VehiclesApiController(VehicleRepository repository, IVinDecoderService vinService)
         {
             _repository = repository;
-            _context = context;
+            _vinService = vinService;
         }
 
         [HttpGet]
@@ -27,26 +30,18 @@ namespace GT86Registry.Web.Controllers.Api
 
         [HttpGet]
         [Route("{vin}")]
-        public IActionResult GetByVin(string vin)
+        public async Task<IActionResult> GetByVin(string vin)
         {
             if (vin == null) { return BadRequest(); }
 
-            var vehicle = _repository.GetVehicleByVIN(vin);
-            return Ok(vehicle);
-        }
+            var decodedVin = await _vinService.GetDecodedVin(vin);
 
-        [HttpGet]
-        [Route("{graph}")]
-        public IActionResult GetGraph()
-        {
-            var graph = _context.Years
-                        .Include(y => y.Model)
-                            .ThenInclude(yv => yv.Manufacturer)
-                        .Include(y => y.ModelColors)
-                        .Include(y => y.ModelTransmissions);
+            if (decodedVin == null)
+            {
+                return BadRequest("Request was invalid");
+            }
 
-            return Ok(graph);
-            // return a full graph of the data structure
+            return Ok(decodedVin);
         }
     }
 }
