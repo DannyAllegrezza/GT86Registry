@@ -2,10 +2,12 @@
 using GT86Registry.Core.Interfaces;
 using GT86Registry.Infrastructure.Identity;
 using GT86Registry.Web.Interfaces;
+using GT86Registry.Web.Models.Configuration;
 using GT86Registry.Web.Models.VehicleViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,6 +21,7 @@ namespace GT86Registry.Web.Services
         private readonly IRepository<ColorsModelYears> _colorsRepository;
         private readonly IRepository<ModelTransmissions> _transmissionRepository;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IOptions<SiteSettingsConfiguration> _siteConfig;
         private readonly IRepository<Vehicle> _vehicleRepository;
         private readonly IRepository<ModelYear> _yearRepository;
 
@@ -31,7 +34,8 @@ namespace GT86Registry.Web.Services
                 IRepository<ColorsModelYears> colorRepository,
                 IRepository<ModelTransmissions> transmissionRepository,
                 IRepository<Vehicle> vehicleRepository,
-                UserManager<ApplicationUser> userManager
+                UserManager<ApplicationUser> userManager,
+                IOptions<SiteSettingsConfiguration> siteConfig
             )
         {
             _yearRepository = yearRepository;
@@ -39,6 +43,7 @@ namespace GT86Registry.Web.Services
             _transmissionRepository = transmissionRepository;
             _vehicleRepository = vehicleRepository;
             _userManager = userManager;
+            _siteConfig = siteConfig;
         }
 
         #endregion Constructors
@@ -191,7 +196,7 @@ namespace GT86Registry.Web.Services
 
         public IEnumerable<VehicleOverviewViewModel> GetNewestRegisteredVehicles()
         {
-            var vehicles = GetVehicleOverviewViewModels().OrderByDescending(x => x.CreatedDate).Take(3);
+            var vehicles = GetVehicleOverviewViewModels().OrderByDescending(x => x.CreatedDate).Take(_siteConfig.Value.RecentlyRegisteredVehiclesCount);
 
             return vehicles;
         }

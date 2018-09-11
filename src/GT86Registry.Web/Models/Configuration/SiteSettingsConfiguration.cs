@@ -18,5 +18,10 @@
         /// The platform code for the vehicle which this site is focused on.
         /// </summary>
         public string VehiclePlatform { get; set; }
+
+        /// <summary>
+        /// The number of vehicles which appear on the sites homepage in the "Recently Registered Vehicles" section
+        /// </summary>
+        public int RecentlyRegisteredVehiclesCount { get; set; }
     }
 }
