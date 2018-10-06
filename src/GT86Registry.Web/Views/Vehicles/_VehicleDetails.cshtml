@@ -5,88 +5,106 @@
     ViewBag.Title = $"{Model.VehicleOwner.UserName}'s {Model.Vehicle.ModelYear.Year} {Model.Vehicle.ModelYear.Model.Manufacturer.Name} {Model.Vehicle.ModelYear.Model.Name}";
 }
 
+<div class="jumbotron vehicle-jumbotron" style="background:url('@Model.Vehicle.Image.Uri') no-repeat center; background-size:cover;">
+    <h1>@Model.Vehicle.ToString()</h1>
+</div>
 
-<!-- Portfolio Item Row -->
+
+
 <div class="row">
-    <div class="col-md-6">
-        <img class="img-responsive profile-photo img-thumbnail" src="@Model.Vehicle.Image.Uri" alt="">
-    </div>
-
-    <div class="col-md-6">
-        <h1>@Model.Vehicle.ToString()</h1>
-
-        <div class="col-md-1">
-            <div class="profile-photo">
-
-                @if (String.IsNullOrEmpty(Model.VehicleOwner.ProfilePhotoUri))
-                {
-                    <i class="fa fa-user fa-2x" aria-hidden="true"></i>
-                }
-                else
-                {
-                    <img class="avatar" src="@Model.VehicleOwner.ProfilePhotoUri" />
-                }
-            </div>
-
-        </div>
-
-        <div class="col-md-11">
-            <p>Registered by <a href="/@Model.VehicleOwner.UserName">@Model.VehicleOwner.UserName</a></p>
-        </div>
-
-
-        @if (UserManager.GetUserName(User) == Model.VehicleOwner.UserName)
-        {
-            <a asp-controller="Garage" asp-action="EditVehicle" asp-route-vin="@Model.Vehicle.VIN">Edit</a>
-        }
-        
-        <p>@Model.Vehicle.Description</p>
-        <h3>Vehicle Details</h3>
-        <ul class="list-unstyled">
-            <li>Status @Model.Vehicle.Status.Name</li>
-            <li>Views @Model.Vehicle.ViewCount</li>
-            <li>Year @Model.Vehicle.ModelYear.Year</li>
-            <li>Manufacturer @Model.Vehicle.ModelYear.Model.Manufacturer.Name</li>
-            <li>Model @Model.Vehicle.ModelYear.Model.Name</li>
-            <li>Color @Model.Vehicle.Color.Name (@Model.Vehicle.Color.Code)</li>
-            <li>Transmission @Model.Vehicle.Transmission.Name</li>
-            <li>
-                <a href="@Model.VehicleOwner.FacebookUri" class="btn btn-simple"><i class="fa fa-facebook-square"></i></a>
-            </li>
-            <li>
-                <a href="@Model.VehicleOwner.InstagramUri" class="btn btn-simple"><i class="fa fa-twitter"></i></a>
-            </li>
+    <!-- Side-Panel -->
+    <div class="col-sm-3">
+        <ul class="list-group">
+            <li class="list-group-item text-muted" contenteditable="false">@Model.Vehicle.ToString()</li>
+            
+            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Registered by</strong></span><a href="/@Model.VehicleOwner.UserName">@Model.VehicleOwner.UserName</a></li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Join Date</strong></span>@Model.Vehicle.CreatedDate.ToString("MMMM dd, yyyy")</li>
         </ul>
+
+        <ul class="list-group">
+            <li class="list-group-item text-muted">
+                Vehicle Details <i class="fa fa-dashboard fa-1x"></i>
+            </li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Year</strong></span> @Model.Vehicle.ModelYear.Year</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Manufacturer</strong></span> @Model.Vehicle.ModelYear.Model.Manufacturer.Name</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Model</strong></span> @Model.Vehicle.ModelYear.Model.Name</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Color</strong></span> @Model.Vehicle.Color.Name (@Model.Vehicle.Color.Code)</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Transmission</strong></span> @Model.Vehicle.Transmission.Name</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Status</strong></span> @Model.Vehicle.Status.Name</li>
+        </ul>
+        <div class="panel panel-default">
+            <div class="panel-heading">Social Media</div>
+            <div class="panel-body">
+                <i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x"></i>
+                <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i> <i class="fa fa-google-plus fa-2x"></i>
+            </div>
+        </div>
+    </div>
+    <!--/Side-Panel -->
+
+
+    <div class="col-sm-9" style="" contenteditable="false">
+        <div class="panel panel-default">
+            <div class="panel-heading">Vehicle Description</div>
+            <div class="panel-body">
+                @(!String.IsNullOrEmpty(Model.Vehicle.Description) ? Model.Vehicle.Description : "This user has not entered a description yet.")
+            </div>
+        </div>
+        <div class="panel panel-default target">
+            <div class="panel-heading" contenteditable="false">Photos</div>
+            <div class="panel-body">
+                <div class="col-md-3 col-sm-6">
+                    <a href="#">
+                        <img class="img-responsive" src="https://placehold.it/500x300" alt="">
+                    </a>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <a href="#">
+                        <img class="img-responsive" src="https://placehold.it/500x300" alt="">
+                    </a>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <a href="#">
+                        <img class="img-responsive" src="https://placehold.it/500x300" alt="">
+                    </a>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <a href="#">
+                        <img class="img-responsive" src="https://placehold.it/500x300" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default target">
+            <div class="panel-heading">Related Vehicles</div>
+            <div class="panel-body">
+                <div class="col-md-3 col-sm-6">
+                    <a href="#">
+                        <img class="img-responsive" src="https://placehold.it/500x300" alt="">
+                    </a>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <a href="#">
+                        <img class="img-responsive" src="https://placehold.it/500x300" alt="">
+                    </a>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <a href="#">
+                        <img class="img-responsive" src="https://placehold.it/500x300" alt="">
+                    </a>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <a href="#">
+                        <img class="img-responsive" src="https://placehold.it/500x300" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-
-<!-- Related Vehicles Row -->
-<h3>Similar Vehicles</h3>
-
-<div class="row">
-    <div class="col-md-3 col-sm-6">
-        <a href="#">
-            <img class="img-responsive" src="https://placehold.it/500x300" alt="">
-        </a>
-    </div>
-
-    <div class="col-md-3 col-sm-6">
-        <a href="#">
-            <img class="img-responsive" src="https://placehold.it/500x300" alt="">
-        </a>
-    </div>
-
-    <div class="col-md-3 col-sm-6">
-        <a href="#">
-            <img class="img-responsive" src="https://placehold.it/500x300" alt="">
-        </a>
-    </div>
-
-    <div class="col-md-3 col-sm-6">
-        <a href="#">
-            <img class="img-responsive" src="https://placehold.it/500x300" alt="">
-        </a>
-    </div>
-</div>
-<!-- /.row -->
