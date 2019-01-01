@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\Enums\" />
-    <Folder Include="Entities\Messages\" />
+    <Compile Remove="Entities\Enums\**" />
+    <Compile Remove="Entities\Messages\**" />
+    <EmbeddedResource Remove="Entities\Enums\**" />
+    <EmbeddedResource Remove="Entities\Messages\**" />
+    <None Remove="Entities\Enums\**" />
+    <None Remove="Entities\Messages\**" />
   </ItemGroup>
 
 </Project>
