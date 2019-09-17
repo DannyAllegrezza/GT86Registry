@@ -48,6 +48,7 @@ namespace GT86Registry.Web
                     logger.LogError(ex, "An error occurred seeding the DB.");
                 }
             }
+            HibernatingRhinos.Profiler.Appender.EntityFramework.EntityFrameworkProfiler.Initialize();
 
             host.Run();
         }

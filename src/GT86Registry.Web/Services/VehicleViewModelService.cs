@@ -1,5 +1,6 @@
 ﻿using GT86Registry.Core.Entities;
 using GT86Registry.Core.Interfaces;
+using GT86Registry.Infrastructure.Data;
 using GT86Registry.Infrastructure.Identity;
 using GT86Registry.Web.Interfaces;
 using GT86Registry.Web.Models.Configuration;
@@ -24,6 +25,7 @@ namespace GT86Registry.Web.Services
         private readonly IOptions<SiteSettingsConfiguration> _siteConfig;
         private readonly IRepository<Vehicle> _vehicleRepository;
         private readonly IRepository<ModelYear> _yearRepository;
+        private readonly VehicleDbContext _context;
 
         #endregion Properties
 
@@ -35,7 +37,8 @@ namespace GT86Registry.Web.Services
                 IRepository<ModelTransmissions> transmissionRepository,
                 IRepository<Vehicle> vehicleRepository,
                 UserManager<ApplicationUser> userManager,
-                IOptions<SiteSettingsConfiguration> siteConfig
+                IOptions<SiteSettingsConfiguration> siteConfig,
+                VehicleDbContext context
             )
         {
             _yearRepository = yearRepository;
@@ -44,6 +47,7 @@ namespace GT86Registry.Web.Services
             _vehicleRepository = vehicleRepository;
             _userManager = userManager;
             _siteConfig = siteConfig;
+            _context = context;
         }
 
         #endregion Constructors

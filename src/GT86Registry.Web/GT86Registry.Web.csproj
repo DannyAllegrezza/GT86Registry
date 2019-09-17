@@ -5,6 +5,10 @@
     <UserSecretsId>aspnet-GT86Registry.Web-7E15C7FC-5F64-4EEC-9FA3-A6719C92CD25</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
@@ -17,6 +21,12 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="HibernatingRhinos.Profiler.Appender">
+      <HintPath>..\..\..\..\tooling\EntityFramework.Profiler-v5.0-Build-5036\Appender\netcoreapp2.0\HibernatingRhinos.Profiler.Appender.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
